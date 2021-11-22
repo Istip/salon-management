@@ -5,12 +5,11 @@ import { tokens } from './tokens';
 const Input = (props) => {
   return (
     <InputContainer>
-      <Label>
-        {props.label}
-        <InputWrapper>
-          <InputField {...props} />
-        </InputWrapper>
-      </Label>
+      <Label>{props.label}</Label>
+      <InputWrapper>
+        <span>{props.icon}</span>
+        <InputField {...props} />
+      </InputWrapper>
     </InputContainer>
   );
 };
@@ -22,10 +21,24 @@ const InputContainer = styled.div`
   color: #111;
 `;
 
+const InputWrapper = styled.span`
+  position: relative;
+
+  span {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: -14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
 const InputField = styled.input`
   width: 100%;
   margin-top: 2px;
-  padding: 12px;
+  padding: ${(props) => (props.icon ? '12px 12px 12px 42px' : '12px')};
   outline: none;
   color: ${tokens.colors.primaryDark4};
   background: ${tokens.colors.primaryLight4};
@@ -35,24 +48,16 @@ const InputField = styled.input`
   height: 48px;
   transition: 250ms ease;
 
-  &::placeholder {
-    color: ${tokens.colors.primaryLight3};
-  }
-
   &:hover {
     border: 1px solid ${tokens.colors.primaryDark1};
   }
 
   &:focus {
-    border: 1px solid ${tokens.colors.primaryDark2};
+    border: 1px solid ${tokens.colors.primaryDark1};
   }
 `;
 
-const InputWrapper = styled.span`
-  overflow: hidden;
-`;
-
-const Label = styled.label`
+const Label = styled.div`
   color: ${tokens.colors.primaryDark4};
   font-size: 14px;
   font-weight: 600;

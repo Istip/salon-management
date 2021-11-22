@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { tokens } from '../components/UI/tokens';
 
 // project imports
 import Signup from '../components/Signup';
 import Login from '../components/Login';
-import { tokens } from '../components/UI/tokens';
+import Logo from '../components/UI/Logo';
 
 const Authentication = () => {
   const [page, setPage] = useState('login');
@@ -12,10 +13,7 @@ const Authentication = () => {
   return (
     <AuthenticationWrapper>
       <PageHeader>
-        <LogoWrapper>
-          <Logo />
-          <LogoText>LOGO</LogoText>
-        </LogoWrapper>
+        <Logo />
         <HeadingText>{page === 'login' ? 'Login' : 'Sign up'}</HeadingText>
       </PageHeader>
       <PageBody>
@@ -41,10 +39,10 @@ const Authentication = () => {
 
 // styled components
 const AuthenticationWrapper = styled.div`
-  height: calc(100vh - 30px);
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 
   color: ${tokens.colors.primaryDark4};
 `;
@@ -52,11 +50,10 @@ const AuthenticationWrapper = styled.div`
 const PageHeader = styled.div`
   padding: 20px 0;
   min-height: 120px;
-  width: 100%;
   margin-bottom: 30px;
   background: #fff;
   border-bottom: 1px solid ${tokens.colors.lightGrey};
-
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,11 +62,10 @@ const PageHeader = styled.div`
 `;
 
 const PageBody = styled.div`
-  background: #fff;
   padding: 30px;
-  margin: 10px;
+  margin: 20px;
   border-radius: 20px;
-  border: 1px solid ${tokens.colors.primaryLight4};
+  width: 100%;
 `;
 
 const Menu = styled.div`
@@ -90,26 +86,6 @@ const SmallLink = styled.small`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-const LogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-`;
-
-const Logo = styled.div`
-  border-radius: 50%;
-  width: 12px;
-  height: 12px;
-  background: ${tokens.colors.primaryLight2};
-`;
-
-const LogoText = styled.div`
-  color: ${tokens.colors.primaryLight2};
-  font-size: 10px;
-  font-weight: 900;
 `;
 
 const HeadingText = styled.h1``;

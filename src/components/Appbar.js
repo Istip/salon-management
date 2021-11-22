@@ -6,6 +6,7 @@ import { tokens } from './UI/tokens';
 
 import Hamburger from '../components/icons/Hamburger';
 import FlexCenter from './UI/FlexCenter';
+import Logo from './UI/Logo';
 
 const Appbar = () => {
   const { logout } = useLogout();
@@ -13,13 +14,10 @@ const Appbar = () => {
 
   return (
     <AppbarWrapper>
-      <LogoWrapper>LOGO</LogoWrapper>
+      <Logo />
       {user && (
         <>
           <UserTab>
-            <span>
-              Hello, <b>{user.displayName}</b>.
-            </span>
             <FlexCenter onClick={logout}>
               <Hamburger color={`${tokens.colors.darkGrey}`} />
             </FlexCenter>
@@ -39,10 +37,6 @@ const AppbarWrapper = styled.div`
   background: #fff;
   border-bottom: 1px solid ${tokens.colors.lightGrey};
   padding: 20px;
-`;
-
-const LogoWrapper = styled.div`
-  font-weight: bolder;
 `;
 
 const UserTab = styled.div`

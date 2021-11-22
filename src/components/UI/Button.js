@@ -16,7 +16,6 @@ const Button = (props) => {
 // styled components
 
 const ButtonItem = styled.button`
-  margin-top: 20px;
   height: ${(props) => (props.size === 'small' ? '24px' : '48px')};
   padding: 0 12px;
   width: ${({ block }) => (block ? '100%' : 'auto')};

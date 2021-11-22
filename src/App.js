@@ -20,7 +20,7 @@ function App() {
   const { authIsReady, user } = useAuthContext();
 
   return (
-    <div>
+    <>
       {authIsReady && (
         <Router>
           {user && <Appbar />}
@@ -54,13 +54,14 @@ function App() {
           {user && <Navigation />}
         </Router>
       )}
-    </div>
+    </>
   );
 }
 
 // styled components
 const Body = styled.div`
   overflow-x: hidden;
+  width: 100%;
 `;
 
 export default App;

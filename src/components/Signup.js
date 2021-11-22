@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useSignup } from '../hooks/useSignup';
+import { tokens } from './UI/tokens';
 
 import Button from './UI/Button';
 import Form from './UI/Form';
 import Input from './UI/Input';
 import SigninIcon from './icons/SigninIcon';
+import EmailIcon from './icons/EmailIcon';
+import LockIcon from './icons/LockIcon';
+import ProfileIcon from './icons/ProfileIcon';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -18,35 +22,42 @@ const Signup = () => {
     signUp(email, password, name);
   };
 
+  const iconProps = {
+    color: tokens.colors.primaryLight1,
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Input
         name="name"
         type="text"
-        placeholder="Your short name..."
+        placeholder="Enter your short name.."
         value={name}
         onChange={(e) => setName(e.target.value)}
-        label="Nickname"
+        label="Name"
+        icon={<ProfileIcon {...iconProps} />}
         required
       />
 
       <Input
         name="email"
         type="email"
-        placeholder="Email address..."
+        placeholder="Enter email address.."
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Email"
+        icon={<EmailIcon {...iconProps} />}
         required
       />
 
       <Input
         name="password"
         type="password"
-        placeholder="Password..."
+        placeholder="Enter password.."
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         label="Password"
+        icon={<LockIcon {...iconProps} />}
         required
       />
 
