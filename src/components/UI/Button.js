@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import Loading from '../UI/Loading';
 import { tokens } from './tokens';
 
 const Button = (props) => {
   return (
     <ButtonItem {...props} className={props.variant || 'primary'}>
-      {props.loading ? <Loading size="32px" /> : props.children}
+      <ButtonText>
+        <ButtonIcon>{props.icon && props.icon}</ButtonIcon>
+        {props.children}
+      </ButtonText>
     </ButtonItem>
   );
 };
@@ -68,6 +70,19 @@ const ButtonItem = styled.button`
       border: 1px solid ${tokens.colors.darkGrey};
     }
   }
+`;
+
+const ButtonIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 `;
 
 export default Button;

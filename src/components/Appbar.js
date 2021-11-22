@@ -2,23 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
-import { useLocation } from 'react-router';
 import { tokens } from './UI/tokens';
 
 import Hamburger from '../components/icons/Hamburger';
 import FlexCenter from './UI/FlexCenter';
-import A from './UI/A';
 
 const Appbar = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  const { pathname } = useLocation();
-
   return (
     <AppbarWrapper>
       <LogoWrapper>LOGO</LogoWrapper>
-      {user ? (
+      {user && (
         <>
           <UserTab>
             <span>
@@ -29,14 +25,6 @@ const Appbar = () => {
             </FlexCenter>
           </UserTab>
         </>
-      ) : (
-        <LinkWrapper>
-          {pathname === '/login' ? (
-            <A to="/signup">Sign Up</A>
-          ) : (
-            <A to="/login">Login</A>
-          )}
-        </LinkWrapper>
       )}
     </AppbarWrapper>
   );
@@ -63,7 +51,5 @@ const UserTab = styled.div`
   justify-content: center;
   gap: 10px;
 `;
-
-const LinkWrapper = styled.div``;
 
 export default Appbar;

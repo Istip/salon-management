@@ -19,9 +19,9 @@ const Navigation = () => {
       icon: <UserIcon color={pathname === '/clients' ? primary : darkGrey} />,
     },
     {
-      to: '/',
+      to: '/dashboard',
       title: 'Schedule',
-      icon: <ListIcon color={pathname === '/' ? primary : darkGrey} />,
+      icon: <ListIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
     },
     {
       to: '/calendar',

@@ -1,26 +1,34 @@
 import React, { useState } from 'react';
-import { useLogin } from '../hooks/useLogin';
+import { useSignup } from '../hooks/useSignup';
 
-import Form from '../components/UI/Form';
-import Input from '../components/UI/Input';
-import Button from '../components/UI/Button';
-import { tokens } from '../components/UI/tokens';
+import Button from './UI/Button';
+import Form from './UI/Form';
+import Input from './UI/Input';
+import SigninIcon from './icons/SigninIcon';
 
-const Login = () => {
+const Signup = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, loading, error } = useLogin();
+  const { signUp, loading, error } = useSignup();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    signUp(email, password, name);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 style={{ textAlign: 'center' }}>Login</h1>
-      <br />
+      <Input
+        name="name"
+        type="text"
+        placeholder="Your short name..."
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        label="Nickname"
+        required
+      />
 
       <Input
         name="email"
@@ -42,8 +50,13 @@ const Login = () => {
         required
       />
 
-      <Button type="submit" disabled={loading} block>
-        LOGIN
+      <Button
+        type="submit"
+        disabled={loading}
+        block
+        icon={<SigninIcon color="#fff" size={18} />}
+      >
+        SIGN UP
       </Button>
 
       {error && <small>{error}</small>}
@@ -51,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

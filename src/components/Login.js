@@ -1,35 +1,24 @@
 import React, { useState } from 'react';
-import Button from '../components/UI/Button';
-import Form from '../components/UI/Form';
-import Input from '../components/UI/Input';
-import { useSignup } from '../hooks/useSignup';
+import { useLogin } from '../hooks/useLogin';
 
-const Signup = () => {
-  const [name, setName] = useState('');
+import Form from './UI/Form';
+import Input from './UI/Input';
+import Button from './UI/Button';
+import CheckIcon from './icons/CheckIcon';
+
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signUp, loading, error } = useSignup();
+  const { login, loading, error } = useLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUp(email, password, name);
+    login(email, password);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h1 style={{ textAlign: 'center' }}>Create Profile</h1>
-      <br />
-      <Input
-        name="name"
-        type="text"
-        placeholder="Your short name..."
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        label="Nickname"
-        required
-      />
-
       <Input
         name="email"
         type="email"
@@ -50,8 +39,13 @@ const Signup = () => {
         required
       />
 
-      <Button type="submit" disabled={loading} block>
-        SIGN UP
+      <Button
+        type="submit"
+        disabled={loading}
+        block
+        icon={<CheckIcon color="#fff" size={18} />}
+      >
+        LOGIN
       </Button>
 
       {error && <small>{error}</small>}
@@ -59,4 +53,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

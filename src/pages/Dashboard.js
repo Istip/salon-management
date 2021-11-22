@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Today = () => {
+const Dashboard = () => {
   return (
     <div>
       <h1>Today</h1>
@@ -8,4 +8,4 @@ const Today = () => {
   );
 };
 
-export default Today;
+export default Dashboard;

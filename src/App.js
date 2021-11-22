@@ -11,11 +11,10 @@ import { useAuthContext } from './hooks/useAuthContext';
 // project imports
 import Navigation from './components/Navigation';
 import Clients from './pages/Clients';
-import Today from './pages/Today';
+import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
 import Appbar from './components/Appbar';
+import Authentication from './pages/Authentication';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -29,24 +28,26 @@ function App() {
             <Routes>
               <Route
                 path="/clients"
-                element={user ? <Clients /> : <Navigate replace to="/login" />}
+                element={user ? <Clients /> : <Navigate replace to="/" />}
               />
               <Route
-                path="/"
-                element={user ? <Today /> : <Navigate replace to="/login" />}
+                path="/dashboard"
+                element={user ? <Dashboard /> : <Navigate replace to="/" />}
               />
               <Route
                 path="/calendar"
-                element={user ? <Calendar /> : <Navigate replace to="/login" />}
+                element={user ? <Calendar /> : <Navigate replace to="/" />}
               />
 
               <Route
-                path="/signup"
-                element={!user ? <Signup /> : <Navigate replace to="/" />}
-              />
-              <Route
-                path="/login"
-                element={!user ? <Login /> : <Navigate replace to="/" />}
+                path="/"
+                element={
+                  !user ? (
+                    <Authentication />
+                  ) : (
+                    <Navigate replace to="/dashboard" />
+                  )
+                }
               />
             </Routes>
           </Body>
@@ -59,8 +60,6 @@ function App() {
 
 // styled components
 const Body = styled.div`
-  margin: 5px;
-  padding: 10px;
   overflow-x: hidden;
 `;
 
