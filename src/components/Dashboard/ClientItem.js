@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
 import FlexCenter from '../UI/FlexCenter';
 
-const ClientItem = () => {
+const ClientItem = ({ item }) => {
   return (
     <ClientItemWrapper>
       <ClientInfo>
-        <ClientTime>8:00</ClientTime>
+        <ClientTime>{item}</ClientTime>
         <ClientCard>
           <FlexCenter>
             <b>HELLO</b>
@@ -28,6 +28,8 @@ const ClientInfo = styled.div`
 `;
 
 const ClientTime = styled.span`
+  min-width: 50px;
+  max-width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -5,7 +5,7 @@ import ClientList from '../components/Dashboard/ClientList';
 const Dashboard = () => {
   return (
     <DashboardWrapper>
-      <h1>Today</h1>
+      <h2 style={{ textAlign: 'center' }}>Today</h2>
       <ClientList />
     </DashboardWrapper>
   );

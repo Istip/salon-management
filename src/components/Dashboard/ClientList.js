@@ -1,11 +1,12 @@
 import React from 'react';
+import { times } from '../../utils/times';
 import ClientItem from './ClientItem';
 
-const ClientList = () => {
+const ClientList = ({ item }) => {
   return (
     <div>
-      {[1, 2, 3].map((item) => (
-        <ClientItem key={item} />
+      {times.map((item) => (
+        <ClientItem key={item} item={item} />
       ))}
     </div>
   );
