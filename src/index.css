@@ -7,6 +7,14 @@
   letter-spacing: -0.5px;
 }
 
+*::selection {
+  background: none;
+}
+
+*::-moz-selection {
+  background: none;
+}
+
 h1 {
   font-size: 3rem;
   letter-spacing: -0.7px;

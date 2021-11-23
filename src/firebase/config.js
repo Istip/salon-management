@@ -4,12 +4,12 @@ import 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCKpeBfp3ek6MjeNMeutmc_sNxhjCOMD0s',
-  authDomain: 'saloon-management-a3c78.firebaseapp.com',
-  projectId: 'saloon-management-a3c78',
-  storageBucket: 'saloon-management-a3c78.appspot.com',
-  messagingSenderId: '630028634977',
-  appId: '1:630028634977:web:6e11af0e300cf55c82d320',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDERID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 // init firebase

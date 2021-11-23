@@ -46,35 +46,44 @@ const Appbar = () => {
       <Logo />
       {user && (
         <>
-          <UserTab ref={wrapperNode}>
+          <UserTab>
             <FlexCenter onClick={() => setVisible(true)}>
               <Hamburger color={`${tokens.colors.darkGrey}`} />
             </FlexCenter>
-            {visible && (
-              <Popover>
-                <FlexCenter>
-                  <PopoverTitle>{user.displayName}</PopoverTitle>
-                </FlexCenter>
+            <span ref={wrapperNode}>
+              {visible && (
+                <>
+                  <Backdrop onClick={() => setVisible(false)} />
+                  <Popover>
+                    <FlexCenter>
+                      <PopoverTitle>
+                        <h2>Hello,</h2>
 
-                <Divier />
+                        {user.displayName}
+                      </PopoverTitle>
+                    </FlexCenter>
 
-                <PopoverMenuItem>
-                  <PopoverMenuText>
-                    <SettingsIcon {...iconProps} />
-                    Settings
-                  </PopoverMenuText>
-                </PopoverMenuItem>
+                    <Divier />
 
-                <Divier />
+                    <PopoverMenuItem>
+                      <PopoverMenuText>
+                        <SettingsIcon {...iconProps} />
+                        Settings
+                      </PopoverMenuText>
+                    </PopoverMenuItem>
 
-                <PopoverMenuItem onClick={logout}>
-                  <PopoverMenuText>
-                    <SignoutIcon {...iconProps} />
-                    Log out
-                  </PopoverMenuText>
-                </PopoverMenuItem>
-              </Popover>
-            )}
+                    <Divier />
+
+                    <PopoverMenuItem onClick={logout}>
+                      <PopoverMenuText>
+                        <SignoutIcon {...iconProps} />
+                        Log out
+                      </PopoverMenuText>
+                    </PopoverMenuItem>
+                  </Popover>
+                </>
+              )}
+            </span>
           </UserTab>
         </>
       )}
@@ -100,8 +109,18 @@ const fadeIn = keyframes`
   }
 `;
 
+const Backdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${tokens.colors.primaryDark2};
+  opacity: 0.5;
+`;
+
 const Popover = styled.div`
-  width: 150px;
+  width: 200px;
   background: #fff;
   border-radius: 4px;
   border: 1px solid ${tokens.colors.primaryLight3};
@@ -110,6 +129,7 @@ const Popover = styled.div`
   top: 30px;
   box-shadow: 0 2px 5px rgba(42, 129, 227, 0.15);
   animation: ${fadeIn} 400ms ease;
+  user-select: none;
 `;
 
 const PopoverTitle = styled.div`
@@ -117,6 +137,11 @@ const PopoverTitle = styled.div`
   font-size: 12px;
   font-weight: 700;
   padding: 24px;
+  text-align: center;
+
+  h2 {
+    color: ${tokens.colors.primaryDark3};
+  }
 `;
 
 const PopoverMenuItem = styled.div`
