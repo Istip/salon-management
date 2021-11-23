@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { tokens } from '../components/UI/tokens';
 
 // project imports
-import Signup from '../components/Signup';
-import Login from '../components/Login';
+import Signup from '../components/Authentication/Signup';
+import Login from '../components/Authentication/Login';
 import Logo from '../components/UI/Logo';
 
 const Authentication = () => {

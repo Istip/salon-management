@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
-import UserIcon from './icons/UserIcon';
-import ListIcon from './icons/ListIcon';
-import CalendarIcon from './icons/CalendarIcon';
-import { tokens } from './UI/tokens';
+import UserIcon from '../icons/UserIcon';
+import ListIcon from '../icons/ListIcon';
+import CalendarIcon from '../icons/CalendarIcon';
+import { tokens } from '../UI/tokens';
 
 const Navigation = () => {
   const { pathname } = useLocation();

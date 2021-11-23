@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
-import { tokens } from './UI/tokens';
+import { useLogin } from '../../hooks/useLogin';
+import { tokens } from '../UI/tokens';
 
-import Button from './UI/Button';
-import Form from './UI/Form';
-import Input from './UI/Input';
-import SigninIcon from './icons/SigninIcon';
-import EmailIcon from './icons/EmailIcon';
-import LockIcon from './icons/LockIcon';
-import ProfileIcon from './icons/ProfileIcon';
+import Form from '../UI/Form';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
+import CheckIcon from '../icons/CheckIcon';
+import EmailIcon from '../icons/EmailIcon';
+import LockIcon from '../icons/LockIcon';
 
-const Signup = () => {
-  const [name, setName] = useState('');
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signUp, loading, error } = useSignup();
+  const { login, loading, error } = useLogin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUp(email, password, name);
+    login(email, password);
   };
 
   const iconProps = {
@@ -28,17 +26,6 @@ const Signup = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input
-        name="name"
-        type="text"
-        placeholder="Enter your short name.."
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        label="Name"
-        icon={<ProfileIcon {...iconProps} />}
-        required
-      />
-
       <Input
         name="email"
         type="email"
@@ -65,9 +52,9 @@ const Signup = () => {
         type="submit"
         disabled={loading}
         block
-        icon={<SigninIcon color="#fff" size={18} />}
+        icon={<CheckIcon color="#fff" size={18} />}
       >
-        SIGN UP
+        LOGIN
       </Button>
 
       {error && <small>{error}</small>}
@@ -75,4 +62,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

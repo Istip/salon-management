@@ -9,11 +9,11 @@ import {
 import { useAuthContext } from './hooks/useAuthContext';
 
 // project imports
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
+import Appbar from './components/Navigation/Appbar';
 import Clients from './pages/Clients';
 import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar';
-import Appbar from './components/Appbar';
 import Authentication from './pages/Authentication';
 
 function App() {

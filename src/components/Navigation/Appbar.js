@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { useAuthContext } from '../hooks/useAuthContext';
-import { useLogout } from '../hooks/useLogout';
-import { tokens } from './UI/tokens';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/useLogout';
+import { tokens } from '../UI/tokens';
 
-import Hamburger from './icons/Hamburger';
-import SignoutIcon from './icons/SignoutIcon';
-import SettingsIcon from './icons/SettingsIcon';
-import FlexCenter from './UI/FlexCenter';
-import Logo from './UI/Logo';
+import Hamburger from '../icons/Hamburger';
+import SignoutIcon from '../icons/SignoutIcon';
+import SettingsIcon from '../icons/SettingsIcon';
+import FlexCenter from '../UI/FlexCenter';
+import Logo from '../UI/Logo';
 
 const Appbar = () => {
   const [visible, setVisible] = useState(false);
@@ -36,6 +36,11 @@ const Appbar = () => {
     };
   }, []);
 
+  const iconProps = {
+    size: 18,
+    color: tokens.colors.primaryDark4,
+  };
+
   return (
     <AppbarWrapper>
       <Logo />
@@ -53,29 +58,19 @@ const Appbar = () => {
 
                 <Divier />
 
-                <PopoverMenuItem onClick={logout}>
-                  <PopoverMenuText>
-                    <SignoutIcon size={18} color={tokens.colors.primaryDark4} />
-                    Log out
-                  </PopoverMenuText>
-                </PopoverMenuItem>
-
                 <PopoverMenuItem>
                   <PopoverMenuText>
-                    <SignoutIcon size={18} color={tokens.colors.primaryDark4} />
-                    Demo text
+                    <SettingsIcon {...iconProps} />
+                    Settings
                   </PopoverMenuText>
                 </PopoverMenuItem>
 
                 <Divier />
 
-                <PopoverMenuItem>
+                <PopoverMenuItem onClick={logout}>
                   <PopoverMenuText>
-                    <SettingsIcon
-                      size={18}
-                      color={tokens.colors.primaryDark4}
-                    />
-                    Settings
+                    <SignoutIcon {...iconProps} />
+                    Log out
                   </PopoverMenuText>
                 </PopoverMenuItem>
               </Popover>
