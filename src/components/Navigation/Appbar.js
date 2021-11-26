@@ -113,8 +113,7 @@ const Backdrop = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  opacity: 0.5;
+  bottom: 60px;
 `;
 
 const Popover = styled.div`
