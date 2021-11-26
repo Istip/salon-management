@@ -5,14 +5,14 @@ import styled from 'styled-components';
 // project imports
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
+import DirectionIcon from '../icons/DirectionIcon';
 import Text from '../../components/UI/Text';
 import { tokens } from '../UI/tokens';
 
 const Calendar = () => {
   const [date, setDate] = useState(moment());
-  const [selectedDate, setSelectedDate] = useState(
-    moment().subtract(11, 'days')
-  );
+  const [selectedDate, setSelectedDate] = useState(moment());
+  const [visible, setVisible] = useState(true);
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -49,27 +49,39 @@ const Calendar = () => {
       block: 'center',
       inline: 'center',
     });
+
+    // TODO: scroll into center, but somehow last day of the month
+    // ...always creates an error... Find out why and put scroll into view back
+
+    // When fixed, put back 'selectedDate' as a side effect dependency
+
+    // date dependency is currently added so if we journey through years and months
+    // ... when we finally come back to the last selected date, we get scrolled
+    // ... into the center of the view
+
     // eslint-disable-next-line
-  }, [selectedDate]);
+  }, [date]);
 
   return (
     <CalendarWrapper>
-      <MonthSelector>
-        <ArrowWrapper onClick={minusMonth}>
+      <MonthSelector visible={visible}>
+        <ArrowWrapper onClick={minusMonth} visible={visible}>
           <ArrowLeftIcon color={tokens.colors.primaryDark3} />
         </ArrowWrapper>
 
         <Text variant="black12" color={tokens.colors.primaryDark3}>
-          {date.format('MMMM, YYYY')}
+          {visible
+            ? date.format('YYYY MMMM')
+            : selectedDate.format('YYYY MMMM DD')}
         </Text>
 
-        <ArrowWrapper onClick={plusMonth}>
+        <ArrowWrapper onClick={plusMonth} visible={visible}>
           <ArrowRightIcon color={tokens.colors.primaryDark3} />
         </ArrowWrapper>
       </MonthSelector>
 
       <DaySelector>
-        <DaySelectorWrapper ref={dayRef}>
+        <DaySelectorWrapper ref={dayRef} className={visible ? 'visible' : ''}>
           {daysOfMonth.map((day) => (
             <Day
               key={day.format('DD')}
@@ -91,6 +103,12 @@ const Calendar = () => {
           ))}
         </DaySelectorWrapper>
       </DaySelector>
+
+      <CloseBar onClick={() => setVisible(!visible)} visible={visible}>
+        <IconWrapper className={!visible ? 'visible' : ''}>
+          <DirectionIcon />
+        </IconWrapper>
+      </CloseBar>
     </CalendarWrapper>
   );
 };
@@ -104,17 +122,19 @@ const CalendarWrapper = styled.div`
 
 const MonthSelector = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: ${(props) => (props.visible ? '20px' : '10px 0 0 0')};
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition: 100ms ease;
 `;
 
 const DaySelector = styled.div`
   overflow-x: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   scroll-snap-align: end;
+  transition: 100ms ease;
 
   &::-webkit-scrollbar {
     display: none;
@@ -125,6 +145,14 @@ const DaySelectorWrapper = styled.div`
   display: flex;
   gap: 10px;
   scroll-snap-type: y mandatory;
+  max-height: 0;
+  opacity: 0;
+  transition: 100ms ease;
+
+  &.visible {
+    max-height: 60px;
+    opacity: 1;
+  }
 `;
 
 const Day = styled.div`
@@ -141,7 +169,7 @@ const Day = styled.div`
   background: ${(props) =>
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
   scroll-snap-align: start;
-  gap: 10px;
+  gap: 8px;
 
   &.today {
     color: #fff;
@@ -150,10 +178,29 @@ const Day = styled.div`
   }
 `;
 
+const CloseBar = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: ${(props) => (props.visible ? '10px 0 0 0' : '0')};
+  transition: 100ms ease;
+`;
+
+const IconWrapper = styled.div`
+  transition: 100ms ease;
+
+  &.visible {
+    transform: rotate(180deg);
+  }
+`;
+
 const ArrowWrapper = styled.span`
   cursor: pointer;
   display: flex;
   align-items: center;
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
 `;
 
 export default Calendar;

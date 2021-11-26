@@ -16,8 +16,8 @@ export const tokens = {
     darkGrey: '#111',
     lightGrey: '#eee',
 
-    error: '#ff3333',
-    success: '#4da64d',
+    error: '#EB431E',
+    success: '#26AA5B',
     warning: '#ffc04d',
   },
 
@@ -34,6 +34,18 @@ export const tokens = {
 
 export const fonts = {
   h1: {
+    fontSize: '3rem',
+    letterSpacing: '-0.7px',
+    fontWeight: tokens.fontSize[900],
+  },
+
+  h2: {
+    letterSpacing: '-0.7px',
+    fontWeight: tokens.fontSize[900],
+  },
+
+  h3: {
+    letterSpacing: '-0.7px',
     fontWeight: tokens.fontSize[900],
   },
 
