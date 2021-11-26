@@ -20,4 +20,35 @@ export const tokens = {
     success: '#4da64d',
     warning: '#ffc04d',
   },
+
+  fontSize: {
+    100: 100,
+    300: 300,
+    400: 400,
+    700: 700,
+    900: 900,
+  },
+};
+
+// 100 300 400 700 900
+
+export const fonts = {
+  h1: {
+    fontWeight: tokens.fontSize[900],
+  },
+
+  medium8: {
+    fontWeight: tokens.fontSize[500],
+    fontSize: '8px',
+  },
+
+  black12: {
+    fontWeight: tokens.fontSize[900],
+    fontSize: '12px',
+  },
+
+  black14: {
+    fontWeight: tokens.fontSize[900],
+    fontSize: '14px',
+  },
 };

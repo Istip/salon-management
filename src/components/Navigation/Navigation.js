@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
-import UserIcon from '../icons/UserIcon';
+import ClientsIcon from '../icons/ClientsIcon';
 import CalendarIcon from '../icons/CalendarIcon';
 import TimeIcon from '../icons/TimeIcon';
 import { tokens } from '../UI/tokens';
@@ -16,16 +16,18 @@ const Navigation = () => {
     {
       to: '/clients',
       title: 'Clients',
-      icon: <UserIcon color={pathname === '/clients' ? primary : darkGrey} />,
+      icon: (
+        <ClientsIcon color={pathname === '/clients' ? primary : darkGrey} />
+      ),
     },
     {
       to: '/dashboard',
-      title: 'Schedule',
+      title: 'Calendar',
       icon: <TimeIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
     },
     {
       to: '/calendar',
-      title: 'Calendar',
+      title: 'Reports',
       icon: (
         <CalendarIcon color={pathname === '/calendar' ? primary : darkGrey} />
       ),
@@ -93,7 +95,7 @@ const IconWrapper = styled.div`
 
 const IconText = styled.small`
   color: ${({ active }) => (active ? `${primary}` : `${darkGrey}`)};
-  font-weight: 500;
+  font-weight: ${({ active }) => (active ? 700 : 500)};
   font-size: 10px;
   margin-top: 4px;
 `;

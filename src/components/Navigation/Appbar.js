@@ -57,8 +57,7 @@ const Appbar = () => {
                   <Popover>
                     <FlexCenter>
                       <PopoverTitle>
-                        <h2>Hello,</h2>
-
+                        <h2>Hello</h2>
                         {user.displayName}
                       </PopoverTitle>
                     </FlexCenter>
