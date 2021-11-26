@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 // project imports
@@ -10,7 +10,9 @@ import { tokens } from '../UI/tokens';
 
 const Calendar = () => {
   const [date, setDate] = useState(moment());
-  const [selectedDate, setSelectedDate] = useState(moment());
+  const [selectedDate, setSelectedDate] = useState(
+    moment().subtract(11, 'days')
+  );
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -35,6 +37,21 @@ const Calendar = () => {
 
   const daysOfMonth = getDaysOfTheMonth();
 
+  const dayRef = useRef();
+
+  const handleCurrentDay = (format) => {
+    return parseInt(moment(selectedDate).format(format));
+  };
+
+  useEffect(() => {
+    dayRef.current.children[handleCurrentDay('DD')].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+    // eslint-disable-next-line
+  }, [selectedDate]);
+
   return (
     <CalendarWrapper>
       <MonthSelector>
@@ -52,7 +69,7 @@ const Calendar = () => {
       </MonthSelector>
 
       <DaySelector>
-        <DaySelectorWrapper>
+        <DaySelectorWrapper ref={dayRef}>
           {daysOfMonth.map((day) => (
             <Day
               key={day.format('DD')}
@@ -94,10 +111,10 @@ const MonthSelector = styled.div`
 `;
 
 const DaySelector = styled.div`
-  min-width: 100%;
   overflow-x: auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  scroll-snap-align: end;
 
   &::-webkit-scrollbar {
     display: none;
@@ -107,6 +124,7 @@ const DaySelector = styled.div`
 const DaySelectorWrapper = styled.div`
   display: flex;
   gap: 10px;
+  scroll-snap-type: y mandatory;
 `;
 
 const Day = styled.div`
@@ -116,17 +134,19 @@ const Day = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
   margin-bottom: 14px;
   padding: 8px 0;
   border-radius: 4px;
   color: ${tokens.colors.primaryDark3};
   background: ${(props) =>
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
+  scroll-snap-align: start;
+  gap: 10px;
 
   &.today {
     color: #fff;
     background: ${tokens.colors.primaryLight2};
+    scroll-snap-align: start;
   }
 `;
 
