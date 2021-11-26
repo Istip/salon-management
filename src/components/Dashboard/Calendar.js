@@ -126,7 +126,7 @@ const MonthSelector = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: 100ms ease;
+  transition: 250ms ease;
 `;
 
 const DaySelector = styled.div`
@@ -134,7 +134,7 @@ const DaySelector = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-snap-align: end;
-  transition: 100ms ease;
+  transition: 250ms ease;
 
   &::-webkit-scrollbar {
     display: none;
@@ -145,13 +145,14 @@ const DaySelectorWrapper = styled.div`
   display: flex;
   gap: 10px;
   scroll-snap-type: y mandatory;
-  max-height: 0;
   opacity: 0;
-  transition: 100ms ease;
+  max-height: 0;
+
+  transition: 250ms ease;
 
   &.visible {
-    max-height: 60px;
     opacity: 1;
+    max-height: 60px;
   }
 `;
 
@@ -189,7 +190,7 @@ const CloseBar = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  transition: 100ms ease;
+  transition: 250ms ease;
 
   &.visible {
     transform: rotate(180deg);

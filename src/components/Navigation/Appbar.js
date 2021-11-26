@@ -177,6 +177,7 @@ const Divier = styled.div`
 
 const AppbarWrapper = styled.div`
   position: fixed;
+  z-index: 1;
   top: 0;
   height: 60px;
   width: 100%;
