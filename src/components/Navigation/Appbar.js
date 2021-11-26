@@ -115,7 +115,6 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${tokens.colors.primaryDark2};
   opacity: 0.5;
 `;
 
@@ -178,6 +177,8 @@ const Divier = styled.div`
 `;
 
 const AppbarWrapper = styled.div`
+  position: fixed;
+  top: 0;
   height: 60px;
   width: 100%;
   display: flex;

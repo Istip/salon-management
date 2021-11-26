@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 
 import UserIcon from '../icons/UserIcon';
-import ListIcon from '../icons/ListIcon';
 import CalendarIcon from '../icons/CalendarIcon';
+import TimeIcon from '../icons/TimeIcon';
 import { tokens } from '../UI/tokens';
 
 const Navigation = () => {
@@ -21,7 +21,7 @@ const Navigation = () => {
     {
       to: '/dashboard',
       title: 'Schedule',
-      icon: <ListIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
+      icon: <TimeIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
     },
     {
       to: '/calendar',
