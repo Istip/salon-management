@@ -5,7 +5,7 @@ import { tokens } from './tokens';
 const Button = (props) => {
   return (
     <ButtonItem {...props} className={props.variant || 'primary'}>
-      <ButtonText>
+      <ButtonText withIcon={props.icon}>
         <ButtonIcon>{props.icon && props.icon}</ButtonIcon>
         {props.children}
       </ButtonText>
@@ -81,7 +81,7 @@ const ButtonText = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: ${(props) => (props.withIcon ? '5px' : 0)};
 `;
 
 export default Button;
