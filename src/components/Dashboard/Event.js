@@ -32,16 +32,20 @@ const Event = ({ event }) => {
               </EventType>
 
               <EventDescription>
-                <Name>
-                  <Text variant="black14" color={tokens.colors.primaryDark3}>
-                    {event.name}
-                  </Text>
-                </Name>
-                <Action>
-                  <Text variant="regular12" color={tokens.colors.primary}>
-                    {event.gender} {event.action}
-                  </Text>
-                </Action>
+                <Text
+                  tag="div"
+                  variant="black14"
+                  color={tokens.colors.primaryDark3}
+                >
+                  {event.name}
+                </Text>
+                <Text
+                  tag="div"
+                  variant="regular12"
+                  color={tokens.colors.primary}
+                >
+                  {event.gender} {event.action}
+                </Text>
               </EventDescription>
             </Content>
 
@@ -121,7 +125,6 @@ const EventType = styled.div`
   max-width: 48px;
   height: 48px;
   padding: 4px;
-  text-align: center;
   background: ${tokens.colors.primaryLight4};
   border: 1px solid ${tokens.colors.primary};
   border-radius: 10px;
@@ -134,10 +137,6 @@ const EventDescription = styled.div`
   justify-content: center;
   padding: 0 10px;
 `;
-
-const Name = styled.div``;
-
-const Action = styled.div``;
 
 const EventWrapper = styled.div`
   margin: 0 10px;
