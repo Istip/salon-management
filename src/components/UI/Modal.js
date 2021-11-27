@@ -6,17 +6,21 @@ import { tokens } from './tokens';
 import Text from '../UI/Text';
 import Button from './Button';
 
-const Modal = ({ show, setShow, title, ...props }) => {
+const Modal = ({
+  show,
+  setShow,
+  title,
+  onSubmit,
+  onCancel,
+  variant,
+  ...props
+}) => {
   const closeModal = () => {
     setShow(false);
   };
 
-  if (!show) {
-    return null;
-  }
-
   return (
-    <ModalWrapper>
+    <ModalWrapper className={show ? 'show' : ''} show={show}>
       <Backdrop onClick={closeModal} />
 
       <ModalContent>
@@ -29,10 +33,12 @@ const Modal = ({ show, setShow, title, ...props }) => {
         </Header>
         {props.children && <Body>{props.children}</Body>}
         <Footer>
-          <Button block variant="neutral">
+          <Button block variant="secondary" onClick={onCancel}>
             Cancel
           </Button>
-          <Button block>Submit</Button>
+          <Button block variant={variant || 'primary'} onClick={onSubmit}>
+            Submit
+          </Button>
         </Footer>
       </ModalContent>
     </ModalWrapper>
@@ -46,10 +52,11 @@ const ModalContent = styled.div`
   background: #fff;
   border: 1px solid ${tokens.colors.primaryLight3};
   border-radius: 4px;
+  box-shadow: 0px 4px 20px -8px rgba(14, 44, 77, 0.15);
 `;
 
 const Header = styled.div`
-  padding: 18px;
+  padding: 18px 24px;
   text-align: center;
 `;
 
@@ -60,10 +67,10 @@ const Close = styled.div`
   top: 0;
   right: 6px;
   padding: 6px;
+  cursor: pointer;
 `;
 
 const Body = styled.div`
-  padding: 10px;
   border-top: 1px solid ${tokens.colors.lightGrey};
 `;
 
@@ -82,7 +89,13 @@ const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid red;
+  pointer-events: ${(props) => (props.show ? 'auto' : 'none')};
+  opacity: 0;
+  transition: 250ms ease;
+
+  &.show {
+    opacity: 1;
+  }
 `;
 
 const Backdrop = styled.div`

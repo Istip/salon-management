@@ -14,11 +14,13 @@ export const tokens = {
 
     white: '#f6fafe',
     darkGrey: '#111',
+    mediumGrey: '#6b6b6b',
     lightGrey: '#eee',
 
     error: '#EB431E',
     success: '#26AA5B',
     warning: '#ffc04d',
+    pink: '#FF8DA1',
   },
 
   fontSize: {
@@ -36,12 +38,12 @@ export const fonts = {
   h1: {
     fontSize: '3rem',
     letterSpacing: '-0.7px',
-    fontWeight: tokens.fontSize[900],
+    fontWeight: tokens.fontSize[100],
   },
 
   h2: {
     letterSpacing: '-0.7px',
-    fontWeight: tokens.fontSize[900],
+    fontWeight: tokens.fontSize[700],
   },
 
   h3: {
