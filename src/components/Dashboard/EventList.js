@@ -4,8 +4,6 @@ import React from 'react';
 import Event from './Event';
 
 const EventList = ({ events }) => {
-  console.log(events);
-
   if (!events) {
     return null;
   }

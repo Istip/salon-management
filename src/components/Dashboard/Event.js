@@ -7,6 +7,7 @@ import { tokens } from '../UI/tokens';
 import Text from '../UI/Text';
 import Button from '../UI/Button';
 import DropdownIcon from '../icons/DropdownIcon';
+import CheckIcon from '../icons/CheckIcon';
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
@@ -52,9 +53,19 @@ const Event = ({ event }) => {
           </VisibleContent>
 
           <ExtraContent className={visible ? 'visible' : ''}>
-            <Button>Hello</Button>
-            <Button variant="secondary">Szia</Button>
-            <Button variant="neutral">Szevasz</Button>
+            <Button size="medium" block>
+              {event.gender.toUpperCase()}
+            </Button>
+            <Button
+              size="medium"
+              variant="error"
+              icon={<CheckIcon color={tokens.colors.error} />}
+            />
+            <Button
+              size="medium"
+              variant="success"
+              icon={<CheckIcon color={tokens.colors.success} />}
+            />
           </ExtraContent>
         </EventCard>
       </EventInfo>

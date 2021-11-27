@@ -16,7 +16,12 @@ const Button = (props) => {
 // styled components
 
 const ButtonItem = styled.button`
-  height: ${(props) => (props.size === 'small' ? '24px' : '48px')};
+  height: ${(props) =>
+    props.size === 'small'
+      ? '24px'
+      : props.size === 'medium'
+      ? '32px'
+      : '48px'};
   padding: 0 12px;
   width: ${({ block }) => (block ? '100%' : 'auto')};
   display: ${({ block }) => (block ? 'block' : '')};
@@ -67,6 +72,34 @@ const ButtonItem = styled.button`
 
     &:hover {
       border: 1px solid ${tokens.colors.darkGrey};
+    }
+  }
+
+  &.success {
+    color: ${tokens.colors.success};
+    background: ${tokens.colors.success + '33'};
+    border: 1px solid ${tokens.colors.success};
+
+    &:hover {
+      background: ${tokens.colors.success + '66'};
+    }
+
+    &:active {
+      background: ${tokens.colors.success + '66'};
+    }
+  }
+
+  &.error {
+    color: ${tokens.colors.error};
+    background: ${tokens.colors.error + '33'};
+    border: 1px solid ${tokens.colors.error};
+
+    &:hover {
+      background: ${tokens.colors.error + '66'};
+    }
+
+    &:active {
+      background: ${tokens.colors.error + '66'};
     }
   }
 `;
