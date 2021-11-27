@@ -4,10 +4,11 @@ import moment from 'moment';
 import { tokens } from '../UI/tokens';
 
 // project components
-import Text from '../UI/Text';
-import Button from '../UI/Button';
 import DropdownIcon from '../icons/DropdownIcon';
 import CheckIcon from '../icons/CheckIcon';
+import UserMinusIcon from '../icons/UserMinusIcon';
+import Text from '../UI/Text';
+import Button from '../UI/Button';
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
@@ -53,16 +54,12 @@ const Event = ({ event }) => {
           </VisibleContent>
 
           <ExtraContent className={visible ? 'visible' : ''}>
-            <Button size="medium" block>
-              {event.gender.toUpperCase()}
-            </Button>
+            <Button block>{event.gender.toUpperCase()}</Button>
             <Button
-              size="medium"
               variant="error"
-              icon={<CheckIcon color={tokens.colors.error} />}
+              icon={<UserMinusIcon color={tokens.colors.error} />}
             />
             <Button
-              size="medium"
               variant="success"
               icon={<CheckIcon color={tokens.colors.success} />}
             />
@@ -120,8 +117,11 @@ const EventType = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
   height: 48px;
+  padding: 4px;
+  text-align: center;
   background: ${tokens.colors.primaryLight4};
   border: 1px solid ${tokens.colors.primary};
   border-radius: 10px;
