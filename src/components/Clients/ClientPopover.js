@@ -27,7 +27,13 @@ const ClientPopover = ({ visible, client }) => {
 
             <Button
               variant="warning"
-              icon={<StarIcon color={tokens.colors.warning} size={18} />}
+              icon={
+                <StarIcon
+                  color={tokens.colors.warning}
+                  fill={client.elite ? `${tokens.colors.warning}` : 'none'}
+                  size={18}
+                />
+              }
               onClick={() =>
                 updateDocument(client.id, { ...client, elite: !client.elite })
               }
