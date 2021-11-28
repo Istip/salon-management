@@ -18,11 +18,12 @@ const ClientList = ({ clients }) => {
     <ClientListWraper>
       <Input
         type="text"
-        placeholder="Search clients..."
+        placeholder="Search client name or phone..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        handleClear={() => setValue('')}
         icon={<SearchIcon color={tokens.colors.primaryLight1} />}
+        handleClear={() => setValue('')}
+        clearable
       />
 
       {clients.length

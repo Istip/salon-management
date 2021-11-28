@@ -9,7 +9,9 @@ const Input = (props) => {
       <InputWrapper>
         <span>{props.icon}</span>
         <InputField {...props} />
-        {props.value && <small onClick={props.handleClear}>✖</small>}
+        {props.clearable && props.value && (
+          <small onClick={props.handleClear}>✖</small>
+        )}
       </InputWrapper>
     </InputContainer>
   );
@@ -33,7 +35,7 @@ const InputWrapper = styled.span`
 
   small {
     position: absolute;
-    top: -10px;
+    top: -12px;
     right: 0;
     cursor: pointer;
     padding: 12px;
