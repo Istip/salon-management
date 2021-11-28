@@ -34,6 +34,14 @@ const firestoreReducer = (state, action) => {
         success: true,
       };
 
+    case 'UPDATED_DOCUMENT':
+      return {
+        document: action.payload,
+        loading: false,
+        error: null,
+        success: true,
+      };
+
     case 'ERROR':
       return {
         document: null,
@@ -86,9 +94,24 @@ export const useFirestore = (collection) => {
     }
   };
 
+  // updating document on the collection
+  const updateDocument = async (id, data) => {
+    dispatch({ type: 'LOADING' });
+
+    try {
+      const updatedDocument = await ref.doc(id).update(data);
+      dispatchCancel({ type: 'UPDATED_DOCUMENT', payload: updatedDocument });
+
+      return updatedDocument;
+    } catch (error) {
+      dispatchCancel({ type: 'ERROR', payload: error.message });
+      return null;
+    }
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
 
-  return { addDocument, deleteDocument, response };
+  return { addDocument, deleteDocument, updateDocument, response };
 };

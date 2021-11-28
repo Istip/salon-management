@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { tokens } from '../UI/tokens';
+import { useFirestore } from '../../hooks/useFirestore';
+import { timestamp } from '../../firebase/config';
 
 // project components
 import Text from '../UI/Text';
@@ -17,6 +19,8 @@ import LocationIcon from '../icons/LocationIcon';
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
 
+  const { updateDocument } = useFirestore('clients');
+
   const wrapperNode = useRef();
 
   const handleClickOutside = (e) => {
@@ -25,6 +29,8 @@ const Client = ({ client }) => {
     }
     setVisible(false);
   };
+
+  const handleAddCheck = () => {};
 
   useEffect(() => {
     if (wrapperNode) {
@@ -96,11 +102,16 @@ const Client = ({ client }) => {
         style={{ marginTop: '20px' }}
         size="medium"
         icon={<LocationIcon size={18} color={tokens.colors.primaryDark4} />}
+        onClick={() =>
+          updateDocument(client.id, {
+            visits: [timestamp.fromDate(new Date()), ...client.visits],
+          })
+        }
       >
         Add Check In
       </Button>
 
-      {client.visits && (
+      {client.visits.length !== 0 && (
         <>
           <Divider>
             <Text tag="span" variant="medium10">

@@ -9,8 +9,8 @@ import StarIcon from '../icons/StarIcon';
 import UserMinusIcon from '../icons/UserMinusIcon';
 import Button from '../UI/Button';
 
-const ClientPopover = ({ visible, setVisible, client }) => {
-  const { deleteDocument } = useFirestore('clients');
+const ClientPopover = ({ visible, client }) => {
+  const { deleteDocument, updateDocument } = useFirestore('clients');
 
   return (
     <>
@@ -28,6 +28,9 @@ const ClientPopover = ({ visible, setVisible, client }) => {
             <Button
               variant="warning"
               icon={<StarIcon color={tokens.colors.warning} size={18} />}
+              onClick={() =>
+                updateDocument(client.id, { ...client, elite: !client.elite })
+              }
             />
 
             <a href={`tel:${client.phone}`}>

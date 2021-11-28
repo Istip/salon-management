@@ -23,7 +23,14 @@ const ModalAddClient = ({ show, setShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDocument({ name, phone, gender, elite: false, uid: user.uid });
+    addDocument({
+      name,
+      phone,
+      gender,
+      elite: false,
+      visits: [],
+      uid: user.uid,
+    });
     setShow(false);
   };
 
