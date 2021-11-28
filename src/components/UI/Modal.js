@@ -27,7 +27,7 @@ const Modal = ({
         <Close onClick={closeModal}>✖</Close>
 
         <Header>
-          <Text variant="black14" color={tokens.colors.primaryDark3}>
+          <Text variant="black18" color={tokens.colors.primaryDark3}>
             {title}
           </Text>
         </Header>

@@ -8,7 +8,7 @@ import Button from '../components/UI/Button';
 import Modal from '../components/Clients/ModalAddClient';
 import Text from '../components/UI/Text';
 import ClientList from '../components/Clients/ClientList';
-import CheckIcon from '../components/icons/CheckIcon';
+import AddIcon from '../components/icons/AddIcon';
 
 const Clients = () => {
   const [show, setShow] = useState(false);
@@ -26,7 +26,7 @@ const Clients = () => {
           </Text>
           <Button
             onClick={() => setShow(!show)}
-            icon={<CheckIcon color="#fff" />}
+            icon={<AddIcon color="#fff" />}
           >
             Add Client
           </Button>

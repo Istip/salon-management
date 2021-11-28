@@ -61,6 +61,16 @@ export const fonts = {
     fontSize: '8px',
   },
 
+  medium10: {
+    fontWeight: tokens.fontSize[700],
+    fontSize: '10px',
+  },
+
+  medium12: {
+    fontWeight: tokens.fontSize[700],
+    fontSize: '12px',
+  },
+
   black10: {
     fontWeight: tokens.fontSize[900],
     fontSize: '10px',
@@ -74,5 +84,10 @@ export const fonts = {
   black14: {
     fontWeight: tokens.fontSize[900],
     fontSize: '14px',
+  },
+
+  black18: {
+    fontWeight: tokens.fontSize[900],
+    fontSize: '18px',
   },
 };
