@@ -9,6 +9,7 @@ const Input = (props) => {
       <InputWrapper>
         <span>{props.icon}</span>
         <InputField {...props} />
+        {props.value && <small onClick={props.handleClear}>✖</small>}
       </InputWrapper>
     </InputContainer>
   );
@@ -25,13 +26,18 @@ const InputWrapper = styled.span`
   position: relative;
 
   span {
-    width: 48px;
-    height: 48px;
     position: absolute;
-    top: -14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: -2px;
+    left: 10px;
+  }
+
+  small {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    cursor: pointer;
+    padding: 12px;
+    color: ${tokens.colors.error};
   }
 `;
 

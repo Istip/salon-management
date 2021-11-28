@@ -9,6 +9,8 @@ import Form from '../UI/Form';
 import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
+import UserUserIcon from '../icons/UserIcon';
+import PhoneIcon from '../icons/PhoneIcon';
 
 const ModalAddClient = ({ show, setShow }) => {
   const [name, setName] = useState('');
@@ -40,6 +42,10 @@ const ModalAddClient = ({ show, setShow }) => {
     }
   }, [response.success]);
 
+  const iconProps = {
+    color: tokens.colors.primaryLight1,
+  };
+
   return (
     <Modal
       show={show}
@@ -56,17 +62,18 @@ const ModalAddClient = ({ show, setShow }) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          icon={<UserUserIcon {...iconProps} />}
         />
 
         <Input
-          type="phone"
-          maxlength="10"
+          type="number"
           label="Phone number"
           placeholder="Enter client phone number..."
           name="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           style={{ marginBottom: '0' }}
+          icon={<PhoneIcon {...iconProps} />}
         />
 
         <GenderWrapper>
