@@ -30,8 +30,6 @@ const Client = ({ client }) => {
     setVisible(false);
   };
 
-  const handleAddCheck = () => {};
-
   useEffect(() => {
     if (wrapperNode) {
       document.addEventListener('mousedown', handleClickOutside);
