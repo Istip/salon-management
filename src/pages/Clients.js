@@ -37,13 +37,7 @@ const Clients = () => {
         <ClientList clients={clients} />
       </ClientsWrapper>
 
-      <Modal
-        show={show}
-        setShow={setShow}
-        title="Add new Client"
-        onCancel={() => console.log('cancelled')}
-        onSubmit={() => console.log('submitted')}
-      />
+      <Modal show={show} setShow={setShow} />
     </>
   );
 };

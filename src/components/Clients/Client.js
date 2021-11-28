@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { tokens } from '../UI/tokens';
@@ -9,15 +9,48 @@ import FlexCenter from '../UI/FlexCenter';
 import EllipsisIcon from '../icons/EllipsisIcon';
 import PhoneIcon from '../icons/PhoneIcon';
 import HistoryIcon from '../icons/HistoryIcon';
+import ClientPopover from './ClientPopover';
+import StarIcon from '../icons/StarIcon';
 
 const Client = ({ client }) => {
+  const [visible, setVisible] = useState(false);
+
+  const wrapperNode = useRef();
+
+  const handleClickOutside = (e) => {
+    if (wrapperNode.current && wrapperNode.current.contains(e.target)) {
+      return;
+    }
+    setVisible(false);
+  };
+
+  useEffect(() => {
+    if (wrapperNode) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <ClientWrapper>
       <ClientContainer>
         <LeftSide>
           <Info>
             <GenderBadge gender={client.gender}>
-              <span>{client.elite && '⭐'}</span>
+              <span>
+                {client.elite && (
+                  <StarIcon
+                    color={tokens.colors.darkGrey}
+                    fill={tokens.colors.warning}
+                    size={12}
+                  />
+                )}
+              </span>
               <Text variant="medium8" color="#fff">
                 {client.gender.toUpperCase()}
               </Text>
@@ -44,38 +77,51 @@ const Client = ({ client }) => {
           </Info>
         </LeftSide>
 
-        <RightSide>
-          <a href={`tel:${client.phone}`}>
-            <EllipsisIcon size={18} />
-          </a>
+        <RightSide onClick={() => setVisible(!visible)}>
+          <EllipsisIcon size={18} />
+          <PopoverWrapper ref={wrapperNode}>
+            <ClientPopover
+              visible={visible}
+              setVisible={setVisible}
+              client={client}
+            />
+          </PopoverWrapper>
         </RightSide>
       </ClientContainer>
 
-      <Divider>
-        <Text tag="span" variant="medium10">
-          <FlexCenter style={{ gap: '5px' }}>
-            <HistoryIcon color={tokens.colors.primaryLight2} size={12} />{' '}
-            History
-          </FlexCenter>
-        </Text>
-      </Divider>
+      {client.visits && (
+        <>
+          <Divider>
+            <Text tag="span" variant="medium10">
+              <FlexCenter style={{ gap: '5px' }}>
+                <HistoryIcon color={tokens.colors.primaryLight2} size={12} />{' '}
+                History
+              </FlexCenter>
+            </Text>
+          </Divider>
 
-      <Stats>
-        {client.visits.map((visit) => (
-          <Text
-            key={visit.seconds}
-            variant="medium12"
-            color={tokens.colors.primaryDark1}
-          >
-            {moment(visit.seconds * 1000).format('MMMM DD, YYYY')}
-          </Text>
-        ))}
-      </Stats>
+          <Stats>
+            {client.visits.map((visit) => (
+              <Text
+                key={visit.seconds}
+                variant="medium12"
+                color={tokens.colors.primaryDark1}
+              >
+                {moment(visit.seconds * 1000).format('MMMM DD, YYYY')}
+              </Text>
+            ))}
+          </Stats>
+        </>
+      )}
     </ClientWrapper>
   );
 };
 
 // styled components
+
+const PopoverWrapper = styled.span`
+  position: absolute;
+`;
 
 const Divider = styled.div`
   width: 100%;
@@ -124,7 +170,6 @@ const GenderBadge = styled.div`
     position: absolute;
     top: -8px;
     right: -4px;
-    font-size: 10px;
   }
 `;
 
@@ -154,6 +199,7 @@ const Stats = styled.div`
 
 const RightSide = styled.div`
   cursor: pointer;
+  position: relative;
 `;
 
 const ClientWrapper = styled.div`
@@ -162,10 +208,7 @@ const ClientWrapper = styled.div`
   padding: 10px;
   border-radius: 12px;
   margin-top: 10px;
-
-  &:not(:last-child) {
-    margin-bottom: 20px;
-  }
+  margin-bottom: 20px;
 `;
 
 export default Client;

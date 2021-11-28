@@ -62,7 +62,7 @@ const Appbar = () => {
                       </PopoverTitle>
                     </FlexCenter>
 
-                    <Divier />
+                    <DividerLine />
 
                     <PopoverMenuItem>
                       <PopoverMenuText>
@@ -71,7 +71,7 @@ const Appbar = () => {
                       </PopoverMenuText>
                     </PopoverMenuItem>
 
-                    <Divier />
+                    <DividerLine />
 
                     <PopoverMenuItem onClick={logout}>
                       <PopoverMenuText>
@@ -168,7 +168,7 @@ const PopoverMenuText = styled.div`
   gap: 6px;
 `;
 
-const Divier = styled.div`
+const DividerLine = styled.div`
   height: 1px;
   width: 100%;
   background: ${tokens.colors.primaryLight4};

@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { tokens } from '../UI/tokens';
+import { useFirestore } from '../../hooks/useFirestore';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 // project components
 import Form from '../UI/Form';
 import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
-import { tokens } from '../UI/tokens';
 
-const ModalAddClient = ({ show, setShow, title, onCancel, onSubmit }) => {
+const ModalAddClient = ({ show, setShow }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('female');
+
+  const { user } = useAuthContext();
+
+  const { addDocument, response } = useFirestore('clients');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addDocument({ name, phone, gender, elite: false, uid: user.uid });
+    setShow(false);
+  };
+
+  const handleCancel = () => {
+    setShow(false);
+    setName('');
+    setPhone('');
+    setGender('female');
+  };
+
+  useEffect(() => {
+    if (response.success) {
+      setName('');
+      setPhone('');
+      setGender('female');
+    }
+  }, [response.success]);
 
   return (
     <Modal
       show={show}
       setShow={setShow}
-      title={title}
-      onCancel={onCancel}
-      onSubmit={onSubmit}
+      title="Add new Client"
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
     >
       <Form style={{ padding: '20px 20px 0' }}>
         <Input
@@ -32,7 +59,8 @@ const ModalAddClient = ({ show, setShow, title, onCancel, onSubmit }) => {
         />
 
         <Input
-          type="number"
+          type="phone"
+          maxlength="10"
           label="Phone number"
           placeholder="Enter client phone number..."
           name="phone"

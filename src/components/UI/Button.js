@@ -102,6 +102,20 @@ const ButtonItem = styled.button`
       background: ${tokens.colors.error + '66'};
     }
   }
+
+  &.warning {
+    color: ${tokens.colors.warning};
+    background: ${tokens.colors.warning + '33'};
+    border: 1px solid ${tokens.colors.warning};
+
+    &:hover {
+      background: ${tokens.colors.warning + '66'};
+    }
+
+    &:active {
+      background: ${tokens.colors.warning + '66'};
+    }
+  }
 `;
 
 const ButtonIcon = styled.div`
