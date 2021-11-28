@@ -26,7 +26,7 @@ const ButtonItem = styled.button`
   width: ${({ block }) => (block ? '100%' : 'auto')};
   display: ${({ block }) => (block ? 'block' : '')};
   text-align: center;
-  border-radius: 4px;
+  border-radius: ${(props) => (props.rounded ? '50%' : '4px')};
   cursor: pointer;
   transition: 250ms ease;
 
@@ -71,7 +71,7 @@ const ButtonItem = styled.button`
     border: 1px solid ${tokens.colors.lightGrey};
 
     &:hover {
-      border: 1px solid ${tokens.colors.darkGrey};
+      border: 1px solid ${tokens.colors.mediumGrey};
     }
   }
 

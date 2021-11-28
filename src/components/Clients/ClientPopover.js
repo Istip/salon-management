@@ -16,11 +16,9 @@ const ClientPopover = ({ visible, setVisible, client }) => {
     <>
       {visible && (
         <>
-          <Backdrop onClick={() => setVisible(false)} />
           <Popover>
             <Button
               variant="error"
-              size="small"
               icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
               onClick={() => deleteDocument(client.id)}
             >
@@ -29,14 +27,12 @@ const ClientPopover = ({ visible, setVisible, client }) => {
 
             <Button
               variant="warning"
-              size="small"
               icon={<StarIcon color={tokens.colors.warning} size={18} />}
             />
 
             <a href={`tel:${client.phone}`}>
               <Button
                 variant="success"
-                size="small"
                 icon={<PhoneIcon color={tokens.colors.success} size={18} />}
               />
             </a>
@@ -65,14 +61,6 @@ const fadeIn = keyframes`
   }
 `;
 
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 60px;
-`;
-
 const Popover = styled.div`
   background: #fff;
   border-radius: 4px;
@@ -83,7 +71,6 @@ const Popover = styled.div`
   box-shadow: 0 2px 10px rgba(42, 129, 227, 0.2);
   animation: ${fadeIn} 400ms ease;
   user-select: none;
-
   padding: 10px;
 
   display: flex;

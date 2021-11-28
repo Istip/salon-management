@@ -14,7 +14,7 @@ export const tokens = {
 
     white: '#f6fafe',
     darkGrey: '#111',
-    mediumGrey: '#6b6b6b',
+    mediumGrey: '#C2C3C4',
     lightGrey: '#eee',
 
     error: '#EB431E',

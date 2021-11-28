@@ -6,11 +6,13 @@ import { tokens } from '../UI/tokens';
 // project components
 import Text from '../UI/Text';
 import FlexCenter from '../UI/FlexCenter';
+import Button from '../UI/Button';
 import EllipsisIcon from '../icons/EllipsisIcon';
 import PhoneIcon from '../icons/PhoneIcon';
 import HistoryIcon from '../icons/HistoryIcon';
 import ClientPopover from './ClientPopover';
 import StarIcon from '../icons/StarIcon';
+import LocationIcon from '../icons/LocationIcon';
 
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
@@ -65,12 +67,12 @@ const Client = ({ client }) => {
               </Text>
               <Text
                 tag="div"
-                variant="medium12"
+                variant="medium10"
                 color={tokens.colors.mediumGrey}
               >
                 <FlexCenter>
                   <PhoneIcon color={tokens.colors.mediumGrey} size={18} />
-                  <div style={{ marginLeft: '5px' }}>{client.phone}</div>
+                  <PhoneNumber>{client.phone}</PhoneNumber>
                 </FlexCenter>
               </Text>
             </User>
@@ -78,7 +80,7 @@ const Client = ({ client }) => {
         </LeftSide>
 
         <RightSide onClick={() => setVisible(!visible)}>
-          <EllipsisIcon size={18} />
+          <EllipsisIcon color={tokens.colors.primaryDark4} />
           <PopoverWrapper ref={wrapperNode}>
             <ClientPopover
               visible={visible}
@@ -88,6 +90,15 @@ const Client = ({ client }) => {
           </PopoverWrapper>
         </RightSide>
       </ClientContainer>
+
+      <Button
+        variant="neutral"
+        style={{ marginTop: '20px' }}
+        size="medium"
+        icon={<LocationIcon size={18} color={tokens.colors.primaryDark4} />}
+      >
+        Add Check In
+      </Button>
 
       {client.visits && (
         <>
@@ -139,6 +150,12 @@ const Divider = styled.div`
     text-align: left;
     background: #fff;
   }
+`;
+
+const PhoneNumber = styled.div`
+  margin-left: 5px;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+  letter-spacing: 0.5px;
 `;
 
 const ClientContainer = styled.div`

@@ -25,11 +25,10 @@ const Clients = () => {
             Clients
           </Text>
           <Button
+            rounded
             onClick={() => setShow(!show)}
             icon={<AddIcon color="#fff" />}
-          >
-            Add Client
-          </Button>
+          />
         </Title>
 
         {error && error}
