@@ -1,13 +1,16 @@
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { tokens } from '../UI/tokens';
 
 // project imports
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import DirectionIcon from '../icons/DirectionIcon';
+import TimeIcon from '../icons/TimeIcon';
 import Text from '../../components/UI/Text';
-import { tokens } from '../UI/tokens';
+import Button from '../../components/UI/Button';
+import FlexCenter from '../../components/UI/FlexCenter';
 
 const Calendar = () => {
   const [date, setDate] = useState(moment());
@@ -52,13 +55,10 @@ const Calendar = () => {
 
     // TODO: scroll into center, but somehow last day of the month
     // ...always creates an error... Find out why and put scroll into view back
-
     // When fixed, put back 'selectedDate' as a side effect dependency
-
     // date dependency is currently added so if we journey through years and months
     // ... when we finally come back to the last selected date, we get scrolled
     // ... into the center of the view
-
     // eslint-disable-next-line
   }, [date]);
 
@@ -69,11 +69,24 @@ const Calendar = () => {
           <ArrowLeftIcon color={tokens.colors.primaryDark3} />
         </ArrowWrapper>
 
-        <Text variant="black12" color={tokens.colors.primaryDark3}>
-          {visible
-            ? date.format('YYYY MMMM')
-            : selectedDate.format('YYYY MMMM DD')}
-        </Text>
+        <FlexCenter style={{ gap: '10px' }}>
+          <Text variant="black12" color={tokens.colors.primaryDark3}>
+            {visible
+              ? date.format('YYYY MMMM')
+              : selectedDate.format('YYYY MMMM DD')}
+          </Text>
+
+          <Button
+            variant="neutral"
+            size="small"
+            onClick={() => {
+              setSelectedDate(moment());
+              setDate(moment());
+            }}
+          >
+            <TimeIcon size={12} />
+          </Button>
+        </FlexCenter>
 
         <ArrowWrapper onClick={plusMonth} visible={visible}>
           <ArrowRightIcon color={tokens.colors.primaryDark3} />
