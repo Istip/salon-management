@@ -26,10 +26,10 @@ const Navigation = () => {
       icon: <TimeIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
     },
     {
-      to: '/calendar',
+      to: '/reports',
       title: 'Reports',
       icon: (
-        <CalendarIcon color={pathname === '/calendar' ? primary : darkGrey} />
+        <CalendarIcon color={pathname === '/reports' ? primary : darkGrey} />
       ),
     },
   ];

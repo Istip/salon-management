@@ -13,7 +13,7 @@ import Navigation from './components/Navigation/Navigation';
 import Appbar from './components/Navigation/Appbar';
 import Clients from './pages/Clients';
 import Dashboard from './pages/Dashboard';
-import Calendar from './pages/Calendar';
+import Reports from './pages/Reports';
 import Authentication from './pages/Authentication';
 
 function App() {
@@ -35,8 +35,8 @@ function App() {
                 element={user ? <Dashboard /> : <Navigate replace to="/" />}
               />
               <Route
-                path="/calendar"
-                element={user ? <Calendar /> : <Navigate replace to="/" />}
+                path="/reports"
+                element={user ? <Reports /> : <Navigate replace to="/" />}
               />
 
               <Route
@@ -49,6 +49,8 @@ function App() {
                   )
                 }
               />
+
+              <Route path="*" element={<Navigate replace to="/" />} />
             </Routes>
           </Body>
           {user && <Navigation />}
