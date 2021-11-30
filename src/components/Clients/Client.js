@@ -161,6 +161,13 @@ const Client = ({ client }) => {
               >
                 <FlexCenter>
                   <DropdownIcon color={tokens.colors.primaryDark2} />
+                  <Text
+                    tag="span"
+                    variant="medium10"
+                    color={tokens.colors.primaryDark2}
+                  >
+                    Show All
+                  </Text>
                 </FlexCenter>
               </DropdownButton>
             )}
