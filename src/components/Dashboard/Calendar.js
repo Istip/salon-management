@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
 
@@ -40,19 +40,7 @@ const Calendar = () => {
 
   const daysOfMonth = getDaysOfTheMonth();
 
-  const dayRef = useRef();
-
-  const handleCurrentDay = (format) => {
-    return parseInt(moment(selectedDate).format(format));
-  };
-
   useEffect(() => {
-    dayRef.current.children[handleCurrentDay('DD')].scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center',
-    });
-
     // TODO: scroll into center, but somehow last day of the month
     // ...always creates an error... Find out why and put scroll into view back
     // When fixed, put back 'selectedDate' as a side effect dependency
@@ -60,6 +48,7 @@ const Calendar = () => {
     // ... when we finally come back to the last selected date, we get scrolled
     // ... into the center of the view
     // eslint-disable-next-line
+    console.log('Scroll into view!');
   }, [date]);
 
   return (
@@ -94,7 +83,7 @@ const Calendar = () => {
       </MonthSelector>
 
       <DaySelector>
-        <DaySelectorWrapper ref={dayRef} className={visible ? 'visible' : ''}>
+        <DaySelectorWrapper className={visible ? 'visible' : ''}>
           {daysOfMonth.map((day) => (
             <Day
               key={day.format('DD')}

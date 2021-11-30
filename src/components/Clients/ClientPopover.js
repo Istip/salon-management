@@ -5,7 +5,7 @@ import { useFirestore } from '../../hooks/useFirestore';
 
 // project components
 import PhoneIcon from '../icons/PhoneIcon';
-import StarIcon from '../icons/StarIcon';
+import MarkIcon from '../icons/MarkIcon';
 import UserMinusIcon from '../icons/UserMinusIcon';
 import Button from '../UI/Button';
 
@@ -27,13 +27,7 @@ const ClientPopover = ({ visible, client }) => {
 
             <Button
               variant="warning"
-              icon={
-                <StarIcon
-                  color={tokens.colors.warning}
-                  fill={client.elite ? `${tokens.colors.warning}` : 'none'}
-                  size={18}
-                />
-              }
+              icon={<MarkIcon color={tokens.colors.warning} size={18} />}
               onClick={() =>
                 updateDocument(client.id, { ...client, elite: !client.elite })
               }

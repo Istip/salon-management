@@ -13,8 +13,8 @@ import EllipsisIcon from '../icons/EllipsisIcon';
 import PhoneIcon from '../icons/PhoneIcon';
 import HistoryIcon from '../icons/HistoryIcon';
 import ClientPopover from './ClientPopover';
-import StarIcon from '../icons/StarIcon';
 import LocationIcon from '../icons/LocationIcon';
+import SuccessIcon from '../icons/SuccessIcon';
 
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
@@ -28,6 +28,28 @@ const Client = ({ client }) => {
       return;
     }
     setVisible(false);
+  };
+
+  const handleAddCheckIn = (lastVisit) => {
+    const dateFormat = (time) => moment(time).format('YY-MM-DD');
+
+    const lastVisitTime = dateFormat(lastVisit[0].seconds * 1000);
+    const currentTime = dateFormat();
+
+    if (lastVisitTime !== currentTime) {
+      updateDocument(client.id, {
+        visits: [timestamp.fromDate(new Date()), ...client.visits],
+      });
+    }
+  };
+
+  const handleLastCheckIn = (lastVisit) => {
+    const dateFormat = (time) => moment(time).format('YY-MM-DD');
+
+    const lastVisitTime = dateFormat(lastVisit[0].seconds * 1000);
+    const currentTime = dateFormat();
+
+    if (lastVisitTime === currentTime) return true;
   };
 
   useEffect(() => {
@@ -48,15 +70,7 @@ const Client = ({ client }) => {
         <LeftSide>
           <Info>
             <GenderBadge gender={client.gender}>
-              <span>
-                {client.elite && (
-                  <StarIcon
-                    color={tokens.colors.darkGrey}
-                    fill={tokens.colors.warning}
-                    size={12}
-                  />
-                )}
-              </span>
+              {client.elite && <Mark />}
               <Text variant="medium8" color="#fff">
                 {client.gender.toUpperCase()}
               </Text>
@@ -95,26 +109,34 @@ const Client = ({ client }) => {
         </RightSide>
       </ClientContainer>
 
-      <Button
-        variant="neutral"
-        style={{ marginTop: '20px' }}
-        size="medium"
-        icon={<LocationIcon size={18} color={tokens.colors.primaryDark4} />}
-        onClick={() =>
-          updateDocument(client.id, {
-            visits: [timestamp.fromDate(new Date()), ...client.visits],
-          })
-        }
-      >
-        Add Check In
-      </Button>
+      {handleLastCheckIn(client.visits) ? (
+        <Button
+          variant="neutral"
+          style={{ pointerEvents: 'none', marginTop: '20px' }}
+          size="medium"
+          icon={<SuccessIcon />}
+          disabled
+        >
+          Checked today
+        </Button>
+      ) : (
+        <Button
+          variant="neutral"
+          style={{ marginTop: '20px' }}
+          size="medium"
+          icon={<LocationIcon size={18} color={tokens.colors.primaryDark4} />}
+          onClick={() => handleAddCheckIn(client.visits)}
+        >
+          Add Check In
+        </Button>
+      )}
 
       {client.visits.length !== 0 && (
         <>
           <Divider>
             <Text tag="span" variant="medium10">
               <FlexCenter style={{ gap: '5px' }}>
-                <HistoryIcon color={tokens.colors.primaryLight2} size={12} />{' '}
+                <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
                 History
               </FlexCenter>
             </Text>
@@ -159,6 +181,17 @@ const Divider = styled.div`
     text-align: left;
     background: #fff;
   }
+`;
+
+const Mark = styled.span`
+  margin: 6px 3px 0 0;
+  text-align: left;
+  background: #fff;
+  width: 8px;
+  height: 8px;
+  background: ${tokens.colors.warning};
+  border: 1px solid ${tokens.colors.darkGrey};
+  border-radius: 50%;
 `;
 
 const PhoneNumber = styled.div`
