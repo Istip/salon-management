@@ -15,7 +15,7 @@ const Dashboard = () => {
     <DashboardWrapper>
       {error && error}
       <Calendar />
-      <EventList events={events} />
+      <EventList events={events} error={error} />
     </DashboardWrapper>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { tokens } from '../UI/tokens';
+import { useFirestore } from '../../hooks/useFirestore';
 
 // project components
 import DropdownIcon from '../icons/DropdownIcon';
@@ -9,9 +10,17 @@ import CheckIcon from '../icons/CheckIcon';
 import UserMinusIcon from '../icons/UserMinusIcon';
 import Text from '../UI/Text';
 import Button from '../UI/Button';
+import FlexCenter from '../UI/FlexCenter';
 
-const Event = ({ event }) => {
+const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
+
+  const { deleteDocument, updateDocument } = useFirestore('events');
+
+  const handlePriceModal = async () => {
+    await setSelected(event);
+    setShowPay(true);
+  };
 
   return (
     <EventWrapper>
@@ -22,7 +31,7 @@ const Event = ({ event }) => {
           </Text>
         </EventTime>
 
-        <EventCard>
+        <EventCard finished={event.finished}>
           <VisibleContent>
             <Content>
               <EventType>
@@ -49,23 +58,63 @@ const Event = ({ event }) => {
               </EventDescription>
             </Content>
 
-            <DropDown
-              onClick={() => setVisible(!visible)}
-              className={visible ? 'visible' : ''}
-            >
-              <DropdownIcon />
-            </DropDown>
+            {event.finished ? (
+              <FlexCenter>
+                <Button
+                  variant={event.price ? 'neutral' : 'primary'}
+                  disabled={event.price}
+                  style={{ pointerEvents: event.price ? 'none' : 'auto' }}
+                  onClick={() => handlePriceModal(event)}
+                >
+                  <FlexCenter style={{ flexDirection: 'column' }}>
+                    <Text variant="medium14">
+                      {!event.price ? 'Pay' : 'Price'}
+                    </Text>
+
+                    {event.price !== 0 && (
+                      <Text variant="regular8">{event.price} RON</Text>
+                    )}
+                  </FlexCenter>
+                </Button>
+              </FlexCenter>
+            ) : (
+              <DropDown
+                onClick={() => setVisible(!visible)}
+                className={visible ? 'visible' : ''}
+              >
+                <DropdownIcon />
+              </DropDown>
+            )}
           </VisibleContent>
 
           <ExtraContent className={visible ? 'visible' : ''}>
-            <Button block>{event.gender.toUpperCase()}</Button>
+            <Button
+              block
+              onClick={() =>
+                updateDocument(event.id, {
+                  ...event,
+                  gender: event.gender === 'male' ? 'female' : 'male',
+                })
+              }
+            >
+              {event.gender.toUpperCase()}
+            </Button>
+
             <Button
               variant="error"
               icon={<UserMinusIcon color={tokens.colors.error} />}
+              onClick={() => deleteDocument(event.id)}
             />
             <Button
               variant="success"
               icon={<CheckIcon color={tokens.colors.success} />}
+              onClick={() => {
+                updateDocument(event.id, {
+                  ...event,
+                  finished: true,
+                });
+                setVisible(false);
+              }}
             />
           </ExtraContent>
         </EventCard>
@@ -94,7 +143,7 @@ const ExtraContent = styled.div`
   max-height: 0;
   transition: 250ms ease;
   visibility: hidden;
-  padding: 0;
+  padding: 0 10px;
   opacity: 0;
 
   &.visible {
@@ -121,6 +170,7 @@ const EventType = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   min-width: 48px;
   max-width: 48px;
   height: 48px;
@@ -164,7 +214,8 @@ const EventCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: #fff;
+  background: ${(props) =>
+    props.finished ? `${tokens.colors.primaryLight3}` : '#fff'};
   border: 1px solid ${tokens.colors.primaryLight3};
   border-radius: 12px;
 `;

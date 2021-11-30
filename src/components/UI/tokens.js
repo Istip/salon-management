@@ -51,6 +51,18 @@ export const fonts = {
     fontWeight: tokens.fontSize[900],
   },
 
+  regular8: {
+    fontWeight: tokens.fontSize[400],
+    fontSize: '8px',
+    letterSpacing: 0,
+  },
+
+  regular10: {
+    fontWeight: tokens.fontSize[400],
+    fontSize: '10px',
+    letterSpacing: 0,
+  },
+
   regular12: {
     fontWeight: tokens.fontSize[400],
     fontSize: '12px',
