@@ -15,9 +15,11 @@ import HistoryIcon from '../icons/HistoryIcon';
 import ClientPopover from './ClientPopover';
 import LocationIcon from '../icons/LocationIcon';
 import SuccessIcon from '../icons/SuccessIcon';
+import DropdownIcon from '../icons/DropdownIcon';
 
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
+  const [visitNumber, setVisitNumber] = useState(1);
 
   const { updateDocument } = useFirestore('clients');
 
@@ -33,14 +35,16 @@ const Client = ({ client }) => {
   const handleAddCheckIn = (lastVisit) => {
     const dateFormat = (time) => moment(time).format('YY-MM-DD');
 
-    const lastVisitTime = dateFormat(lastVisit[0].seconds * 1000);
+    const lastVisitTime =
+      lastVisit.length && dateFormat(lastVisit[0].seconds * 1000);
     const currentTime = dateFormat();
 
-    if (lastVisitTime !== currentTime) {
-      updateDocument(client.id, {
+    if (lastVisit && lastVisitTime !== currentTime) {
+      return updateDocument(client.id, {
         visits: [timestamp.fromDate(new Date()), ...client.visits],
       });
     }
+    return null;
   };
 
   const handleLastCheckIn = (lastVisit) => {
@@ -60,7 +64,6 @@ const Client = ({ client }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-
     // eslint-disable-next-line
   }, []);
 
@@ -69,7 +72,7 @@ const Client = ({ client }) => {
       <ClientContainer>
         <LeftSide>
           <Info>
-            <GenderBadge gender={client.gender}>
+            <GenderBadge gender={client.gender} elite={client.elite}>
               {client.elite && <Mark />}
               <Text variant="medium8" color="#fff">
                 {client.gender.toUpperCase()}
@@ -109,25 +112,24 @@ const Client = ({ client }) => {
         </RightSide>
       </ClientContainer>
 
-      {handleLastCheckIn(client.visits) ? (
+      {client.visits.length !== 0 && handleLastCheckIn(client.visits) ? (
         <Button
           variant="neutral"
           style={{ pointerEvents: 'none', marginTop: '20px' }}
           size="medium"
           icon={<SuccessIcon />}
-          disabled
         >
-          Checked today
+          Just Visited
         </Button>
       ) : (
         <Button
-          variant="neutral"
+          variant="secondary"
           style={{ marginTop: '20px' }}
           size="medium"
-          icon={<LocationIcon size={18} color={tokens.colors.primaryDark4} />}
+          icon={<LocationIcon size={18} color={tokens.colors.primary} />}
           onClick={() => handleAddCheckIn(client.visits)}
         >
-          Add Check In
+          Add Visit
         </Button>
       )}
 
@@ -137,13 +139,13 @@ const Client = ({ client }) => {
             <Text tag="span" variant="medium10">
               <FlexCenter style={{ gap: '5px' }}>
                 <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
-                History
+                {client.visits.length === 1 ? 'Only visit' : 'Last visits'}
               </FlexCenter>
             </Text>
           </Divider>
 
           <Stats>
-            {client.visits.map((visit) => (
+            {client.visits.slice(0, visitNumber).map((visit) => (
               <Text
                 key={visit.seconds}
                 variant="medium12"
@@ -152,6 +154,16 @@ const Client = ({ client }) => {
                 {moment(visit.seconds * 1000).format('MMMM DD, YYYY')}
               </Text>
             ))}
+
+            {client.visits.length > visitNumber && (
+              <DropdownButton
+                onClick={() => setVisitNumber(client.visits.length)}
+              >
+                <FlexCenter>
+                  <DropdownIcon color={tokens.colors.primaryDark2} />
+                </FlexCenter>
+              </DropdownButton>
+            )}
           </Stats>
         </>
       )}
@@ -165,12 +177,20 @@ const PopoverWrapper = styled.span`
   position: absolute;
 `;
 
+const DropdownButton = styled.div`
+  transition: 250ms ease;
+
+  &.showAll {
+    transform: rotate(180deg);
+  }
+`;
+
 const Divider = styled.div`
   width: 100%;
   height: 1px;
   color: ${tokens.colors.primaryLight2};
   background: ${tokens.colors.lightGrey};
-  margin: 16px 0;
+  margin: 16px 0 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -229,6 +249,7 @@ const GenderBadge = styled.div`
     position: absolute;
     top: -8px;
     right: -4px;
+    box-shadow: 0 0 5px ${tokens.colors.warning};
   }
 `;
 
