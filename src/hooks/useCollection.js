@@ -28,10 +28,6 @@ export const useCollection = (
       ref = ref.where(...firstQuery);
     }
 
-    if (secondQuery) {
-      ref = ref.where(...secondQuery);
-    }
-
     if (orderBy) {
       ref = ref.orderBy(...orderBy);
     }

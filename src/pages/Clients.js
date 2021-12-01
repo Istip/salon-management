@@ -12,8 +12,12 @@ import AddIcon from '../components/icons/AddIcon';
 
 const Clients = () => {
   const [show, setShow] = useState(false);
+  const [order, setOrder] = useState('asc');
 
-  const { documents, error } = useCollection('clients');
+  const { documents, error } = useCollection('clients', null, null, [
+    'name',
+    'asc',
+  ]);
 
   const clients = documents;
 
@@ -30,6 +34,10 @@ const Clients = () => {
             icon={<AddIcon color="#fff" />}
           />
         </Title>
+
+        <button onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}>
+          Change {order}
+        </button>
 
         {error && error}
 

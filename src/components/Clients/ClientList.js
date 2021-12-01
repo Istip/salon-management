@@ -60,7 +60,6 @@ const ClientList = ({ clients }) => {
 
       {clients.length ? (
         clients
-          .sort((a, b) => a.name.localeCompare(b.name))
           .filter((item) => {
             if (!filter) return true;
             return item.gender === filter;
