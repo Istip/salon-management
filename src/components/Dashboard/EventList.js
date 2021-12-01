@@ -10,6 +10,7 @@ import Button from '../UI/Button';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 import ModalPay from './ModalPay';
+import moment from 'moment';
 
 const EventList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -26,11 +27,14 @@ const EventList = ({ events, error, selectedDate }) => {
         <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
           Appointments
         </Text>
-        <Button
-          onClick={() => setShowAdd(!showAdd)}
-          icon={<AddIcon color="#fff" rounded />}
-          rounded
-        />
+        {(selectedDate.isSameOrAfter(moment()) ||
+          selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD')) && (
+          <Button
+            onClick={() => setShowAdd(!showAdd)}
+            icon={<AddIcon color="#fff" rounded />}
+            rounded
+          />
+        )}
 
         {error && error}
       </AddEvent>
