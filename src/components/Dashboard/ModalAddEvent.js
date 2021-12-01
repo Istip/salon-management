@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { tokens } from '../UI/tokens';
 import { timestamp } from '../../firebase/config';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -12,10 +13,11 @@ import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
 
-const ModalAddEvent = ({ show, setShow }) => {
+const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('haircut');
   const [gender, setGender] = useState('female');
+  const [date, setDate] = useState(moment(selectedDate));
 
   const actions = ['haircut', 'hairdye', 'manicure', 'pedicure', 'other'];
 
@@ -25,16 +27,26 @@ const ModalAddEvent = ({ show, setShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     addDocument({
       name,
       action,
       gender,
       finished: false,
       price: 0,
-      date: timestamp.fromDate(new Date()),
+      date: timestamp.fromDate(
+        selectedDate
+          .set('hour', moment(date).format('HH'))
+          .set('minute', moment(date).format('mm'))
+          .toDate()
+      ),
       uid: user.uid,
     });
     setShow(false);
+    setAction('haircut');
+    setName('');
+    setGender('female');
+    setDate(moment());
   };
 
   const handleCancel = () => {
@@ -73,6 +85,17 @@ const ModalAddEvent = ({ show, setShow }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           icon={<UserUserIcon {...iconProps} />}
+        />
+
+        <Input
+          type="datetime-local"
+          id="meeting-time"
+          name="meeting-time"
+          label="Select time"
+          value={date}
+          min={`${moment(selectedDate).format('YYYY-MM-DD')}T00:00`}
+          max={`${moment(selectedDate).format('YYYY-MM-DD')}T23:59`}
+          onChange={(e) => setDate(e.target.value)}
         />
 
         <BadgeWrapper>

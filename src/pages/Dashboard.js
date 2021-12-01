@@ -27,7 +27,12 @@ const Dashboard = () => {
 
       {error && error}
 
-      <EventList events={filteredEvents} error={error} />
+      <EventList
+        events={filteredEvents}
+        error={error}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
     </DashboardWrapper>
   );
 };

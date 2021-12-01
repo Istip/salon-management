@@ -11,7 +11,7 @@ import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 import ModalPay from './ModalPay';
 
-const EventList = ({ events, error }) => {
+const EventList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
@@ -56,7 +56,13 @@ const EventList = ({ events, error }) => {
         </FlexCenter>
       )}
 
-      <ModalAdd show={showAdd} setShow={setShowAdd} />
+      {/* Da' modalz used in dis' compo' */}
+      <ModalAdd
+        show={showAdd}
+        setShow={setShowAdd}
+        selectedDate={selectedDate}
+        setSelected
+      />
       <ModalPay show={showPay} setShow={setShowPay} selected={selected} />
     </EventListWrapper>
   );
