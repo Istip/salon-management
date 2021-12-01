@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import moment from 'moment';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
 import { tokens } from '../UI/tokens';
 
 import Hamburger from '../icons/Hamburger';
 import SignoutIcon from '../icons/SignoutIcon';
-import SettingsIcon from '../icons/SettingsIcon';
 import FlexCenter from '../UI/FlexCenter';
 import Logo from '../UI/Logo';
+import Text from '../UI/Text';
+import TimeIcon from '../icons/TimeIcon';
+import CalendarIcon from '../icons/CalendarIcon';
 
 const Appbar = () => {
   const [visible, setVisible] = useState(false);
@@ -41,6 +44,11 @@ const Appbar = () => {
     color: tokens.colors.primaryDark4,
   };
 
+  const timeIconProps = {
+    size: 16,
+    color: tokens.colors.darkGrey,
+  };
+
   return (
     <AppbarWrapper>
       <Logo />
@@ -59,17 +67,29 @@ const Appbar = () => {
                       <PopoverTitle>
                         <h2>Hello</h2>
                         {user.displayName}
+                        <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
+                          <FlexCenter style={{ gap: '2px' }}>
+                            <CalendarIcon {...timeIconProps} />
+                            <Text
+                              variant="medium12"
+                              color={tokens.colors.mediumGrey}
+                            >
+                              {moment().format('YYYY.MM.DD')}
+                            </Text>
+                          </FlexCenter>
+
+                          <FlexCenter style={{ gap: '2px' }}>
+                            <TimeIcon {...timeIconProps} />
+                            <Text
+                              variant="medium12"
+                              color={tokens.colors.mediumGrey}
+                            >
+                              {moment().format('HH:mm')}
+                            </Text>
+                          </FlexCenter>
+                        </FlexCenter>
                       </PopoverTitle>
                     </FlexCenter>
-
-                    <DividerLine />
-
-                    <PopoverMenuItem>
-                      <PopoverMenuText>
-                        <SettingsIcon {...iconProps} />
-                        Settings
-                      </PopoverMenuText>
-                    </PopoverMenuItem>
 
                     <DividerLine />
 

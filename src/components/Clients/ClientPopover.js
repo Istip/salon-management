@@ -70,7 +70,7 @@ const Popover = styled.div`
   border: 1px solid ${tokens.colors.primaryLight3};
   position: absolute;
   right: 0px;
-  top: 24px;
+  top: 30px;
   box-shadow: 0 2px 10px rgba(42, 129, 227, 0.2);
   animation: ${fadeIn} 400ms ease;
   user-select: none;

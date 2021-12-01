@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { projectFirestore } from '../firebase/config';
+import { useAuthContext } from './useAuthContext';
 
 export const useCollection = (collection, _query, _orderBy) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
+
+  const { user } = useAuthContext();
 
   // Using ref so the side effect won't run into infinite loop
   // ...due the fact that query depencency is a reference type
@@ -11,7 +14,9 @@ export const useCollection = (collection, _query, _orderBy) => {
   const orderBy = useRef(_orderBy).current;
 
   useEffect(() => {
-    let ref = projectFirestore.collection(collection);
+    let ref = projectFirestore
+      .collection(collection)
+      .where('uid', '==', user.uid);
 
     if (query) {
       ref = ref.where(...query);
@@ -39,6 +44,7 @@ export const useCollection = (collection, _query, _orderBy) => {
     );
 
     return () => unsubscribe();
+    // eslint-disable-next-line
   }, [collection, query, orderBy]);
 
   return { documents, error };

@@ -68,7 +68,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 >
                   <FlexCenter style={{ flexDirection: 'column' }}>
                     <Text variant="medium14">
-                      {!event.price ? 'Paid' : 'Price'}
+                      {!event.price ? 'Paid' : 'Income'}
                     </Text>
 
                     {event.price !== 0 && (

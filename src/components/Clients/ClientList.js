@@ -33,7 +33,7 @@ const ClientList = ({ clients }) => {
     <ClientListWraper>
       <FilterMenu>
         <Text tag="span" variant="black14" color={tokens.colors.primaryDark4}>
-          Filter:
+          Show:
         </Text>
 
         {filterOptions.map((option) => (
@@ -60,6 +60,7 @@ const ClientList = ({ clients }) => {
 
       {clients.length ? (
         clients
+          .sort((a, b) => a.name.localeCompare(b.name))
           .filter((item) => {
             if (!filter) return true;
             return item.gender === filter;

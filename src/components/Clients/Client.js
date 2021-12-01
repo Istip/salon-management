@@ -115,7 +115,7 @@ const Client = ({ client }) => {
       {client.visits.length !== 0 && handleLastCheckIn(client.visits) ? (
         <Button
           variant="neutral"
-          style={{ pointerEvents: 'none', marginTop: '20px' }}
+          style={{ pointerEvents: 'none', marginTop: '10px' }}
           size="medium"
           icon={<SuccessIcon />}
         >
@@ -124,7 +124,7 @@ const Client = ({ client }) => {
       ) : (
         <Button
           variant="secondary"
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: '10px' }}
           size="medium"
           icon={<LocationIcon size={18} color={tokens.colors.primary} />}
           onClick={() => handleAddCheckIn(client.visits)}
