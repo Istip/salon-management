@@ -12,9 +12,8 @@ import Text from '../../components/UI/Text';
 import Button from '../../components/UI/Button';
 import FlexCenter from '../../components/UI/FlexCenter';
 
-const Calendar = () => {
+const Calendar = ({ selectedDate, setSelectedDate }) => {
   const [date, setDate] = useState(moment());
-  const [selectedDate, setSelectedDate] = useState(moment());
   const [visible, setVisible] = useState(true);
 
   const plusMonth = () => {
@@ -38,6 +37,21 @@ const Calendar = () => {
     return arrDays.sort((a, b) => a - b);
   };
 
+  const todayIsSelected = () => {
+    const today = moment().format('YY-MM-DD');
+    const selected = selectedDate.format('YY-MM-DD');
+    if (today !== selected) {
+      return true;
+    }
+  };
+
+  const handleResetDate = () => {
+    if (todayIsSelected()) {
+      setSelectedDate(moment());
+      setDate(moment());
+    }
+  };
+
   const daysOfMonth = getDaysOfTheMonth();
 
   useEffect(() => {
@@ -48,8 +62,7 @@ const Calendar = () => {
     // ... when we finally come back to the last selected date, we get scrolled
     // ... into the center of the view
     // eslint-disable-next-line
-    console.log('Scroll into view!');
-  }, [date]);
+  }, [date, selectedDate]);
 
   return (
     <CalendarWrapper>
@@ -65,16 +78,16 @@ const Calendar = () => {
               : selectedDate.format('YYYY MMMM DD')}
           </Text>
 
-          <Button
-            variant="neutral"
-            size="small"
-            onClick={() => {
-              setSelectedDate(moment());
-              setDate(moment());
-            }}
-          >
-            <TimeIcon size={12} />
-          </Button>
+          {todayIsSelected() && (
+            <Button
+              variant="neutral"
+              size="small"
+              onClick={() => handleResetDate()}
+              title={`Jump back to ${moment().format('YYYY-MM-DD')}`}
+            >
+              <TimeIcon size={12} />
+            </Button>
+          )}
         </FlexCenter>
 
         <ArrowWrapper onClick={plusMonth} visible={visible}>
