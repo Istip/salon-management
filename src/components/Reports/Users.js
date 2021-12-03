@@ -40,15 +40,16 @@ const Users = () => {
             <DividerLine />
 
             <GenderSummary>
-              <GenderNumber className="male">
-                <Text variant="regular12">
-                  <b>{males.length}</b> {males.length === 1 ? 'male' : 'males'}
-                </Text>
-              </GenderNumber>
               <GenderNumber className="female">
                 <Text variant="regular12">
                   <b>{females.length}</b>{' '}
                   {females.length === 1 ? 'female' : 'females'}
+                </Text>
+              </GenderNumber>
+
+              <GenderNumber className="male">
+                <Text variant="regular12">
+                  <b>{males.length}</b> {males.length === 1 ? 'male' : 'males'}
                 </Text>
               </GenderNumber>
             </GenderSummary>

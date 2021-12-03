@@ -18,8 +18,14 @@ const Reports = () => {
       </FlexCenter>
 
       <ElementWrapper>
-        <Users />
         <Income />
+
+        <FlexCenter>
+          <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+            Clients
+          </Text>
+        </FlexCenter>
+        <Users />
       </ElementWrapper>
     </ReportsWrapper>
   );

@@ -8,11 +8,14 @@ import { tokens } from '../UI/tokens';
 import Text from '../UI/Text';
 
 const Income = () => {
-  const { documents, error } = useCollection('events', [
-    'finished',
-    '==',
-    true,
-  ]);
+  const date = new Date();
+  const monthFirstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  const { documents, error } = useCollection(
+    'events',
+    ['date', '>=', monthFirstDay],
+    ['finished', '==', true]
+  );
 
   if (!documents) {
     return null;
@@ -22,13 +25,13 @@ const Income = () => {
     return <div>{error}</div>;
   }
 
-  console.log(documents.map((a) => a.date));
-
   const income = documents.reduce(
     (accumulator, current) => accumulator + parseInt(current.price),
     0
   );
-  console.log(income);
+
+  const maleClients = documents.filter((doc) => doc.gender === 'male');
+  const femaleClients = documents.filter((doc) => doc.gender === 'female');
 
   return (
     <IncomeWrapper>
@@ -37,8 +40,33 @@ const Income = () => {
           {moment().format('MMMM')} income:
         </Text>
 
-        <Text variant="black14" color={tokens.colors.primary}>
+        <Text
+          variant="black14"
+          color={income > 0 ? tokens.colors.success : tokens.colors.error}
+        >
           {income} RON
+        </Text>
+      </IncomeInfo>
+
+      <DividerLine />
+
+      <IncomeInfo style={{ padding: '20px' }}>
+        <Text variant="black14" color={tokens.colors.primaryDark3}>
+          Total female clients:
+        </Text>
+
+        <Text variant="black14" color={tokens.colors.primary}>
+          {femaleClients.length}
+        </Text>
+      </IncomeInfo>
+
+      <IncomeInfo style={{ padding: '20px' }}>
+        <Text variant="black14" color={tokens.colors.primaryDark3}>
+          Total male clients:
+        </Text>
+
+        <Text variant="black14" color={tokens.colors.primary}>
+          {maleClients.length}
         </Text>
       </IncomeInfo>
     </IncomeWrapper>
@@ -64,7 +92,6 @@ const DividerLine = styled.div`
   width: 100%;
   height: 1px;
   background: ${tokens.colors.primaryLight4};
-  margin-bottom: 20px;
 `;
 
 export default Income;
