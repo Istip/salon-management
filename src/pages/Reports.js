@@ -13,7 +13,7 @@ const Reports = () => {
     <ReportsWrapper>
       <FlexCenter>
         <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-          Reports
+          Stats
         </Text>
       </FlexCenter>
 
