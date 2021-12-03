@@ -12,6 +12,7 @@ import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
+import TimeIcon from '../icons/TimeIcon';
 
 const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [name, setName] = useState('');
@@ -34,6 +35,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       gender,
       finished: false,
       price: 0,
+      // TODO: fix console warning for the incorrect format
       date: timestamp.fromDate(
         selectedDate
           .set('hour', moment(date).format('HH'))
@@ -89,13 +91,15 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
         <Input
           type="datetime-local"
-          id="meeting-time"
-          name="meeting-time"
           label="Select time"
+          placeholder="Enter client name..."
+          name="meeting-time"
           value={date}
-          min={`${moment(selectedDate).format('YYYY-MM-DD')}T00:00`}
-          max={`${moment(selectedDate).format('YYYY-MM-DD')}T23:59`}
+          min={`${moment(selectedDate).format('YYYY-MM-DD')} 00:00`}
+          max={`${moment(selectedDate).format('YYYY-MM-DD')} 23:59`}
           onChange={(e) => setDate(e.target.value)}
+          icon={<TimeIcon {...iconProps} />}
+          // TODO: change the native calendar icon of the input field
         />
 
         <BadgeWrapper>

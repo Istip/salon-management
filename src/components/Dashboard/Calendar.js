@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
 
-// project imports
+// project components
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
 import DirectionIcon from '../icons/DirectionIcon';
@@ -12,9 +12,11 @@ import Text from '../../components/UI/Text';
 import Button from '../../components/UI/Button';
 import FlexCenter from '../../components/UI/FlexCenter';
 
-const Calendar = ({ selectedDate, setSelectedDate }) => {
+const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
+
+  console.log(documents);
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));

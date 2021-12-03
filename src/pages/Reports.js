@@ -15,7 +15,7 @@ const Reports = () => {
       <h1>Reports</h1>
 
       <Input
-        type="datetime-local"
+        type="time"
         id="meeting-time"
         name="meeting-time"
         label="Select time"

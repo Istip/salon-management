@@ -5,6 +5,7 @@ import { tokens } from './tokens';
 // project components
 import Text from '../UI/Text';
 import Button from './Button';
+import CloseIcon from '../icons/CloseIcon';
 
 const Modal = ({
   show,
@@ -24,7 +25,9 @@ const Modal = ({
       <Backdrop onClick={closeModal} />
 
       <ModalContent>
-        <Close onClick={closeModal}>✖</Close>
+        <Close onClick={closeModal}>
+          <CloseIcon color={tokens.colors.primaryLight3} />
+        </Close>
 
         <Header>
           <Text variant="black18" color={tokens.colors.primaryDark3}>
@@ -65,7 +68,7 @@ const Close = styled.div`
   position: absolute;
   left: auto;
   top: 0;
-  right: 6px;
+  right: 0;
   padding: 6px;
   cursor: pointer;
 `;
