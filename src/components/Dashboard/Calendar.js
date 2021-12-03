@@ -12,9 +12,12 @@ import Text from '../../components/UI/Text';
 import Button from '../../components/UI/Button';
 import FlexCenter from '../../components/UI/FlexCenter';
 
-const Calendar = ({ selectedDate, setSelectedDate }) => {
+const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
+
+  //❌❌❌❌❌❌❌❌❌
+  console.log(documents);
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -95,23 +98,37 @@ const Calendar = ({ selectedDate, setSelectedDate }) => {
       <DaySelector>
         <DaySelectorWrapper className={visible ? 'visible' : ''}>
           {daysOfMonth.map((day) => (
-            <Day
+            <DayWrapper
               key={day.format('DD')}
               onClick={() => setSelectedDate(day)}
-              className={
-                day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')
-                  ? 'today'
-                  : ''
-              }
-              weekend={day.format('dd') === 'Sa' || day.format('dd') === 'Su'}
             >
-              <Text variant="medium8" tag="div">
-                {day.format('ddd')}
-              </Text>
-              <Text variant="black12" tag="div">
-                {day.format('DD')}
-              </Text>
-            </Day>
+              <Day
+                className={
+                  day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')
+                    ? 'today'
+                    : ''
+                }
+                weekend={day.format('dd') === 'Sa' || day.format('dd') === 'Su'}
+              >
+                <Text variant="medium8" tag="div">
+                  {day.format('ddd')}
+                </Text>
+                <Text variant="black12" tag="div">
+                  {day.format('DD')}
+                </Text>
+              </Day>
+
+              <DotReminder>
+                {documents &&
+                documents.some(
+                  (item) =>
+                    moment(item.date.seconds * 1000).format('YY-MM-DD') ===
+                    moment(day).format('YY-MM-DD')
+                )
+                  ? '•'
+                  : ''}
+              </DotReminder>
+            </DayWrapper>
           ))}
         </DaySelectorWrapper>
       </DaySelector>
@@ -130,11 +147,16 @@ const CalendarWrapper = styled.div`
   background: #fff;
   box-shadow: 0px 4px 20px -8px rgba(14, 44, 77, 0.15);
   margin-bottom: 20px;
+  transition: 500ms ease;
+
+  &:hover {
+    box-shadow: 0px 8px 20px -4px rgba(14, 44, 77, 0.2);
+  }
 `;
 
 const MonthSelector = styled.div`
   width: 100%;
-  padding: ${(props) => (props.visible ? '20px' : '10px 0 0 0')};
+  padding: ${(props) => (props.visible ? '20px' : '10px 20px 0 20px')};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -168,6 +190,22 @@ const DaySelectorWrapper = styled.div`
   }
 `;
 
+const DayWrapper = styled.span`
+  position: relative;
+`;
+
+const DotReminder = styled.span`
+  position: absolute;
+  bottom: 11px;
+  width: 40px;
+  height: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${tokens.colors.warning};
+  pointer-events: none;
+`;
+
 const Day = styled.div`
   cursor: pointer;
   min-width: 40px;
@@ -183,6 +221,7 @@ const Day = styled.div`
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
   scroll-snap-align: start;
   gap: 8px;
+  transition: 250ms ease;
 
   &.today {
     color: #fff;
