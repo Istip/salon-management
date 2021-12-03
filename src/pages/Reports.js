@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
-import moment from 'moment';
+import React from 'react';
+import styled from 'styled-components';
+import { tokens } from '../components/UI/tokens';
 
 // project components
-import Input from '../components/UI/Input';
+import Text from '../components/UI/Text';
+import FlexCenter from '../components/UI/FlexCenter';
+import Users from '../components/Reports/Users';
+import Income from '../components/Reports/Income';
 
 const Reports = () => {
-  const [date, setDate] = useState(moment().format());
-
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <h1>Reports</h1>
+    <ReportsWrapper>
+      <FlexCenter>
+        <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+          Reports
+        </Text>
+      </FlexCenter>
 
-      <Input
-        type="time"
-        id="meeting-time"
-        name="meeting-time"
-        label="Select time"
-        value={date}
-        min={`${moment().format('YYYY-MM-DD')}T00:00`}
-        max={`${moment().format('YYYY-MM-DD')}T23:59`}
-        onChange={(e) => setDate(e.target.value)}
-      />
-    </div>
+      <ElementWrapper>
+        <Users />
+        <Income />
+      </ElementWrapper>
+    </ReportsWrapper>
   );
 };
+
+// styled components
+const ReportsWrapper = styled.div`
+  margin: 80px 0 80px;
+`;
+
+const ElementWrapper = styled.div`
+  padding: 10px;
+`;
 
 export default Reports;

@@ -23,11 +23,7 @@ const Dashboard = () => {
 
   return (
     <DashboardWrapper>
-      <Calendar
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        documents={documents}
-      />
+      <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
       {error && error}
 

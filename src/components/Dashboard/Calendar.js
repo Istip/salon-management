@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
 
@@ -12,11 +12,9 @@ import Text from '../../components/UI/Text';
 import Button from '../../components/UI/Button';
 import FlexCenter from '../../components/UI/FlexCenter';
 
-const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
+const Calendar = ({ selectedDate, setSelectedDate }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
-
-  console.log(documents);
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -56,15 +54,12 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   const daysOfMonth = getDaysOfTheMonth();
 
-  useEffect(() => {
-    // TODO: scroll into center, but somehow last day of the month
-    // ...always creates an error... Find out why and put scroll into view back
-    // When fixed, put back 'selectedDate' as a side effect dependency
-    // date dependency is currently added so if we journey through years and months
-    // ... when we finally come back to the last selected date, we get scrolled
-    // ... into the center of the view
-    // eslint-disable-next-line
-  }, [date, selectedDate]);
+  // TODO: scroll into center, but somehow last day of the month
+  // ...always creates an error... Find out why and put scroll into view back
+  // When fixed, put back 'selectedDate' as a side effect dependency
+  // date dependency is currently added so if we journey through years and months
+  // ... when we finally come back to the last selected date, we get scrolled
+  // ... into the center of the view
 
   return (
     <CalendarWrapper>
