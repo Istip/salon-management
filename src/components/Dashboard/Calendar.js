@@ -65,7 +65,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
       });
     }
     // eslint-disable-next-line
-  }, [selectedDate, date]);
+  }, [selectedDate]);
 
   return (
     <CalendarWrapper>
