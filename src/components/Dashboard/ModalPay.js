@@ -7,21 +7,31 @@ import Form from '../UI/Form';
 import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import MoneyIcon from '../icons/MoneyIcon';
+import ValidationText from '../UI/ValidationText';
 
 const ModalPay = ({ show, setShow, selected }) => {
   const [price, setPrice] = useState('');
+  const [validation, setValidation] = useState('');
 
   const { updateDocument } = useFirestore('events');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (price === '') {
+      setValidation('Please enter the price!');
+      return null;
+    }
+
     updateDocument(selected.id, { ...selected, price });
     setPrice('');
+    setValidation('');
     setShow(false);
   };
 
   const handleCancel = () => {
     setPrice('');
+    setValidation('');
     setShow(false);
   };
 
@@ -54,6 +64,8 @@ const ModalPay = ({ show, setShow, selected }) => {
           icon={<MoneyIcon {...iconProps} />}
         />
       </Form>
+
+      {validation && <ValidationText>{validation}</ValidationText>}
     </Modal>
   );
 };

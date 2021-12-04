@@ -22,7 +22,7 @@ const Modal = ({
 
   return (
     <ModalWrapper className={show ? 'show' : ''} show={show}>
-      <Backdrop onClick={closeModal} />
+      <Backdrop onClick={onCancel} />
 
       <ModalContent>
         <Close onClick={closeModal}>

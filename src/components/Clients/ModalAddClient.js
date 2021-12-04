@@ -11,11 +11,14 @@ import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
 import PhoneIcon from '../icons/PhoneIcon';
+import ValidationText from '../UI/ValidationText';
 
 const ModalAddClient = ({ show, setShow }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [gender, setGender] = useState('female');
+
+  const [validation, setValidation] = useState('');
 
   const { user } = useAuthContext();
 
@@ -23,6 +26,17 @@ const ModalAddClient = ({ show, setShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (name === '' || phone === '') {
+      setValidation('Please enter client name and phone!');
+      return null;
+    }
+
+    if (name !== '' && phone.length < 10) {
+      setValidation('Please enter valid phone number!');
+      return null;
+    }
+
     addDocument({
       name,
       phone,
@@ -31,11 +45,14 @@ const ModalAddClient = ({ show, setShow }) => {
       visits: [],
       uid: user.uid,
     });
+
+    setValidation('');
     setShow(false);
   };
 
   const handleCancel = () => {
     setShow(false);
+    setValidation('');
     setName('');
     setPhone('');
     setGender('female');
@@ -43,6 +60,7 @@ const ModalAddClient = ({ show, setShow }) => {
 
   useEffect(() => {
     if (response.success) {
+      setValidation('');
       setName('');
       setPhone('');
       setGender('female');
@@ -100,6 +118,8 @@ const ModalAddClient = ({ show, setShow }) => {
           </Text>
         </GenderWrapper>
       </Form>
+
+      {validation && <ValidationText>{validation}</ValidationText>}
     </Modal>
   );
 };
