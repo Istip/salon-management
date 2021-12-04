@@ -18,7 +18,7 @@ const ModalPay = ({ show, setShow, selected }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (price === '') {
+    if (price === '' || price < 0) {
       setValidation('Please enter the price!');
       return null;
     }

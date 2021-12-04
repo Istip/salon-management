@@ -30,8 +30,21 @@ const Event = ({ event, setSelected, setShowPay }) => {
             {moment(event.date.seconds * 1000).format('HH:mm')}
           </Text>
         </EventTime>
-
         <EventCard finished={event.finished}>
+          {moment(event.date.seconds * 1000).format('YY:MM:DD HH:mm') >
+            moment().format('YY:MM:DD HH:mm') && event.finished !== true ? (
+            <FlexCenter style={{ paddingTop: '10px' }}>
+              <Text variant="medium10" color={tokens.colors.mediumGrey}>
+                Appointment Unfinished
+              </Text>
+            </FlexCenter>
+          ) : (
+            <FlexCenter style={{ paddingTop: '10px' }}>
+              <Text variant="black10" color={tokens.colors.primaryDark1}>
+                Appointment Finished
+              </Text>
+            </FlexCenter>
+          )}
           <VisibleContent>
             <Content>
               <EventType>
@@ -86,7 +99,6 @@ const Event = ({ event, setSelected, setShowPay }) => {
               </DropDown>
             )}
           </VisibleContent>
-
           <ExtraContent className={visible ? 'visible' : ''}>
             <Button
               block
@@ -203,9 +215,9 @@ const EventTime = styled.span`
   min-width: 50px;
   max-width: 50px;
   display: flex;
-  align-items: center;
   justify-content: center;
   padding: 10px;
+
   /* monospace the numbers */
   font-feature-settings: 'tnum' on, 'lnum' on;
 `;
