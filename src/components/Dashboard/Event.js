@@ -32,19 +32,15 @@ const Event = ({ event, setSelected, setShowPay }) => {
         </EventTime>
         <EventCard finished={event.finished}>
           {moment(event.date.seconds * 1000).format('YY:MM:DD HH:mm') >
-            moment().format('YY:MM:DD HH:mm') && event.finished !== true ? (
-            <FlexCenter style={{ paddingTop: '10px' }}>
-              <Text variant="medium10" color={tokens.colors.mediumGrey}>
-                Appointment Unfinished
-              </Text>
-            </FlexCenter>
-          ) : (
-            <FlexCenter style={{ paddingTop: '10px' }}>
-              <Text variant="black10" color={tokens.colors.primaryDark1}>
-                Appointment Finished
-              </Text>
-            </FlexCenter>
-          )}
+            moment().format('YY:MM:DD HH:mm') &&
+            event.finished !== true && (
+              <FlexCenter style={{ paddingTop: '10px' }}>
+                <Text variant="medium10" color={tokens.colors.warning}>
+                  Appointment Unfinished
+                </Text>
+              </FlexCenter>
+            )}
+
           <VisibleContent>
             <Content>
               <EventType>
@@ -117,17 +113,21 @@ const Event = ({ event, setSelected, setShowPay }) => {
               icon={<UserMinusIcon color={tokens.colors.error} />}
               onClick={() => deleteDocument(event.id)}
             />
-            <Button
-              variant="success"
-              icon={<CheckIcon color={tokens.colors.success} />}
-              onClick={() => {
-                updateDocument(event.id, {
-                  ...event,
-                  finished: true,
-                });
-                setVisible(false);
-              }}
-            />
+
+            {moment(event.date.seconds * 1000).format('YY:MM:DD') ===
+              moment().format('YY:MM:DD') && (
+              <Button
+                variant="success"
+                icon={<CheckIcon color={tokens.colors.success} />}
+                onClick={() => {
+                  updateDocument(event.id, {
+                    ...event,
+                    finished: true,
+                  });
+                  setVisible(false);
+                }}
+              />
+            )}
           </ExtraContent>
         </EventCard>
       </EventInfo>

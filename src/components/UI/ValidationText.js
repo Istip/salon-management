@@ -9,7 +9,7 @@ import FlexCenter from './FlexCenter';
 const ValidationText = (props) => {
   return (
     <ErrorTextWrapper>
-      <Text variant="medium12" color={tokens.colors.error}>
+      <Text tag="div" variant="medium12" color={tokens.colors.error}>
         <FlexCenter>{props.children}</FlexCenter>
       </Text>
     </ErrorTextWrapper>
