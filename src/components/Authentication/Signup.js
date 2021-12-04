@@ -11,6 +11,7 @@ import LockIcon from '../icons/LockIcon';
 import ProfileIcon from '../icons/ProfileIcon';
 import Error from '../UI/Error';
 import ValidationText from '../UI/ValidationText';
+import FlexCenter from '../UI/FlexCenter';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -40,6 +41,10 @@ const Signup = () => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
+        <FlexCenter>
+          <h1>Sign Up</h1>
+        </FlexCenter>
+        <br />
         <Input
           name="name"
           type="text"

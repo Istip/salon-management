@@ -13,8 +13,7 @@ const Authentication = () => {
   return (
     <AuthenticationWrapper>
       <PageHeader>
-        <Logo />
-        <HeadingText>{page === 'login' ? 'Login' : 'Sign up'}</HeadingText>
+        <Logo large />
       </PageHeader>
       <PageBody>
         {page === 'login' ? <Login /> : <Signup />}
@@ -50,7 +49,6 @@ const AuthenticationWrapper = styled.div`
 const PageHeader = styled.div`
   padding: 20px 0;
   min-height: 120px;
-  margin-bottom: 30px;
   background: #fff;
   border-bottom: 1px solid ${tokens.colors.lightGrey};
   width: 100%;
@@ -62,9 +60,7 @@ const PageHeader = styled.div`
 `;
 
 const PageBody = styled.div`
-  padding: 30px;
-  margin: 20px;
-  border-radius: 20px;
+  padding: 20px;
   width: 100%;
 `;
 
@@ -87,7 +83,5 @@ const SmallLink = styled.small`
     text-decoration: underline;
   }
 `;
-
-const HeadingText = styled.h1``;
 
 export default Authentication;

@@ -78,7 +78,7 @@ const ClientList = ({ clients }) => {
       ) : (
         <NoClients>
           <Text variant="regular14" color={tokens.colors.primaryLight3}>
-            Add clients to your list...
+            You haven't added any clients yet!
           </Text>
         </NoClients>
       )}

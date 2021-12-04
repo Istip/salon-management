@@ -9,6 +9,7 @@ import CheckIcon from '../icons/CheckIcon';
 import EmailIcon from '../icons/EmailIcon';
 import LockIcon from '../icons/LockIcon';
 import Error from '../UI/Error';
+import FlexCenter from '../UI/FlexCenter';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,6 +28,10 @@ const Login = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FlexCenter>
+        <h1>Login</h1>
+      </FlexCenter>
+      <br />
       <Input
         name="email"
         type="email"
