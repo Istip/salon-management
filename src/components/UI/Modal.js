@@ -16,16 +16,12 @@ const Modal = ({
   variant,
   ...props
 }) => {
-  const closeModal = () => {
-    setShow(false);
-  };
-
   return (
     <ModalWrapper className={show ? 'show' : ''} show={show}>
       <Backdrop onClick={onCancel} />
 
       <ModalContent>
-        <Close onClick={closeModal}>
+        <Close onClick={onCancel}>
           <CloseIcon color={tokens.colors.primaryLight3} />
         </Close>
 
