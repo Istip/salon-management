@@ -207,7 +207,6 @@ const DotReminder = styled.span`
   justify-content: center;
   color: ${tokens.colors.primaryDark1};
   pointer-events: none;
-  text-shadow: 0 0 5px ${tokens.colors.primary};
 `;
 
 const Day = styled.div`
