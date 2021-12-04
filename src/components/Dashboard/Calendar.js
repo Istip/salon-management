@@ -1,5 +1,5 @@
+import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
 
@@ -15,6 +15,8 @@ import FlexCenter from '../../components/UI/FlexCenter';
 const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
+
+  const dayRef = useRef();
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -54,12 +56,16 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   const daysOfMonth = getDaysOfTheMonth();
 
-  // TODO: scroll into center, but somehow last day of the month
-  // ...always creates an error... Find out why and put scroll into view back
-  // When fixed, put back 'selectedDate' as a side effect dependency
-  // date dependency is currently added so if we journey through years and months
-  // ... when we finally come back to the last selected date, we get scrolled
-  // ... into the center of the view
+  useEffect(() => {
+    if (dayRef.current) {
+      dayRef.current.childNodes[selectedDate.format('D') - 1].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    }
+    // eslint-disable-next-line
+  }, [selectedDate, date]);
 
   return (
     <CalendarWrapper>
@@ -93,7 +99,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
       </MonthSelector>
 
       <DaySelector>
-        <DaySelectorWrapper className={visible ? 'visible' : ''}>
+        <DaySelectorWrapper className={visible ? 'visible' : ''} ref={dayRef}>
           {daysOfMonth.map((day) => (
             <DayWrapper
               key={day.format('DD')}
