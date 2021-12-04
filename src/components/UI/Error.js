@@ -4,11 +4,14 @@ import { tokens } from './tokens';
 
 // project components
 import FlexCenter from './FlexCenter';
+import Text from './Text';
 
 const Error = (props) => {
   return (
     <ErrorWrapper>
-      <FlexCenter>{props.children}</FlexCenter>
+      <FlexCenter>
+        <Text variant="medium12">{props.children}</Text>
+      </FlexCenter>
     </ErrorWrapper>
   );
 };
@@ -18,7 +21,7 @@ const ErrorWrapper = styled.div`
   border: 1px solid ${tokens.colors.error};
   color: ${tokens.colors.error};
   background: ${tokens.colors.error + '22'};
-  margin: 10px;
+  margin: 20px 0;
   padding: 20px;
   border-radius: 12px;
 `;
