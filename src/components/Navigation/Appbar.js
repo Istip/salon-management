@@ -10,7 +10,6 @@ import SignoutIcon from '../icons/SignoutIcon';
 import FlexCenter from '../UI/FlexCenter';
 import Logo from '../UI/Logo';
 import Text from '../UI/Text';
-import TimeIcon from '../icons/TimeIcon';
 import CalendarIcon from '../icons/CalendarIcon';
 
 const Appbar = () => {
@@ -74,17 +73,7 @@ const Appbar = () => {
                               variant="medium12"
                               color={tokens.colors.mediumGrey}
                             >
-                              {moment().format('YYYY.MM.DD')}
-                            </Text>
-                          </FlexCenter>
-
-                          <FlexCenter style={{ gap: '2px' }}>
-                            <TimeIcon {...timeIconProps} />
-                            <Text
-                              variant="medium12"
-                              color={tokens.colors.mediumGrey}
-                            >
-                              {moment().format('HH:mm')}
+                              {moment().format('YYYY.MM.DD, dddd')}
                             </Text>
                           </FlexCenter>
                         </FlexCenter>

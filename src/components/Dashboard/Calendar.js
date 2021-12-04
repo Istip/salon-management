@@ -16,9 +16,6 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
 
-  //❌❌❌❌❌❌❌❌❌
-  console.log(documents);
-
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
   };
