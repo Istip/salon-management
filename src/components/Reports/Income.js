@@ -6,6 +6,7 @@ import { tokens } from '../UI/tokens';
 
 // project components
 import Text from '../UI/Text';
+import FlexCenter from '../UI/FlexCenter';
 
 const Income = () => {
   const date = new Date();
@@ -35,6 +36,11 @@ const Income = () => {
 
   return (
     <IncomeWrapper>
+      <FlexCenter>
+        <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+          Stats
+        </Text>
+      </FlexCenter>
       <IncomeInfo style={{ padding: '20px' }}>
         <Text variant="black14" color={tokens.colors.primaryDark3}>
           {moment().format('MMMM')} income:

@@ -25,6 +25,11 @@ const Users = () => {
   return (
     <>
       <UsersWrapper>
+        <FlexCenter>
+          <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+            Clients
+          </Text>
+        </FlexCenter>
         {documents.length ? (
           <>
             <UsersSummary>
@@ -33,7 +38,8 @@ const Users = () => {
               </Text>
 
               <Text variant="black14" color={tokens.colors.primary}>
-                {documents.length} clients
+                {documents.length}{' '}
+                {documents.length <= 1 ? 'client' : 'clients'}
               </Text>
             </UsersSummary>
 
@@ -56,7 +62,7 @@ const Users = () => {
           </>
         ) : (
           <>
-            <FlexCenter>
+            <FlexCenter style={{ margin: '10px 0' }}>
               <Text variant="regular14" color={tokens.colors.primaryLight3}>
                 You haven't added any clients yet!
               </Text>

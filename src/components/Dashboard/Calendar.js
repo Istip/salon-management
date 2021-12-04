@@ -196,14 +196,15 @@ const DayWrapper = styled.span`
 
 const DotReminder = styled.span`
   position: absolute;
-  bottom: 11px;
+  bottom: 12px;
   width: 40px;
   height: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${tokens.colors.warning};
+  color: ${tokens.colors.primaryDark1};
   pointer-events: none;
+  text-shadow: 0 0 5px ${tokens.colors.primary};
 `;
 
 const Day = styled.div`
