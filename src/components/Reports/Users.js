@@ -7,6 +7,7 @@ import { tokens } from '../UI/tokens';
 // project components
 import FlexCenter from '../UI/FlexCenter';
 import Text from '../UI/Text';
+import Error from '../UI/Error';
 
 const Users = () => {
   const { documents, error } = useCollection('clients');
@@ -16,7 +17,7 @@ const Users = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <Error>{error}</Error>;
   }
 
   const males = documents.filter((doc) => doc.gender === 'male');

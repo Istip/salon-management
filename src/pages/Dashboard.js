@@ -6,6 +6,7 @@ import { useCollection } from '../hooks/useCollection';
 // project components
 import Calendar from '../components/Dashboard/Calendar';
 import EventList from '../components/Dashboard/EventList';
+import Error from '../components/UI/Error';
 
 const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -29,7 +30,7 @@ const Dashboard = () => {
         documents={documents}
       />
 
-      {error && error}
+      {error && <Error>{error}</Error>}
 
       <EventList
         events={filteredEvents}

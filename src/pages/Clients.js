@@ -9,6 +9,7 @@ import Modal from '../components/Clients/ModalAddClient';
 import Text from '../components/UI/Text';
 import ClientList from '../components/Clients/ClientList';
 import AddIcon from '../components/icons/AddIcon';
+import Error from '../components/UI/Error';
 
 const Clients = () => {
   const [show, setShow] = useState(false);
@@ -34,7 +35,7 @@ const Clients = () => {
           />
         </Title>
 
-        {error && error}
+        {error && <Error>{error}</Error>}
 
         <ClientList clients={clients} />
       </ClientsWrapper>

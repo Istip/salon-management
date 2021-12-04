@@ -9,6 +9,7 @@ import SigninIcon from '../icons/SigninIcon';
 import EmailIcon from '../icons/EmailIcon';
 import LockIcon from '../icons/LockIcon';
 import ProfileIcon from '../icons/ProfileIcon';
+import Error from '../UI/Error';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -70,7 +71,7 @@ const Signup = () => {
         SIGN UP
       </Button>
 
-      {error && <small>{error}</small>}
+      {error && <Error>{error}</Error>}
     </Form>
   );
 };

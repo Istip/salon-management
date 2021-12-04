@@ -11,6 +11,7 @@ import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 import ModalPay from './ModalPay';
 import moment from 'moment';
+import Error from '../UI/Error';
 
 const EventList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -36,29 +37,31 @@ const EventList = ({ events, error, selectedDate }) => {
           />
         )}
 
-        {error && error}
+        {error && <Error>{error}</Error>}
       </AddEvent>
 
-      {events.length ? (
-        <>
-          {events
-            .sort((a, b) => a.date.seconds - b.date.seconds)
-            .map((event) => (
-              <Event
-                key={event.id}
-                event={event}
-                setSelected={setSelected}
-                setShowPay={setShowPay}
-              />
-            ))}
-        </>
-      ) : (
-        <FlexCenter>
-          <Text variant="regular14" color={tokens.colors.primaryLight3}>
-            You have no appointment for this day...
-          </Text>
-        </FlexCenter>
-      )}
+      <EventWrapper>
+        {events.length ? (
+          <>
+            {events
+              .sort((a, b) => a.date.seconds - b.date.seconds)
+              .map((event) => (
+                <Event
+                  key={event.id}
+                  event={event}
+                  setSelected={setSelected}
+                  setShowPay={setShowPay}
+                />
+              ))}
+          </>
+        ) : (
+          <FlexCenter>
+            <Text variant="regular14" color={tokens.colors.primaryLight3}>
+              You have no appointment for this day...
+            </Text>
+          </FlexCenter>
+        )}
+      </EventWrapper>
 
       {/* Da' modalz used in dis' compo' */}
       <ModalAdd
@@ -74,6 +77,8 @@ const EventList = ({ events, error, selectedDate }) => {
 
 // styled components
 const EventListWrapper = styled.div``;
+
+const EventWrapper = styled.div``;
 
 const AddEvent = styled.div`
   width: 100%;

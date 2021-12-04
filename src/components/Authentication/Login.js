@@ -8,6 +8,7 @@ import Button from '../UI/Button';
 import CheckIcon from '../icons/CheckIcon';
 import EmailIcon from '../icons/EmailIcon';
 import LockIcon from '../icons/LockIcon';
+import Error from '../UI/Error';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -57,7 +58,7 @@ const Login = () => {
         LOGIN
       </Button>
 
-      {error && <small>{error}</small>}
+      {error && <Error>{error}</Error>}
     </Form>
   );
 };

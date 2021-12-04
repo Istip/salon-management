@@ -7,6 +7,7 @@ import { tokens } from '../UI/tokens';
 // project components
 import Text from '../UI/Text';
 import FlexCenter from '../UI/FlexCenter';
+import Error from '../UI/Error';
 
 const Income = () => {
   const date = new Date();
@@ -23,7 +24,7 @@ const Income = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <Error>{error}</Error>;
   }
 
   const income = documents.reduce(
