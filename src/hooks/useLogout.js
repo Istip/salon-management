@@ -33,7 +33,7 @@ export const useLogout = () => {
       }
     } catch (err) {
       if (!cancelled) {
-        console.log(error.message);
+        console.log(err.message);
         setLoading(false);
         setError(err.message);
       }
