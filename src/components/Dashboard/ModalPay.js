@@ -62,6 +62,7 @@ const ModalPay = ({ show, setShow, selected }) => {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           icon={<MoneyIcon {...iconProps} />}
+          autoComplete="off"
         />
       </Form>
 

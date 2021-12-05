@@ -88,6 +88,7 @@ const ModalAddClient = ({ show, setShow }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           icon={<UserUserIcon {...iconProps} />}
+          autoComplete="off"
         />
 
         <Input
@@ -99,6 +100,7 @@ const ModalAddClient = ({ show, setShow }) => {
           onChange={(e) => setPhone(e.target.value)}
           style={{ marginBottom: '0' }}
           icon={<PhoneIcon {...iconProps} />}
+          autoComplete="off"
         />
 
         <GenderWrapper>

@@ -18,7 +18,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('haircut');
   const [gender, setGender] = useState('female');
-  const [date, setDate] = useState(moment(selectedDate));
+  const [date, setDate] = useState(moment());
 
   const actions = ['haircut', 'hairdye', 'manicure', 'pedicure', 'other'];
 
@@ -37,9 +37,8 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       price: 0,
       // TODO: fix console warning for the incorrect format
       date: timestamp.fromDate(
-        selectedDate
-          .set('hour', moment(date).format('HH'))
-          .set('minute', moment(date).format('mm'))
+        moment(selectedDate)
+          .set({ hour: date.slice(0, 2), minute: date.slice(3, 5) })
           .toDate()
       ),
       uid: user.uid,
@@ -87,19 +86,17 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           icon={<UserUserIcon {...iconProps} />}
+          autoComplete="off"
         />
 
         <Input
-          type="datetime-local"
+          type="time"
           label="Select time"
           placeholder="Enter client name..."
           name="meeting-time"
           value={date}
-          min={`${moment(selectedDate).format('YYYY-MM-DD')} 00:00`}
-          max={`${moment(selectedDate).format('YYYY-MM-DD')} 23:59`}
           onChange={(e) => setDate(e.target.value)}
           icon={<TimeIcon {...iconProps} />}
-          // TODO: change the native calendar icon of the input field
         />
 
         <BadgeWrapper>

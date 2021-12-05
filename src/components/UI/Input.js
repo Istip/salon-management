@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { tokens } from './tokens';
 
+// project components
+import DropdownIcon from '../icons/DropdownIcon';
+
 const Input = (props) => {
   return (
     <InputContainer>
@@ -9,8 +12,15 @@ const Input = (props) => {
       <InputWrapper>
         <span>{props.icon}</span>
         <InputField {...props} />
+
         {props.clearable && props.value && (
           <small onClick={props.handleClear}>✖</small>
+        )}
+
+        {props.type === 'time' && (
+          <small style={{ pointerEvents: 'none' }}>
+            <DropdownIcon />
+          </small>
         )}
       </InputWrapper>
     </InputContainer>
@@ -62,6 +72,11 @@ const InputField = styled.input`
 
   &:focus {
     border: 1px solid ${tokens.colors.primaryDark1};
+  }
+
+  &[type='time']::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
   }
 `;
 
