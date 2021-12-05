@@ -19,6 +19,9 @@
 .env.production.local
 .netlify
 .env
+.firebaserc
+firebase.json
+firestore*
 
 npm-debug.log*
 yarn-debug.log*
