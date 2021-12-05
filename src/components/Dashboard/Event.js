@@ -7,10 +7,10 @@ import { useFirestore } from '../../hooks/useFirestore';
 // project components
 import DropdownIcon from '../icons/DropdownIcon';
 import CheckIcon from '../icons/CheckIcon';
-import UserMinusIcon from '../icons/UserMinusIcon';
 import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
+import DeleteIcon from '../icons/DeleteIcon';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
@@ -35,8 +35,8 @@ const Event = ({ event, setSelected, setShowPay }) => {
             moment().format('YY:MM:DD HH:mm') &&
             event.finished !== true && (
               <FlexCenter style={{ paddingTop: '10px' }}>
-                <Text variant="medium10" color={tokens.colors.warning}>
-                  Appointment Unfinished
+                <Text variant="medium10" color={tokens.colors.mediumGrey}>
+                  Unfinished appointment
                 </Text>
               </FlexCenter>
             )}
@@ -95,28 +95,21 @@ const Event = ({ event, setSelected, setShowPay }) => {
               </DropDown>
             )}
           </VisibleContent>
+
           <ExtraContent className={visible ? 'visible' : ''}>
             <Button
               block
-              onClick={() =>
-                updateDocument(event.id, {
-                  ...event,
-                  gender: event.gender === 'male' ? 'female' : 'male',
-                })
-              }
-            >
-              {event.gender.toUpperCase()}
-            </Button>
-
-            <Button
               variant="error"
-              icon={<UserMinusIcon color={tokens.colors.error} />}
+              icon={<DeleteIcon color={tokens.colors.error} />}
               onClick={() => deleteDocument(event.id)}
-            />
+            >
+              Delete
+            </Button>
 
             {moment(event.date.seconds * 1000).format('YY:MM:DD') ===
               moment().format('YY:MM:DD') && (
               <Button
+                block
                 variant="success"
                 icon={<CheckIcon color={tokens.colors.success} />}
                 onClick={() => {
@@ -126,7 +119,9 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   });
                   setVisible(false);
                 }}
-              />
+              >
+                Finish
+              </Button>
             )}
           </ExtraContent>
         </EventCard>

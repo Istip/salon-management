@@ -18,13 +18,22 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('haircut');
   const [gender, setGender] = useState('female');
-  const [date, setDate] = useState(moment());
+  const [date, setDate] = useState(moment().format('HH:mm'));
 
   const actions = ['haircut', 'hairdye', 'manicure', 'pedicure', 'other'];
 
   const { user } = useAuthContext();
 
   const { addDocument, response } = useFirestore('events');
+
+  const resetFields = () => {
+    // Resetting the local state back to original
+    setShow(false);
+    setAction('haircut');
+    setName('');
+    setGender('female');
+    setDate(moment().format('HH:mm'));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,27 +52,25 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       ),
       uid: user.uid,
     });
-    setShow(false);
-    setAction('haircut');
-    setName('');
-    setGender('female');
-    setDate(moment());
+
+    resetFields();
   };
 
   const handleCancel = () => {
-    setShow(false);
-    setAction('haircut');
-    setName('');
-    setGender('female');
+    resetFields();
   };
 
   useEffect(() => {
     if (response.success) {
-      setName('');
-      setGender('female');
-      setAction('haircut');
+      resetFields();
     }
+    // eslint-disable-next-line
   }, [response.success]);
+
+  useEffect(() => {
+    setDate(moment().format('HH:mm'));
+    // eslint-disable-next-line
+  }, [show]);
 
   const iconProps = {
     color: tokens.colors.primaryLight1,
