@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import i18n from '../../translations/i18n';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 import Hamburger from '../icons/Hamburger';
@@ -11,6 +13,11 @@ import FlexCenter from '../UI/FlexCenter';
 import Logo from '../UI/Logo';
 import Text from '../UI/Text';
 import CalendarIcon from '../icons/CalendarIcon';
+import Button from '../UI/Button';
+
+// moment locale imports
+import 'moment/locale/hu';
+import 'moment/locale/en-gb';
 
 const Appbar = () => {
   const [visible, setVisible] = useState(false);
@@ -20,6 +27,8 @@ const Appbar = () => {
   const { logout } = useLogout();
 
   const { user } = useAuthContext();
+
+  const { t } = useTranslation();
 
   const handleClickOutside = (e) => {
     if (wrapperNode.current && wrapperNode.current.contains(e.target)) {
@@ -48,9 +57,25 @@ const Appbar = () => {
     color: tokens.colors.darkGrey,
   };
 
+  const chanegLocale = (language) => {
+    moment.locale(language);
+    i18n.changeLanguage(language);
+  };
+
   return (
     <AppbarWrapper>
       <Logo />
+
+      <FlexCenter>
+        <Button
+          variant="secondary"
+          size="small"
+          onClick={() => chanegLocale(i18n.language === 'hu' ? 'en' : 'hu')}
+        >
+          <Text variant="black12">{t(`appbar.${i18n.language}`)}</Text>
+        </Button>
+      </FlexCenter>
+
       {user && (
         <>
           <UserTab>
@@ -64,7 +89,7 @@ const Appbar = () => {
                   <Popover>
                     <FlexCenter>
                       <PopoverTitle>
-                        <h2>Hello</h2>
+                        <h2>{t('appbar.hello')}</h2>
                         {user.displayName}
                         <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
                           <FlexCenter style={{ gap: '2px' }}>
@@ -85,7 +110,7 @@ const Appbar = () => {
                     <PopoverMenuItem onClick={logout}>
                       <PopoverMenuText>
                         <SignoutIcon {...iconProps} />
-                        Log out
+                        {t('appbar.logout')}
                       </PopoverMenuText>
                     </PopoverMenuItem>
                   </Popover>
