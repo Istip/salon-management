@@ -2,9 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { tokens } from './tokens';
 
-// project components
-import DropdownIcon from '../icons/DropdownIcon';
-
 const Input = (props) => {
   return (
     <InputContainer>
@@ -15,12 +12,6 @@ const Input = (props) => {
 
         {props.clearable && props.value && (
           <small onClick={props.handleClear}>✖</small>
-        )}
-
-        {props.type === 'time' && (
-          <small style={{ pointerEvents: 'none' }}>
-            <DropdownIcon />
-          </small>
         )}
       </InputWrapper>
     </InputContainer>
