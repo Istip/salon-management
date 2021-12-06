@@ -1,33 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { tokens } from '../UI/tokens';
 
 import ClientsIcon from '../icons/ClientsIcon';
 import CalendarIcon from '../icons/CalendarIcon';
 import TimeIcon from '../icons/TimeIcon';
-import { tokens } from '../UI/tokens';
 
 const Navigation = () => {
   const { pathname } = useLocation();
 
   const { primary, darkGrey } = tokens.colors;
 
+  const { t } = useTranslation();
+
   const navItems = [
     {
       to: '/clients',
-      title: 'Clients',
+      title: t('navigation.clients'),
       icon: (
         <ClientsIcon color={pathname === '/clients' ? primary : darkGrey} />
       ),
     },
     {
       to: '/dashboard',
-      title: 'Calendar',
+      title: t('navigation.calendar'),
       icon: <TimeIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
     },
     {
       to: '/reports',
-      title: 'Reports',
+      title: t('navigation.reports'),
       icon: (
         <CalendarIcon color={pathname === '/reports' ? primary : darkGrey} />
       ),
