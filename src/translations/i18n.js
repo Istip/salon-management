@@ -14,7 +14,7 @@ i18n.use(initReactI18next).init({
       translation: { ...HU },
     },
   },
-  fallbackLng: 'en',
+  fallbackLng: 'hu',
 });
 
 export default i18n;

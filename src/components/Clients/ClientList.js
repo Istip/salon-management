@@ -89,7 +89,7 @@ const ClientList = ({ clients }) => {
       ) : (
         <NoClients>
           <Text variant="regular14" color={tokens.colors.primaryLight3}>
-            {t('warning.no_clients_added')}
+            {t('warning.no_clients')}
           </Text>
         </NoClients>
       )}

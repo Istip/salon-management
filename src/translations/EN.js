@@ -27,7 +27,6 @@ export const EN = {
   },
 
   warning: {
-    no_clients_added: "You haven't added any clients yet!",
     no_appointments: 'You have no appointment for this day!',
     no_clients: "You haven't added any clients yet!",
   },
@@ -59,6 +58,7 @@ export const EN = {
   },
 
   client: {
+    clients: 'Clients',
     all: 'All',
     male: 'Male',
     female: 'Female',
@@ -70,6 +70,7 @@ export const EN = {
     modal_title: 'New client',
     only_visit: 'Only visit',
     last_visit: 'Last visits',
+    new: 'NEW',
   },
 
   dashboard: {
@@ -84,6 +85,7 @@ export const EN = {
     male: 'Male',
     female: 'Female',
     modal_title: 'Add income',
+    new: 'NEW',
   },
 
   reports: {

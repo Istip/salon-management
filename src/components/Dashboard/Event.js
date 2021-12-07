@@ -65,7 +65,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   variant="regular12"
                   color={tokens.colors.primary}
                 >
-                  {event.gender}
+                  {t(`client.${event.gender}`)}
                 </Text>
               </EventDescription>
             </Content>

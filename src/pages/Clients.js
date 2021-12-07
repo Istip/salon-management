@@ -10,6 +10,7 @@ import Text from '../components/UI/Text';
 import ClientList from '../components/Clients/ClientList';
 import AddIcon from '../components/icons/AddIcon';
 import Error from '../components/UI/Error';
+import { useTranslation } from 'react-i18next';
 
 const Clients = () => {
   const [show, setShow] = useState(false);
@@ -19,6 +20,8 @@ const Clients = () => {
     'asc',
   ]);
 
+  const { t } = useTranslation();
+
   const clients = documents;
 
   return (
@@ -26,13 +29,14 @@ const Clients = () => {
       <ClientsWrapper>
         <Title>
           <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-            Clients
+            {t('client.clients')}
           </Text>
           <Button
-            rounded
             onClick={() => setShow(!show)}
             icon={<AddIcon color="#fff" />}
-          />
+          >
+            {t('client.new')}
+          </Button>
         </Title>
 
         {error && <Error>{error}</Error>}

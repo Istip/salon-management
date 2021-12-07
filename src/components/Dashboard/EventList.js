@@ -35,9 +35,10 @@ const EventList = ({ events, error, selectedDate }) => {
           selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD')) && (
           <Button
             onClick={() => setShowAdd(!showAdd)}
-            icon={<AddIcon color="#fff" rounded />}
-            rounded
-          />
+            icon={<AddIcon color="#fff" />}
+          >
+            {t('dashboard.new')}
+          </Button>
         )}
 
         {error && <Error>{error}</Error>}
@@ -84,7 +85,7 @@ const EventWrapper = styled.div``;
 
 const AddEvent = styled.div`
   width: 100%;
-  padding: 0 20px 10px;
+  padding: 0 10px 20px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
