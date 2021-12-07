@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -18,6 +19,8 @@ const EventList = ({ events, error, selectedDate }) => {
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
 
+  const { t } = useTranslation();
+
   if (!events) {
     return null;
   }
@@ -26,7 +29,7 @@ const EventList = ({ events, error, selectedDate }) => {
     <EventListWrapper>
       <AddEvent>
         <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-          Appointments
+          {t('dashboard.appointments')}
         </Text>
         {(selectedDate.isSameOrAfter(moment()) ||
           selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD')) && (
@@ -57,13 +60,12 @@ const EventList = ({ events, error, selectedDate }) => {
         ) : (
           <FlexCenter>
             <Text variant="regular14" color={tokens.colors.primaryLight3}>
-              You have no appointment for this day...
+              {t('warning.no_appointments')}
             </Text>
           </FlexCenter>
         )}
       </EventWrapper>
 
-      {/* Da' modalz used in dis' compo' */}
       <ModalAdd
         show={showAdd}
         setShow={setShowAdd}

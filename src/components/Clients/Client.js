@@ -142,7 +142,9 @@ const Client = ({ client }) => {
             <Text tag="span" variant="medium10">
               <FlexCenter style={{ gap: '5px' }}>
                 <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
-                {client.visits.length === 1 ? 'Only visit' : 'Last visits'}
+                {client.visits.length === 1
+                  ? t('client.only_visit')
+                  : t('client.last_visit')}
               </FlexCenter>
             </Text>
           </Divider>

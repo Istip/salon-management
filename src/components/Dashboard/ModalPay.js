@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { tokens } from '../UI/tokens';
 import { useFirestore } from '../../hooks/useFirestore';
+import { useTranslation } from 'react-i18next';
+import { tokens } from '../UI/tokens';
 
 // project components
 import Form from '../UI/Form';
@@ -15,11 +16,13 @@ const ModalPay = ({ show, setShow, selected }) => {
 
   const { updateDocument } = useFirestore('events');
 
+  const { t } = useTranslation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (price === '' || price < 0) {
-      setValidation('Please enter the price!');
+      setValidation(t('validations.enter_price'));
       return null;
     }
 
@@ -48,16 +51,15 @@ const ModalPay = ({ show, setShow, selected }) => {
     <Modal
       show={show}
       setShow={setShow}
-      title="Add Payment"
+      title={t('dashboard.modal_title')}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     >
       <Form style={{ padding: '20px 20px 0' }}>
         <Input
           type="number"
-          min={0}
-          label={`${selected.name ? selected.name : 'The client'} payed`}
-          placeholder="Introduce the price..."
+          label={t('input.label.payed')}
+          placeholder={t('input.placeholder.payed')}
           name="name"
           value={price}
           onChange={(e) => setPrice(e.target.value)}

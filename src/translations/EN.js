@@ -23,10 +23,13 @@ export const EN = {
     shorter_name: 'Please consider using a shorter display name!',
     client_name_and_phone: 'Please enter client name and phone!',
     valid_phone_number: 'Please enter valid phone number!',
+    enter_price: 'Please enter the ammount!',
   },
 
   warning: {
     no_clients_added: "You haven't added any clients yet!",
+    no_appointments: 'You have no appointment for this day!',
+    no_clients: "You haven't added any clients yet!",
   },
 
   button: {
@@ -41,6 +44,8 @@ export const EN = {
       name: 'Name',
       client_name: 'Client name',
       phone_number: 'Phone number',
+      time: 'Select time',
+      payed: 'The client payed',
     },
     placeholder: {
       email: 'Enter email address..',
@@ -49,6 +54,7 @@ export const EN = {
       client_name: 'Enter client name..',
       phone_number: 'Enter client phone number..',
       client_search: 'Search client name or phone..',
+      payed: 'Introduce the ammount..',
     },
   },
 
@@ -60,7 +66,38 @@ export const EN = {
     show: 'Show',
     show_all: 'Show All',
     add_visit: 'Add Visit',
-    just_visited: 'Just Visited',
-    modal_title: 'Add new Client',
+    just_visited: 'Just visited',
+    modal_title: 'New client',
+    only_visit: 'Only visit',
+    last_visit: 'Last visits',
+  },
+
+  dashboard: {
+    appointments: 'Appointments',
+    new_appointment: 'New appointment',
+    jump_back: 'Jump back to',
+    unfinished_appointment: 'Unfinished appointment',
+    paid: 'Paid',
+    income: 'Income',
+    finish: 'Finish',
+    delete: 'Delete',
+    male: 'Male',
+    female: 'Female',
+    modal_title: 'Add income',
+  },
+
+  reports: {
+    clients: 'Clients',
+    c: 'client',
+    cs: 'clients',
+    income: 'income',
+    total: 'Total',
+    female: 'female',
+    females: 'females',
+    male: 'male',
+    males: 'males',
+    add_client: 'Add client now!',
+    total_female_clients: 'Total female clients',
+    total_male_clients: 'Total male clients',
   },
 };

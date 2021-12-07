@@ -8,9 +8,12 @@ import { tokens } from '../UI/tokens';
 import FlexCenter from '../UI/FlexCenter';
 import Text from '../UI/Text';
 import Error from '../UI/Error';
+import { useTranslation } from 'react-i18next';
 
 const Users = () => {
   const { documents, error } = useCollection('clients');
+
+  const { t } = useTranslation();
 
   if (!documents) {
     return null;
@@ -28,19 +31,19 @@ const Users = () => {
       <UsersWrapper>
         <FlexCenter>
           <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-            Clients
+            {t('reports.clients')}
           </Text>
         </FlexCenter>
         {documents.length ? (
           <>
             <UsersSummary>
               <Text variant="black14" color={tokens.colors.primaryDark3}>
-                Total:
+                {t('reports.total')}:
               </Text>
 
               <Text variant="black14" color={tokens.colors.primary}>
                 {documents.length}{' '}
-                {documents.length <= 1 ? 'client' : 'clients'}
+                {documents.length <= 1 ? t('reports.c') : t('reports.cs')}
               </Text>
             </UsersSummary>
 
@@ -50,13 +53,16 @@ const Users = () => {
               <GenderNumber className="female">
                 <Text variant="regular12">
                   <b>{females.length}</b>{' '}
-                  {females.length === 1 ? 'female' : 'females'}
+                  {females.length === 1
+                    ? t('reports.female')
+                    : t('reports.females')}
                 </Text>
               </GenderNumber>
 
               <GenderNumber className="male">
                 <Text variant="regular12">
-                  <b>{males.length}</b> {males.length === 1 ? 'male' : 'males'}
+                  <b>{males.length}</b>{' '}
+                  {males.length === 1 ? t('reports.male') : t('reports.males')}
                 </Text>
               </GenderNumber>
             </GenderSummary>
@@ -65,13 +71,13 @@ const Users = () => {
           <>
             <FlexCenter style={{ margin: '10px 0' }}>
               <Text variant="regular14" color={tokens.colors.primaryLight3}>
-                You haven't added any clients yet!
+                {t('warning.no_clients')}
               </Text>
             </FlexCenter>
             <FlexCenter>
               <LinkWrapper>
                 <Text variant="regular14" color={tokens.colors.primary}>
-                  <Link to="/clients">Add Clinets now</Link>
+                  <Link to="/clients">{t('reports.add_client')}</Link>
                 </Text>
               </LinkWrapper>
             </FlexCenter>

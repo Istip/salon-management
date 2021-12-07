@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { tokens } from '../UI/tokens';
-import { timestamp } from '../../firebase/config';
+import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { tokens } from '../UI/tokens';
+import { timestamp } from '../../firebase/config';
 
 // project components
 import Form from '../UI/Form';
@@ -21,6 +22,8 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [date, setDate] = useState(moment().format('HH:mm'));
 
   const actions = ['haircut', 'hairdye', 'manicure', 'pedicure', 'other'];
+
+  const { t } = useTranslation();
 
   const { user } = useAuthContext();
 
@@ -44,7 +47,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       gender,
       finished: false,
       price: 0,
-      // TODO: fix console warning for the incorrect format
       date: timestamp.fromDate(
         moment(selectedDate)
           .set({ hour: date.slice(0, 2), minute: date.slice(3, 5) })
@@ -80,15 +82,15 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
     <Modal
       show={show}
       setShow={setShow}
-      title="New Appointment"
+      title={t('dashboard.new_appointment')}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     >
       <Form style={{ padding: '20px 20px 0' }}>
         <Input
           type="text"
-          label="Client Name"
-          placeholder="Enter client name..."
+          label={t('input.label.client_name')}
+          placeholder={t('input.placeholder.client_name')}
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -98,8 +100,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
         <Input
           type="time"
-          label="Select time"
-          placeholder="Enter client name..."
+          label={t('input.label.time')}
           name="meeting-time"
           value={date}
           onChange={(e) => setDate(e.target.value)}
@@ -129,14 +130,14 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
             color={gender === 'female' ? primary : grey}
             onClick={() => setGender('female')}
           >
-            FEMALE
+            {t('dashboard.female').toUpperCase()}
           </Text>
           <Text
             variant={gender === 'male' ? 'black12' : 'regular12'}
             color={gender === 'male' ? primary : grey}
             onClick={() => setGender('male')}
           >
-            MALE
+            {t('dashboard.male').toUpperCase()}
           </Text>
         </GenderWrapper>
       </Form>

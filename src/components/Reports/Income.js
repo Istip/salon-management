@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useCollection } from '../../hooks/useCollection';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -12,6 +13,8 @@ import Error from '../UI/Error';
 const Income = () => {
   const date = new Date();
   const monthFirstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+
+  const { t } = useTranslation();
 
   const { documents, error } = useCollection(
     'events',
@@ -44,7 +47,7 @@ const Income = () => {
       </FlexCenter>
       <IncomeInfo style={{ padding: '20px' }}>
         <Text variant="black14" color={tokens.colors.primaryDark3}>
-          {moment().format('MMMM')} income:
+          {moment().format('MMMM')} {t('reports.income')}:
         </Text>
 
         <Text
@@ -59,7 +62,7 @@ const Income = () => {
 
       <IncomeInfo style={{ padding: '20px' }}>
         <Text variant="black14" color={tokens.colors.primaryDark3}>
-          Total female clients:
+          {t('reports.total_female_clients')}
         </Text>
 
         <Text variant="black14" color={tokens.colors.primary}>
@@ -69,7 +72,7 @@ const Income = () => {
 
       <IncomeInfo style={{ padding: '20px' }}>
         <Text variant="black14" color={tokens.colors.primaryDark3}>
-          Total male clients:
+          {t('reports.total_male_clients')}
         </Text>
 
         <Text variant="black14" color={tokens.colors.primary}>

@@ -11,11 +11,14 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
+import { useTranslation } from 'react-i18next';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
 
   const { deleteDocument, updateDocument } = useFirestore('events');
+
+  const { t } = useTranslation();
 
   const handlePriceModal = async () => {
     await setSelected(event);
@@ -36,7 +39,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
             event.finished !== true && (
               <FlexCenter style={{ paddingTop: '10px' }}>
                 <Text variant="medium10" color={tokens.colors.mediumGrey}>
-                  Unfinished appointment
+                  {t('dashboard.unfinished_appointment')}
                 </Text>
               </FlexCenter>
             )}
@@ -62,7 +65,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   variant="regular12"
                   color={tokens.colors.primary}
                 >
-                  {event.gender} {event.action}
+                  {event.gender}
                 </Text>
               </EventDescription>
             </Content>
@@ -77,7 +80,9 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 >
                   <FlexCenter style={{ flexDirection: 'column' }}>
                     <Text variant="medium14">
-                      {!event.price ? 'Paid' : 'Income'}
+                      {!event.price
+                        ? t('dashboard.paid')
+                        : t('dashboard.income')}
                     </Text>
 
                     {event.price !== 0 && (
@@ -103,7 +108,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
               icon={<DeleteIcon color={tokens.colors.error} />}
               onClick={() => deleteDocument(event.id)}
             >
-              Delete
+              {t('dashboard.delete')}
             </Button>
 
             {moment(event.date.seconds * 1000).format('YY:MM:DD') ===
@@ -120,7 +125,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   setVisible(false);
                 }}
               >
-                Finish
+                {t('dashboard.finish')}
               </Button>
             )}
           </ExtraContent>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -15,6 +16,8 @@ import FlexCenter from '../../components/UI/FlexCenter';
 const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
   const [visible, setVisible] = useState(true);
+
+  const { t } = useTranslation();
 
   const dayRef = useRef();
 
@@ -86,7 +89,9 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               variant="neutral"
               size="small"
               onClick={() => handleResetDate()}
-              title={`Jump back to ${moment().format('YYYY-MM-DD')}`}
+              title={`${t('dashboard.jump_back')} ${moment().format(
+                'YYYY-MM-DD'
+              )}`}
             >
               <TimeIcon size={12} />
             </Button>

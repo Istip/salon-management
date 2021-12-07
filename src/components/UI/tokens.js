@@ -32,8 +32,6 @@ export const tokens = {
   },
 };
 
-// 100 300 400 700 900
-
 export const fonts = {
   h1: {
     fontSize: '3rem',

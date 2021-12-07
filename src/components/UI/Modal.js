@@ -33,7 +33,9 @@ const Modal = ({
             {title}
           </Text>
         </Header>
+
         {props.children && <Body>{props.children}</Body>}
+
         <Footer>
           <Button block variant="secondary" onClick={onCancel}>
             {t('button.cancel')}

@@ -77,48 +77,46 @@ const Appbar = () => {
       </FlexCenter>
 
       {user && (
-        <>
-          <UserTab>
-            <FlexCenter onClick={() => setVisible(true)}>
-              <Hamburger color={`${tokens.colors.darkGrey}`} />
-            </FlexCenter>
-            <span ref={wrapperNode}>
-              {visible && (
-                <>
-                  <Backdrop onClick={() => setVisible(false)} />
-                  <Popover>
-                    <FlexCenter>
-                      <PopoverTitle>
-                        <h2>{t('appbar.hello')}</h2>
-                        {user.displayName}
-                        <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
-                          <FlexCenter style={{ gap: '2px' }}>
-                            <CalendarIcon {...timeIconProps} />
-                            <Text
-                              variant="medium12"
-                              color={tokens.colors.mediumGrey}
-                            >
-                              {moment().format('YYYY.MM.DD, dddd')}
-                            </Text>
-                          </FlexCenter>
+        <UserTab>
+          <FlexCenter onClick={() => setVisible(true)}>
+            <Hamburger color={`${tokens.colors.darkGrey}`} />
+          </FlexCenter>
+          <span ref={wrapperNode}>
+            {visible && (
+              <>
+                <Backdrop onClick={() => setVisible(false)} />
+                <Popover>
+                  <FlexCenter>
+                    <PopoverTitle>
+                      <h2>{t('appbar.hello')}</h2>
+                      {user.displayName}
+                      <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
+                        <FlexCenter style={{ gap: '2px' }}>
+                          <CalendarIcon {...timeIconProps} />
+                          <Text
+                            variant="medium12"
+                            color={tokens.colors.mediumGrey}
+                          >
+                            {moment().format('YYYY.MM.DD, dddd')}
+                          </Text>
                         </FlexCenter>
-                      </PopoverTitle>
-                    </FlexCenter>
+                      </FlexCenter>
+                    </PopoverTitle>
+                  </FlexCenter>
 
-                    <DividerLine />
+                  <DividerLine />
 
-                    <PopoverMenuItem onClick={logout}>
-                      <PopoverMenuText>
-                        <SignoutIcon {...iconProps} />
-                        {t('appbar.logout')}
-                      </PopoverMenuText>
-                    </PopoverMenuItem>
-                  </Popover>
-                </>
-              )}
-            </span>
-          </UserTab>
-        </>
+                  <PopoverMenuItem onClick={logout}>
+                    <PopoverMenuText>
+                      <SignoutIcon {...iconProps} />
+                      {t('appbar.logout')}
+                    </PopoverMenuText>
+                  </PopoverMenuItem>
+                </Popover>
+              </>
+            )}
+          </span>
+        </UserTab>
       )}
     </AppbarWrapper>
   );
