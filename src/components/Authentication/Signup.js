@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSignup } from '../../hooks/useSignup';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 import Button from '../UI/Button';
@@ -22,15 +23,18 @@ const Signup = () => {
 
   const { signUp, loading, error } = useSignup();
 
+  const { t } = useTranslation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (name.length > 20) {
-      setValidation('Please consider using a shorter display name!');
+      setValidation(t('validations.shorter_name'));
       return null;
     }
 
     setValidation('');
+
     signUp(email, password, name);
   };
 
@@ -42,16 +46,16 @@ const Signup = () => {
     <>
       <Form onSubmit={handleSubmit}>
         <FlexCenter>
-          <h1>Sign Up</h1>
+          <h1>{t('auth.sign_up')}</h1>
         </FlexCenter>
         <br />
         <Input
           name="name"
           type="text"
-          placeholder="Enter your short name.."
+          placeholder={t('input.placeholder.name')}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          label="Name"
+          label={t('input.label.name')}
           icon={<ProfileIcon {...iconProps} />}
           required
         />
@@ -59,10 +63,10 @@ const Signup = () => {
         <Input
           name="email"
           type="email"
-          placeholder="Enter email address.."
+          placeholder={t('input.placeholder.email')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          label="Email"
+          label={t('input.label.email')}
           icon={<EmailIcon {...iconProps} />}
           required
         />
@@ -70,10 +74,10 @@ const Signup = () => {
         <Input
           name="password"
           type="password"
-          placeholder="Enter password.."
+          placeholder={t('input.placeholder.password')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          label="Password"
+          label={t('input.label.password')}
           icon={<LockIcon {...iconProps} />}
           required
         />
@@ -84,7 +88,7 @@ const Signup = () => {
           block
           icon={<SigninIcon color="#fff" size={18} />}
         >
-          SIGN UP
+          {t('auth.sign_up').toUpperCase()}
         </Button>
 
         {error && <Error>{error}</Error>}

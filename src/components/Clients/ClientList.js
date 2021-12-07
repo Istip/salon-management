@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -12,10 +13,20 @@ const ClientList = ({ clients }) => {
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState('');
 
+  const { t } = useTranslation();
+
   const filterOptions = [
-    { name: 'All', value: '', onClick: () => setFilter('') },
-    { name: 'Male', value: 'male', onClick: () => setFilter('male') },
-    { name: 'Female', value: 'female', onClick: () => setFilter('female') },
+    { name: t('client.all'), value: '', onClick: () => setFilter('') },
+    {
+      name: t('client.male'),
+      value: 'male',
+      onClick: () => setFilter('male'),
+    },
+    {
+      name: t('client.female'),
+      value: 'female',
+      onClick: () => setFilter('female'),
+    },
   ];
 
   if (!clients) {
@@ -33,7 +44,7 @@ const ClientList = ({ clients }) => {
     <ClientListWraper>
       <FilterMenu>
         <Text tag="span" variant="black14" color={tokens.colors.primaryDark4}>
-          Show:
+          {t('client.show')}:
         </Text>
 
         {filterOptions.map((option) => (
@@ -50,7 +61,7 @@ const ClientList = ({ clients }) => {
 
       <Input
         type="text"
-        placeholder="Search client name or phone..."
+        placeholder={t('input.placeholder.client_search')}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         icon={<SearchIcon color={tokens.colors.primaryLight1} />}
@@ -78,7 +89,7 @@ const ClientList = ({ clients }) => {
       ) : (
         <NoClients>
           <Text variant="regular14" color={tokens.colors.primaryLight3}>
-            You haven't added any clients yet!
+            {t('warning.no_clients_added')}
           </Text>
         </NoClients>
       )}

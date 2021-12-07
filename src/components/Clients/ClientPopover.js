@@ -8,9 +8,12 @@ import PhoneIcon from '../icons/PhoneIcon';
 import MarkIcon from '../icons/MarkIcon';
 import UserMinusIcon from '../icons/UserMinusIcon';
 import Button from '../UI/Button';
+import { useTranslation } from 'react-i18next';
 
 const ClientPopover = ({ visible, client }) => {
   const { deleteDocument, updateDocument } = useFirestore('clients');
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,7 +25,7 @@ const ClientPopover = ({ visible, client }) => {
               icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
               onClick={() => deleteDocument(client.id)}
             >
-              Delete
+              {t('client.delete')}
             </Button>
 
             <Button

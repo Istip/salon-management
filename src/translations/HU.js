@@ -3,12 +3,17 @@ export const HU = {
     en: 'Angol',
     hu: 'Magyar',
     hello: 'Hello',
-    logout: 'Kijelentkezés',
+    logout: 'Kilépés',
   },
 
   navigation: {
     clients: 'Kliensek',
     calendar: 'Naptár',
     reports: 'Jelentések',
+  },
+
+  auth: {
+    login: 'Belépés',
+    sign_up: 'Regisztráció',
   },
 };

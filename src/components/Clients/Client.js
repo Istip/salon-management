@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { tokens } from '../UI/tokens';
 import { useFirestore } from '../../hooks/useFirestore';
+import { useTranslation } from 'react-i18next';
 import { timestamp } from '../../firebase/config';
+import { tokens } from '../UI/tokens';
 
 // project components
 import Text from '../UI/Text';
@@ -22,6 +23,8 @@ const Client = ({ client }) => {
   const [visitNumber, setVisitNumber] = useState(1);
 
   const { updateDocument } = useFirestore('clients');
+
+  const { t } = useTranslation();
 
   const wrapperNode = useRef();
 
@@ -75,7 +78,7 @@ const Client = ({ client }) => {
             <GenderBadge gender={client.gender} elite={client.elite}>
               {client.elite && <Mark />}
               <Text variant="medium8" color="#fff">
-                {client.gender.toUpperCase()}
+                {t(`${client.gender}`.toUpperCase())}
               </Text>
             </GenderBadge>
             <User>
@@ -119,7 +122,7 @@ const Client = ({ client }) => {
           size="medium"
           icon={<SuccessIcon />}
         >
-          Just Visited
+          {t('client.just_visited')}
         </Button>
       ) : (
         <Button
@@ -129,7 +132,7 @@ const Client = ({ client }) => {
           icon={<LocationIcon size={18} color={tokens.colors.primary} />}
           onClick={() => handleAddCheckIn(client.visits)}
         >
-          Add Visit
+          {t('client.add_visit')}
         </Button>
       )}
 
@@ -166,7 +169,7 @@ const Client = ({ client }) => {
                     variant="medium10"
                     color={tokens.colors.primaryDark2}
                   >
-                    Show All
+                    {t('client.show_all')}
                   </Text>
                 </FlexCenter>
               </DropdownButton>

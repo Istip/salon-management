@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 import Form from '../UI/Form';
@@ -17,6 +18,8 @@ const Login = () => {
 
   const { login, loading, error } = useLogin();
 
+  const { t } = useTranslation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
@@ -29,16 +32,16 @@ const Login = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <FlexCenter>
-        <h1>Login</h1>
+        <h1>{t('auth.login')}</h1>
       </FlexCenter>
       <br />
       <Input
         name="email"
         type="email"
-        placeholder="Enter email address.."
+        placeholder={t('input.placeholder.email')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        label="Email"
+        label={t('input.label.email')}
         icon={<EmailIcon {...iconProps} />}
         required
       />
@@ -46,10 +49,10 @@ const Login = () => {
       <Input
         name="password"
         type="password"
-        placeholder="Enter password.."
+        placeholder={t('input.placeholder.password')}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        label="Password"
+        label={t('input.label.password')}
         icon={<LockIcon {...iconProps} />}
         required
       />
@@ -60,7 +63,7 @@ const Login = () => {
         block
         icon={<CheckIcon color="#fff" size={18} />}
       >
-        LOGIN
+        {t('auth.login').toUpperCase()}
       </Button>
 
       {error && <Error>{error}</Error>}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from '../components/UI/tokens';
 
 // project imports
@@ -9,6 +10,8 @@ import Logo from '../components/UI/Logo';
 
 const Authentication = () => {
   const [page, setPage] = useState('login');
+
+  const { t } = useTranslation();
 
   return (
     <AuthenticationWrapper>
@@ -21,13 +24,17 @@ const Authentication = () => {
         <Menu>
           {page === 'login' ? (
             <>
-              <Small>Not yet a member?</Small>
-              <SmallLink onClick={() => setPage('signup')}>Sign Up</SmallLink>
+              <Small>{t('auth.not_yet_member')}</Small>
+              <SmallLink onClick={() => setPage('signup')}>
+                {t('auth.sign_up')}
+              </SmallLink>
             </>
           ) : (
             <>
-              <Small>Already registered?</Small>
-              <SmallLink onClick={() => setPage('login')}>Login</SmallLink>
+              <Small>{t('auth.already_a_member')}</Small>
+              <SmallLink onClick={() => setPage('login')}>
+                {t('auth.login')}
+              </SmallLink>
             </>
           )}
         </Menu>

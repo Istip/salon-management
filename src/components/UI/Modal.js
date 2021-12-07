@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from './tokens';
 
 // project components
@@ -16,6 +17,8 @@ const Modal = ({
   variant,
   ...props
 }) => {
+  const { t } = useTranslation();
+
   return (
     <ModalWrapper className={show ? 'show' : ''} show={show}>
       <Backdrop onClick={onCancel} />
@@ -33,10 +36,10 @@ const Modal = ({
         {props.children && <Body>{props.children}</Body>}
         <Footer>
           <Button block variant="secondary" onClick={onCancel}>
-            Cancel
+            {t('button.cancel')}
           </Button>
           <Button block variant={variant || 'primary'} onClick={onSubmit}>
-            Submit
+            {t('button.submit')}
           </Button>
         </Footer>
       </ModalContent>

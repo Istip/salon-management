@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { tokens } from '../UI/tokens';
+import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { tokens } from '../UI/tokens';
 
 // project components
 import Form from '../UI/Form';
@@ -24,16 +25,18 @@ const ModalAddClient = ({ show, setShow }) => {
 
   const { addDocument, response } = useFirestore('clients');
 
+  const { t } = useTranslation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (name === '' || phone === '') {
-      setValidation('Please enter client name and phone!');
+      setValidation(t('validations.client_name_and_phone'));
       return null;
     }
 
     if (name !== '' && phone.length < 10) {
-      setValidation('Please enter valid phone number!');
+      setValidation(t('validations.valid_phone_number'));
       return null;
     }
 
@@ -75,15 +78,15 @@ const ModalAddClient = ({ show, setShow }) => {
     <Modal
       show={show}
       setShow={setShow}
-      title="Add new Client"
+      title={t('client.modal_title')}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     >
       <Form style={{ padding: '20px 20px 0' }}>
         <Input
           type="text"
-          label="Client Name"
-          placeholder="Enter client name..."
+          label={t('input.label.client_name')}
+          placeholder={t('input.placeholder.client_name')}
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -93,8 +96,8 @@ const ModalAddClient = ({ show, setShow }) => {
 
         <Input
           type="number"
-          label="Phone number"
-          placeholder="Enter client phone number..."
+          label={t('input.label.phone_number')}
+          placeholder={t('input.placeholder.phone_number')}
           name="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -109,14 +112,14 @@ const ModalAddClient = ({ show, setShow }) => {
             color={gender === 'female' ? primary : grey}
             onClick={() => setGender('female')}
           >
-            FEMALE
+            {t('client.female').toUpperCase()}
           </Text>
           <Text
             variant={gender === 'male' ? 'black12' : 'regular12'}
             color={gender === 'male' ? primary : grey}
             onClick={() => setGender('male')}
           >
-            MALE
+            {t('client.male').toUpperCase()}
           </Text>
         </GenderWrapper>
       </Form>
