@@ -42,7 +42,7 @@ const Income = () => {
     <IncomeWrapper>
       <FlexCenter>
         <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-          Stats
+          {t('reports.stats')}
         </Text>
       </FlexCenter>
       <IncomeInfo style={{ padding: '20px' }}>

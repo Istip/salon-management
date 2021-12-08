@@ -101,5 +101,6 @@ export const EN = {
     add_client: 'Add client now!',
     total_female_clients: 'Total female clients',
     total_male_clients: 'Total male clients',
+    stats: 'Stats',
   },
 };

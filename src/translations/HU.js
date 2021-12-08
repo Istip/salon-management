@@ -99,7 +99,8 @@ export const HU = {
     male: 'férfi',
     males: 'férfi',
     add_client: 'Kliens hozzáadása',
-    total_female_clients: 'Összes női kliens',
-    total_male_clients: 'Összes férfi kliens',
+    total_female_clients: 'Összes női vendég',
+    total_male_clients: 'Összes férfi vendég',
+    stats: 'Statisztika',
   },
 };
