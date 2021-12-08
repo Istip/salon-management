@@ -111,7 +111,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
               {t('dashboard.delete')}
             </Button>
 
-            {moment(event.date.seconds * 1000).format('YY:MM:DD') ===
+            {moment(event.date.seconds * 1000).format('YY:MM:DD') <=
               moment().format('YY:MM:DD') && (
               <Button
                 block
