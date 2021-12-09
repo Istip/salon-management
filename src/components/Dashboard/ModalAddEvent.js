@@ -4,8 +4,9 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { tokens } from '../UI/tokens';
+import { useCollection } from '../../hooks/useCollection';
 import { timestamp } from '../../firebase/config';
+import { tokens } from '../UI/tokens';
 
 // project components
 import Form from '../UI/Form';
@@ -22,7 +23,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [gender, setGender] = useState('female');
   const [date, setDate] = useState(moment().format('HH:mm'));
 
-  const actions = ['haircut', 'hairdye', 'manicure', 'pedicure', 'other'];
+  const { documents } = useCollection('users');
 
   const { t } = useTranslation();
 
@@ -30,8 +31,10 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
   const { addDocument, response } = useFirestore('events');
 
+  const actions = documents ? documents[0].actions : ['haircut'];
+
+  // Resetting the local state back to original
   const resetFields = () => {
-    // Resetting the local state back to original
     setShow(false);
     setAction('haircut');
     setName('');
@@ -39,6 +42,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
     setDate(moment().format('HH:mm'));
   };
 
+  // Function fired when submitting the modal
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -110,27 +114,25 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
         <Select
           label={t('input.label.event_type')}
-          action={action}
-          setAction={setAction}
-          actions={actions}
+          selected={action}
+          setSelected={setAction}
+          list={actions}
         />
 
         <GenderWrapper>
-          <GenderType>
+          <GenderType onClick={() => setGender('female')}>
             <Text
               variant={gender === 'female' ? 'black12' : 'regular12'}
               color={gender === 'female' ? primary : grey}
-              onClick={() => setGender('female')}
             >
               {t('dashboard.female').toUpperCase()}
             </Text>
           </GenderType>
 
-          <GenderType>
+          <GenderType onClick={() => setGender('male')}>
             <Text
               variant={gender === 'male' ? 'black12' : 'regular12'}
               color={gender === 'male' ? primary : grey}
-              onClick={() => setGender('male')}
             >
               {t('dashboard.male').toUpperCase()}
             </Text>

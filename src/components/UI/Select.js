@@ -7,7 +7,7 @@ import DropdownIcon from '../icons/DropdownIcon';
 import FlexCenter from './FlexCenter';
 import Text from './Text';
 
-const Select = ({ actions, action, setAction, ...props }) => {
+const Select = ({ list, selected, setSelected, ...props }) => {
   const [visible, setVisible] = useState(false);
 
   const wrapperNode = useRef();
@@ -29,8 +29,6 @@ const Select = ({ actions, action, setAction, ...props }) => {
     };
   }, []);
 
-  // TODO: add a prettier scrollbar for this dang 😡😡😡
-
   return (
     <>
       {props.label && (
@@ -50,18 +48,21 @@ const Select = ({ actions, action, setAction, ...props }) => {
           </FlexCenter>
         </IconWrapper>
         <FlexCenter style={{ height: '100%' }}>
-          <Text variant="medium16">{action}</Text>
+          <Text variant="medium16" color={tokens.colors.primaryDark4}>
+            {selected}
+          </Text>
         </FlexCenter>
+
         {visible && (
           <SelectMenu>
-            {actions.map((item, i) => (
+            {list.map((item, i) => (
               <SelectMenuItem
                 key={i}
-                onClick={() => setAction(item)}
-                className={item === action ? 'active' : ''}
+                onClick={() => setSelected(item)}
+                className={item === selected ? 'active' : ''}
               >
                 <FlexCenter>
-                  <Text variant={item === action ? 'medium14' : 'regular14'}>
+                  <Text variant={item === selected ? 'medium14' : 'regular14'}>
                     {item}
                   </Text>
                 </FlexCenter>
@@ -111,13 +112,15 @@ const SelectMenu = styled.div`
   top: 46px;
   left: -1px;
   right: -1px;
-  height: 120px;
+  min-height: 37px;
+  max-height: 120px;
   overflow: auto;
   scroll-behavior: smooth;
   background: ${tokens.colors.primaryLight4};
   border-radius: 0 0 4px 4px;
   border: 1px solid ${tokens.colors.primaryDark1};
   box-shadow: 0px 6px 20px -8px rgba(14, 44, 77, 0.25);
+  color: ${tokens.colors.primaryDark1};
   z-index: 1;
 `;
 

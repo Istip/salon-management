@@ -86,10 +86,10 @@ const Footer = styled.div`
 
 const ModalWrapper = styled.div`
   position: fixed;
-  top: 0;
+  top: -40px;
   z-index: 10;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh + 40px);
   display: flex;
   align-items: center;
   justify-content: center;
