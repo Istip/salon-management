@@ -47,6 +47,7 @@ export const HU = {
       time: 'Időpont',
       payed: 'Fizetett összeg',
       operation: 'Művelet',
+      event_type: 'Művelet típusa',
     },
     placeholder: {
       email: 'Email cím..',

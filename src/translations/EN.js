@@ -47,6 +47,7 @@ export const EN = {
       time: 'Select time',
       payed: 'The client payed',
       operation: 'Operation',
+      event_type: 'Operation type',
     },
     placeholder: {
       email: 'Enter email address..',

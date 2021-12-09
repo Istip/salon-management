@@ -74,7 +74,7 @@ const InputField = styled.input`
 const Label = styled.div`
   color: ${tokens.colors.primaryDark4};
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 `;
 
 export default Input;

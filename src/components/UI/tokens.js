@@ -71,6 +71,11 @@ export const fonts = {
     fontSize: '14px',
   },
 
+  regular16: {
+    fontWeight: tokens.fontSize[400],
+    fontSize: '16px',
+  },
+
   medium8: {
     fontWeight: tokens.fontSize[700],
     fontSize: '8px',

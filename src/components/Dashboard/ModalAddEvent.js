@@ -14,6 +14,7 @@ import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
 import TimeIcon from '../icons/TimeIcon';
+import Select from '../UI/Select';
 
 const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const [name, setName] = useState('');
@@ -107,38 +108,33 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
           icon={<TimeIcon {...iconProps} />}
         />
 
-        <BadgeWrapper>
-          {actions.map((item) => (
-            <TypeBadge
-              key={item}
-              className={item === action ? 'active' : ''}
-              onClick={() => setAction(item)}
-            >
-              <Text
-                variant="medium8"
-                color={item === action ? '#fff' : tokens.colors.primary}
-              >
-                {item}
-              </Text>
-            </TypeBadge>
-          ))}
-        </BadgeWrapper>
+        <Select
+          label={t('input.label.event_type')}
+          action={action}
+          setAction={setAction}
+          actions={actions}
+        />
 
         <GenderWrapper>
-          <Text
-            variant={gender === 'female' ? 'black12' : 'regular12'}
-            color={gender === 'female' ? primary : grey}
-            onClick={() => setGender('female')}
-          >
-            {t('dashboard.female').toUpperCase()}
-          </Text>
-          <Text
-            variant={gender === 'male' ? 'black12' : 'regular12'}
-            color={gender === 'male' ? primary : grey}
-            onClick={() => setGender('male')}
-          >
-            {t('dashboard.male').toUpperCase()}
-          </Text>
+          <GenderType>
+            <Text
+              variant={gender === 'female' ? 'black12' : 'regular12'}
+              color={gender === 'female' ? primary : grey}
+              onClick={() => setGender('female')}
+            >
+              {t('dashboard.female').toUpperCase()}
+            </Text>
+          </GenderType>
+
+          <GenderType>
+            <Text
+              variant={gender === 'male' ? 'black12' : 'regular12'}
+              color={gender === 'male' ? primary : grey}
+              onClick={() => setGender('male')}
+            >
+              {t('dashboard.male').toUpperCase()}
+            </Text>
+          </GenderType>
         </GenderWrapper>
       </Form>
     </Modal>
@@ -153,35 +149,18 @@ const GenderWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  cursor: pointer;
   padding: 20px 0 10px;
 `;
 
-const BadgeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-`;
-
-const TypeBadge = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-width: 48px;
-  max-width: 48px;
-  height: 48px;
-  padding: 4px;
-  background: ${tokens.colors.primaryLight4};
-  border: 1px solid ${tokens.colors.primary};
-  border-radius: 10px;
+const GenderType = styled.div`
   cursor: pointer;
-  transition: 250ms ease;
 
-  &.active {
-    background: ${primary};
-    border: 1px solid ${primary};
+  &:first-child {
+    padding-left: 20px;
+  }
+
+  &:last-child {
+    padding-right: 20px;
   }
 `;
 
