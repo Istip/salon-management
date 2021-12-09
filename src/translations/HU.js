@@ -4,6 +4,7 @@ export const HU = {
     hu: 'Magyar',
     hello: 'Hello',
     logout: 'Kilépés',
+    settings: 'Beállítások',
   },
 
   navigation: {
@@ -102,5 +103,13 @@ export const HU = {
     total_female_clients: 'Összes női vendég',
     total_male_clients: 'Összes férfi vendég',
     stats: 'Statisztika',
+  },
+
+  settings: {
+    language_select: 'Nyelv kiválasztása',
+    language: 'Nyelv',
+    operations: 'Műveleteim',
+    operation_description:
+      'Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a profilodnak megfelelően!',
   },
 };

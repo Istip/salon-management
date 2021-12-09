@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import i18n from '../../translations/i18n';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { tokens } from '../UI/tokens';
 
 import Hamburger from '../icons/Hamburger';
@@ -13,16 +13,14 @@ import FlexCenter from '../UI/FlexCenter';
 import Logo from '../UI/Logo';
 import Text from '../UI/Text';
 import CalendarIcon from '../icons/CalendarIcon';
-import Button from '../UI/Button';
-
-// moment locale imports
-import 'moment/locale/hu';
-import 'moment/locale/en-gb';
+import SettingsIcon from '../icons/SettingsIcon';
 
 const Appbar = () => {
   const [visible, setVisible] = useState(false);
 
   const wrapperNode = useRef();
+
+  const navigate = useNavigate();
 
   const { logout } = useLogout();
 
@@ -35,6 +33,11 @@ const Appbar = () => {
       return;
     }
     setVisible(false);
+  };
+
+  const pushToSettings = () => {
+    setVisible(false);
+    navigate('/settings');
   };
 
   useEffect(() => {
@@ -57,24 +60,9 @@ const Appbar = () => {
     color: tokens.colors.darkGrey,
   };
 
-  const chanegLocale = (language) => {
-    moment.locale(language);
-    i18n.changeLanguage(language);
-  };
-
   return (
     <AppbarWrapper>
       <Logo />
-
-      <FlexCenter>
-        <Button
-          variant="secondary"
-          size="small"
-          onClick={() => chanegLocale(i18n.language === 'hu' ? 'en' : 'hu')}
-        >
-          <Text variant="black12">{t(`appbar.${i18n.language}`)}</Text>
-        </Button>
-      </FlexCenter>
 
       {user && (
         <UserTab>
@@ -105,6 +93,13 @@ const Appbar = () => {
                   </FlexCenter>
 
                   <DividerLine />
+
+                  <PopoverMenuItem onClick={pushToSettings}>
+                    <PopoverMenuText>
+                      <SettingsIcon {...iconProps} />
+                      {t('appbar.settings')}
+                    </PopoverMenuText>
+                  </PopoverMenuItem>
 
                   <PopoverMenuItem onClick={logout}>
                     <PopoverMenuText>

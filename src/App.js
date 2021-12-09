@@ -15,6 +15,7 @@ import Clients from './pages/Clients';
 import Dashboard from './pages/Dashboard';
 import Reports from './pages/Reports';
 import Authentication from './pages/Authentication';
+import Settings from './pages/Settings';
 
 function App() {
   const { authIsReady, user } = useAuthContext();
@@ -37,6 +38,10 @@ function App() {
               <Route
                 path="/reports"
                 element={user ? <Reports /> : <Navigate replace to="/" />}
+              />
+              <Route
+                path="/settings"
+                element={user ? <Settings /> : <Navigate replace to="/" />}
               />
 
               <Route

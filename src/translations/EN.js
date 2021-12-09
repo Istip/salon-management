@@ -4,6 +4,7 @@ export const EN = {
     hu: 'Hungarian',
     hello: 'Hello',
     logout: 'Log out',
+    settings: 'Settings',
   },
 
   navigation: {
@@ -102,5 +103,13 @@ export const EN = {
     total_female_clients: 'Total female clients',
     total_male_clients: 'Total male clients',
     stats: 'Stats',
+  },
+
+  settings: {
+    language_select: 'Select language',
+    language: 'Language',
+    operations: 'My operations',
+    operation_description:
+      'Below are listed all your operations. Edit them based on your profile!',
   },
 };

@@ -29,15 +29,19 @@ export const useSignup = () => {
       await res.user.updateProfile({ displayName: name });
 
       // create document with the user
-      await projectFirestore.collection('users').doc(res.user.uid).set({
-        online: true,
-        active: true,
-        admin: false,
-        displayName: name,
-        email: email,
-        membership: 'basic',
-        actions: [],
-      });
+      await projectFirestore
+        .collection('users')
+        .doc(res.user.uid)
+        .set({
+          uid: res.user.uid,
+          online: true,
+          active: true,
+          admin: false,
+          displayName: name,
+          email: email,
+          membership: 'basic',
+          actions: ['haircut', 'hairdye', 'other'],
+        });
 
       // dispatching login action
       dispatch({ type: 'LOGIN', payload: res.user });
