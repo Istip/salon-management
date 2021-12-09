@@ -18,12 +18,12 @@ import TimeIcon from '../icons/TimeIcon';
 import Select from '../UI/Select';
 
 const ModalAddEvent = ({ show, setShow, selectedDate }) => {
+  const { documents } = useCollection('users');
+
   const [name, setName] = useState('');
-  const [action, setAction] = useState('haircut');
+  const [action, setAction] = useState('');
   const [gender, setGender] = useState('female');
   const [date, setDate] = useState(moment().format('HH:mm'));
-
-  const { documents } = useCollection('users');
 
   const { t } = useTranslation();
 

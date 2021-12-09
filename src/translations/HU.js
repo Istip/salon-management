@@ -25,6 +25,9 @@ export const HU = {
     client_name_and_phone: 'Add meg a kliens nevét és telefonszámát!',
     valid_phone_number: 'A telefonszám nem valós!',
     enter_price: 'Add meg a művelet értékét!',
+    operation_exists: 'Ez a művelet már létezik!',
+    operation_text_too_long: 'Probálkozz egy rövidebb művelet megnevezéssel!',
+    one_operation_left: 'Minimum egy műveletet meg kell hagynod!',
   },
 
   warning: {

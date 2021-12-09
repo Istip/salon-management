@@ -25,6 +25,10 @@ export const EN = {
     client_name_and_phone: 'Please enter client name and phone!',
     valid_phone_number: 'Please enter valid phone number!',
     enter_price: 'Please enter the ammount!',
+    operation_exists: 'This operation already exists!',
+    operation_text_too_long:
+      'Please consider a shorter title for your operation!',
+    one_operation_left: 'You must leave at least one operation!',
   },
 
   warning: {

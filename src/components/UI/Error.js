@@ -8,7 +8,7 @@ import Text from './Text';
 
 const Error = (props) => {
   return (
-    <ErrorWrapper>
+    <ErrorWrapper noMargin={props.noMargin}>
       <FlexCenter>
         <Text variant="medium12">{props.children}</Text>
       </FlexCenter>
@@ -21,7 +21,7 @@ const ErrorWrapper = styled.div`
   border: 1px solid ${tokens.colors.error};
   color: ${tokens.colors.error};
   background: ${tokens.colors.error + '22'};
-  margin: 20px 10px;
+  margin: ${(props) => (props.noMargin ? '20px 0' : '20px 10px')};
   padding: 20px;
   border-radius: 12px;
 `;
