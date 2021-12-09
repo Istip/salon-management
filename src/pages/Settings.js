@@ -6,7 +6,8 @@ import { tokens } from '../components/UI/tokens';
 // project imports
 import LanguageSelector from '../components/Settings/LanguageSelector';
 import Error from '../components/UI/Error';
-import Actions from '../components/Settings/Actions';
+import Operations from '../components/Settings/Operations';
+import OperationForm from '../components/Settings/OperationForm';
 
 const Settings = () => {
   const { documents, error } = useCollection('users');
@@ -18,11 +19,13 @@ const Settings = () => {
   return (
     <SettingsWrapper>
       <SettingCard>
-        <LanguageSelector />
+        <Operations documents={documents} />
+        <DividerLine />
+        <OperationForm user={documents} />
       </SettingCard>
 
       <SettingCard>
-        <Actions actions={documents} />
+        <LanguageSelector />
       </SettingCard>
 
       {error && <Error>{error}</Error>}
@@ -47,6 +50,13 @@ const SettingCard = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+`;
+
+const DividerLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background: ${tokens.colors.primaryLight4};
+  margin: 10px 0;
 `;
 
 export default Settings;

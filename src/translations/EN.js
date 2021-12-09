@@ -46,6 +46,7 @@ export const EN = {
       phone_number: 'Phone number',
       time: 'Select time',
       payed: 'The client payed',
+      operation: 'Operation',
     },
     placeholder: {
       email: 'Enter email address..',
@@ -55,6 +56,7 @@ export const EN = {
       phone_number: 'Enter client phone number..',
       client_search: 'Search client name or phone..',
       payed: 'Introduce the ammount..',
+      operation: 'Short name for the operation..',
     },
   },
 
@@ -110,6 +112,7 @@ export const EN = {
     language: 'Language',
     operations: 'My operations',
     operation_description:
-      'Below are listed all your operations. Edit them based on your profile!',
+      'Below are listed all your operations. Edit them based on your work profile!',
+    add_operation: 'Add Operation',
   },
 };

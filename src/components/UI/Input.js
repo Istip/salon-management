@@ -4,7 +4,7 @@ import { tokens } from './tokens';
 
 const Input = (props) => {
   return (
-    <InputContainer>
+    <InputContainer noMargin={props.noMargin}>
       <Label>{props.label}</Label>
       <InputWrapper>
         <span>{props.icon}</span>
@@ -21,7 +21,7 @@ const Input = (props) => {
 // styled components
 
 const InputContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${(props) => (props.noMargin ? 0 : '20px')};
   color: #111;
 `;
 

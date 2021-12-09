@@ -46,6 +46,7 @@ export const HU = {
       phone_number: 'Kliens telefonszám',
       time: 'Időpont',
       payed: 'Fizetett összeg',
+      operation: 'Művelet',
     },
     placeholder: {
       email: 'Email cím..',
@@ -55,6 +56,7 @@ export const HU = {
       phone_number: 'Kliens telefonszáma..',
       client_search: 'Keresés név vagy telefonszám alapján..',
       payed: 'Kifizetett összeg..',
+      operation: 'Művelet rövid elnevezése..',
     },
   },
 
@@ -110,6 +112,7 @@ export const HU = {
     language: 'Nyelv',
     operations: 'Műveleteim',
     operation_description:
-      'Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a profilodnak megfelelően!',
+      'Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a munkahelyi profilodnak megfelelően!',
+    add_operation: 'Művelet hozzáadása',
   },
 };
