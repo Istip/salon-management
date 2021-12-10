@@ -96,6 +96,11 @@ export const fonts = {
     fontSize: '14px',
   },
 
+  medium16: {
+    fontWeight: tokens.fontSize[700],
+    fontSize: '16px',
+  },
+
   black10: {
     fontWeight: tokens.fontSize[900],
     fontSize: '10px',

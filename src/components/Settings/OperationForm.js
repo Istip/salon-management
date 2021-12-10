@@ -22,7 +22,7 @@ const OperationForm = ({ user }) => {
   const handleAddOperation = (e) => {
     e.preventDefault();
     const currentUser = user[0];
-    const data = { actions: [...currentUser.actions, operation] };
+    const data = { actions: [...currentUser.actions, operation.toLowerCase()] };
 
     // Validate if the entered operation already exists (case sensitive)
     if (
@@ -36,6 +36,10 @@ const OperationForm = ({ user }) => {
     // Validate if the entered operation title is to long
     if (operation.length > 20) {
       return setValidation(t('validations.operation_text_too_long'));
+    }
+
+    if (operation.split(' ').some((word) => word.length > 10)) {
+      return setValidation(t('validations.operation_word_too_long'));
     }
 
     updateDocument(currentUser.id, data);

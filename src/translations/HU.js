@@ -28,10 +28,12 @@ export const HU = {
     operation_exists: 'Ez a művelet már létezik!',
     operation_text_too_long: 'Probálkozz egy rövidebb művelet megnevezéssel!',
     one_operation_left: 'Minimum egy műveletet meg kell hagynod!',
+    operation_word_too_long:
+      'Probálkozz rövidebb szavak használatával a könnyebb kezelhetőség érdekében!',
   },
 
   warning: {
-    no_appointments: 'Nincs egyetlen időpont sem a mai napra!',
+    no_appointments: 'Erre a napra még nincs foglalás!',
     no_clients: 'Még nem adtál hozzá klienseket!',
   },
 
@@ -61,6 +63,7 @@ export const HU = {
       client_search: 'Keresés név vagy telefonszám alapján..',
       payed: 'Kifizetett összeg..',
       operation: 'Művelet rövid elnevezése..',
+      type_select: 'Válassz műveletet..',
     },
   },
 
@@ -93,6 +96,7 @@ export const HU = {
     female: 'Nő',
     modal_title: 'Bevétel hozzáadása',
     new: 'ÚJ',
+    no_data: 'elnevezés nélkül',
   },
 
   reports: {

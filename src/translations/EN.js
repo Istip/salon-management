@@ -29,6 +29,8 @@ export const EN = {
     operation_text_too_long:
       'Please consider a shorter title for your operation!',
     one_operation_left: 'You must leave at least one operation!',
+    operation_word_too_long:
+      'Please consider using shorter words for easier handling of your operations!',
   },
 
   warning: {
@@ -62,6 +64,7 @@ export const EN = {
       client_search: 'Search client name or phone..',
       payed: 'Introduce the ammount..',
       operation: 'Short name for the operation..',
+      type_select: 'Select operation..',
     },
   },
 
@@ -94,6 +97,7 @@ export const EN = {
     female: 'Female',
     modal_title: 'Add income',
     new: 'NEW',
+    no_data: 'N/A',
   },
 
   reports: {

@@ -31,12 +31,12 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
   const { addDocument, response } = useFirestore('events');
 
-  const actions = documents ? documents[0].actions : ['haircut'];
+  const actions = documents ? documents[0].actions : [];
 
   // Resetting the local state back to original
   const resetFields = () => {
     setShow(false);
-    setAction('haircut');
+    setAction('');
     setName('');
     setGender('female');
     setDate(moment().format('HH:mm'));
@@ -48,7 +48,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
     addDocument({
       name,
-      action,
+      action: action || t('dashboard.no_data'),
       gender,
       finished: false,
       price: 0,

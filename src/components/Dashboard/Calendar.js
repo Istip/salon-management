@@ -7,7 +7,7 @@ import { tokens } from '../UI/tokens';
 // project components
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
 import ArrowRightIcon from '../icons/ArrowRightIcon';
-import DirectionIcon from '../icons/DirectionIcon';
+import DropdownIcon from '../icons/DropdownIcon';
 import TimeIcon from '../icons/TimeIcon';
 import Text from '../../components/UI/Text';
 import Button from '../../components/UI/Button';
@@ -20,6 +20,8 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const { t } = useTranslation();
 
   const dayRef = useRef();
+
+  const daysOfWeekend = ['szo', 'vas', 'Sa', 'Su'];
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -42,6 +44,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
     return arrDays.sort((a, b) => a - b);
   };
 
+  // Function to check if today is selected
   const todayIsSelected = () => {
     const today = moment().format('YY-MM-DD');
     const selected = selectedDate.format('YY-MM-DD');
@@ -50,10 +53,18 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
     }
   };
 
+  // This function resets the date to the current day
   const handleResetDate = () => {
     if (todayIsSelected()) {
       setSelectedDate(moment());
       setDate(moment());
+    }
+  };
+
+  // Function checks if the day property is the same as the current day
+  const isToday = (day) => {
+    if (day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')) {
+      return true;
     }
   };
 
@@ -71,14 +82,14 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   }, [selectedDate]);
 
   return (
-    <CalendarWrapper>
+    <CalendarWrapper onClick={() => !visible && setVisible(true)}>
       <MonthSelector visible={visible}>
         <ArrowWrapper onClick={minusMonth} visible={visible}>
           <ArrowLeftIcon color={tokens.colors.primaryDark3} />
         </ArrowWrapper>
 
         <FlexCenter style={{ gap: '10px' }}>
-          <Text variant="black12" color={tokens.colors.primaryDark3}>
+          <Text variant="black14" color={tokens.colors.primaryDark3}>
             {visible
               ? date.format('YYYY MMMM')
               : selectedDate.format('YYYY MMMM DD')}
@@ -111,12 +122,9 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               onClick={() => setSelectedDate(day)}
             >
               <Day
-                className={
-                  day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')
-                    ? 'today'
-                    : ''
-                }
-                weekend={day.format('dd') === 'Sa' || day.format('dd') === 'Su'}
+                className={isToday(day) ? 'today' : ''}
+                today={day.format('YY-MM-DD') === moment().format('YY-MM-DD')}
+                weekend={daysOfWeekend.includes(day.format('dd'))}
               >
                 <Text variant="medium8" tag="div">
                   {day.format('ddd')}
@@ -143,7 +151,9 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
       <CloseBar onClick={() => setVisible(!visible)} visible={visible}>
         <IconWrapper className={!visible ? 'visible' : ''}>
-          <DirectionIcon />
+          <FlexCenter>
+            <DropdownIcon />
+          </FlexCenter>
         </IconWrapper>
       </CloseBar>
     </CalendarWrapper>
@@ -164,7 +174,7 @@ const CalendarWrapper = styled.div`
 
 const MonthSelector = styled.div`
   width: 100%;
-  padding: ${(props) => (props.visible ? '20px' : '10px 20px 0 20px')};
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -224,6 +234,8 @@ const Day = styled.div`
   margin-bottom: 14px;
   padding: 8px 0;
   border-radius: 4px;
+  border: ${(props) =>
+    props.today ? `1px solid ${tokens.colors.lightGrey}` : 'none'};
   color: ${tokens.colors.primaryDark3};
   background: ${(props) =>
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
@@ -235,6 +247,7 @@ const Day = styled.div`
     color: #fff;
     background: ${tokens.colors.primaryLight2};
     scroll-snap-align: start;
+    border: none;
   }
 `;
 
@@ -250,9 +263,10 @@ const CloseBar = styled.div`
 
 const IconWrapper = styled.div`
   transition: 250ms ease;
+  transform: rotate(180deg);
 
   &.visible {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
   }
 `;
 

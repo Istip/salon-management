@@ -9,6 +9,7 @@ import { tokens } from '../UI/tokens';
 import Text from '../UI/Text';
 import FlexCenter from '../UI/FlexCenter';
 import Error from '../UI/Error';
+import i18n from '../../translations/i18n';
 
 const Income = () => {
   const date = new Date();
@@ -21,6 +22,10 @@ const Income = () => {
     ['date', '>=', monthFirstDay],
     ['finished', '==', true]
   );
+
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   if (!documents) {
     return null;
@@ -47,7 +52,8 @@ const Income = () => {
       </FlexCenter>
       <IncomeInfo style={{ padding: '20px' }}>
         <Text variant="black14" color={tokens.colors.primaryDark3}>
-          {moment().format('MMMM')} {t('reports.income')}:
+          {capitalize(moment().format('MMMM'))}
+          {i18n.language === 'hu' && 'i'} {t('reports.income')}:
         </Text>
 
         <Text

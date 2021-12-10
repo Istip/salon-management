@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { tokens } from './tokens';
 
 // project components
@@ -9,6 +10,8 @@ import Text from './Text';
 
 const Select = ({ list, selected, setSelected, ...props }) => {
   const [visible, setVisible] = useState(false);
+
+  const { t } = useTranslation();
 
   const wrapperNode = useRef();
 
@@ -48,8 +51,13 @@ const Select = ({ list, selected, setSelected, ...props }) => {
           </FlexCenter>
         </IconWrapper>
         <FlexCenter style={{ height: '100%' }}>
-          <Text variant="medium16" color={tokens.colors.primaryDark4}>
-            {selected}
+          <Text
+            variant="regular16"
+            color={
+              selected ? tokens.colors.primaryDark4 : tokens.colors.mediumGrey
+            }
+          >
+            {selected || t('input.placeholder.type_select')}
           </Text>
         </FlexCenter>
 

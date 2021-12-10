@@ -24,6 +24,8 @@ const ErrorWrapper = styled.div`
   margin: ${(props) => (props.noMargin ? '20px 0' : '20px 10px')};
   padding: 20px;
   border-radius: 12px;
+  line-height: 150%;
+  text-align: center;
 `;
 
 export default Error;
