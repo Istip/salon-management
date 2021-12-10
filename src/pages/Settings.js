@@ -9,7 +9,7 @@ import Error from '../components/UI/Error';
 import Operations from '../components/Settings/Operations';
 import OperationForm from '../components/Settings/OperationForm';
 
-const Settings = () => {
+const Settings = ({ setLanguage }) => {
   const { documents, error } = useCollection('users');
 
   if (!documents) {
@@ -25,7 +25,7 @@ const Settings = () => {
       </SettingCard>
 
       <SettingCard>
-        <LanguageSelector />
+        <LanguageSelector setLanguage={setLanguage} />
       </SettingCard>
 
       {error && <Error>{error}</Error>}

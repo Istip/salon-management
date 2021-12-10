@@ -15,6 +15,9 @@ const firebaseConfig = {
 // init firebase
 firebase.initializeApp(firebaseConfig);
 
+// console error fix for firestore
+firebase.firestore().settings({ experimentalForceLongPolling: true });
+
 // init service
 const projectFirestore = firebase.firestore();
 const projectAuth = firebase.auth();

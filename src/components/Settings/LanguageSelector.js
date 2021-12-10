@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import moment from 'moment';
+import React from 'react';
 import i18n from '../../translations/i18n';
 import { useTranslation } from 'react-i18next';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -11,19 +9,8 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexBetween from '../UI/FlexBetween';
 
-// moment locale imports
-import 'moment/locale/hu';
-import 'moment/locale/en-gb';
-
-const LanguageSelector = () => {
-  const [language, setLanguage] = useLocalStorage('language', 'hu');
-
+const LanguageSelector = ({ setLanguage }) => {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    moment.locale(language);
-    i18n.changeLanguage(language);
-  }, [language]);
 
   return (
     <>
@@ -38,7 +25,7 @@ const LanguageSelector = () => {
 
         <FlexCenter style={{ gap: '5px' }}>
           <Button
-            variant={language !== 'en' && 'secondary'}
+            variant={i18n.language !== 'en' && 'secondary'}
             size="small"
             onClick={() => setLanguage('en')}
           >
@@ -46,7 +33,7 @@ const LanguageSelector = () => {
           </Button>
 
           <Button
-            variant={language !== 'hu' && 'secondary'}
+            variant={i18n.language !== 'hu' && 'secondary'}
             size="small"
             onClick={() => setLanguage('hu')}
           >

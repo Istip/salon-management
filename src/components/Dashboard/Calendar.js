@@ -21,7 +21,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   const dayRef = useRef();
 
-  const daysOfWeekend = ['szo', 'vas', 'Sa', 'Su'];
+  const daysOfWeekend = ['szo', 'v', 'Sa', 'Su'];
 
   const plusMonth = () => {
     setDate(moment(date).add(1, 'month'));
@@ -66,6 +66,11 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
     if (day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')) {
       return true;
     }
+  };
+
+  // Function to capitalize the first letter of a string
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   const daysOfMonth = getDaysOfTheMonth();
@@ -127,7 +132,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
                 weekend={daysOfWeekend.includes(day.format('dd'))}
               >
                 <Text variant="medium8" tag="div">
-                  {day.format('ddd')}
+                  {capitalize(day.format('ddd'))}
                 </Text>
                 <Text variant="black12" tag="div">
                   {day.format('DD')}
@@ -234,9 +239,10 @@ const Day = styled.div`
   margin-bottom: 14px;
   padding: 8px 0;
   border-radius: 4px;
-  border: ${(props) =>
-    props.today ? `1px solid ${tokens.colors.lightGrey}` : 'none'};
-  color: ${tokens.colors.primaryDark3};
+  color: ${(props) =>
+    !props.today
+      ? `${tokens.colors.primaryDark3}`
+      : `${tokens.colors.primary}`};
   background: ${(props) =>
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
   scroll-snap-align: start;

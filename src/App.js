@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
+import i18n from './translations/i18n';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from 'react-router-dom';
+import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthContext } from './hooks/useAuthContext';
 
 // project imports
@@ -17,8 +20,20 @@ import Reports from './pages/Reports';
 import Authentication from './pages/Authentication';
 import Settings from './pages/Settings';
 
+// moment locale imports
+import 'moment/locale/hu';
+import 'moment/locale/en-gb';
+
 function App() {
+  // state handling the global language for translation and moment lolcale
+  const [language, setLanguage] = useLocalStorage('language', 'hu');
+
   const { authIsReady, user } = useAuthContext();
+
+  useEffect(() => {
+    moment.locale(language);
+    i18n.changeLanguage(language);
+  }, [language]);
 
   return (
     <>
@@ -41,7 +56,13 @@ function App() {
               />
               <Route
                 path="/settings"
-                element={user ? <Settings /> : <Navigate replace to="/" />}
+                element={
+                  user ? (
+                    <Settings setLanguage={setLanguage} />
+                  ) : (
+                    <Navigate replace to="/" />
+                  )
+                }
               />
 
               <Route
