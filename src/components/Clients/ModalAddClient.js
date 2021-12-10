@@ -27,14 +27,17 @@ const ModalAddClient = ({ show, setShow }) => {
 
   const { t } = useTranslation();
 
+  // Function fired when we submit the form
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validating if name or phone number was provided
     if (name === '' || phone === '') {
       setValidation(t('validations.client_name_and_phone'));
       return null;
     }
 
+    // Validating if the phone number has 10 numbers
     if (name !== '' && phone.length < 10) {
       setValidation(t('validations.valid_phone_number'));
       return null;
@@ -53,6 +56,7 @@ const ModalAddClient = ({ show, setShow }) => {
     setShow(false);
   };
 
+  // Reset the fields to default when cancelling the form
   const handleCancel = () => {
     setShow(false);
     setValidation('');

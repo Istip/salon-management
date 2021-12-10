@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useCollection } from '../../hooks/useCollection';
 import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../utils/capitalize';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -22,10 +23,6 @@ const Income = () => {
     ['date', '>=', monthFirstDay],
     ['finished', '==', true]
   );
-
-  const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
 
   if (!documents) {
     return null;

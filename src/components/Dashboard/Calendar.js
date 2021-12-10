@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../utils/capitalize';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -68,11 +69,6 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
     }
   };
 
-  // Function to capitalize the first letter of a string
-  const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
   const daysOfMonth = getDaysOfTheMonth();
 
   useEffect(() => {
@@ -85,6 +81,22 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
     }
     // eslint-disable-next-line
   }, [selectedDate]);
+
+  const Dot = ({ day }) => {
+    const dayWithAppointment =
+      documents &&
+      documents.some(
+        (item) =>
+          moment(item.date.seconds * 1000).format('YY-MM-DD') ===
+          moment(day).format('YY-MM-DD')
+      );
+
+    if (!dayWithAppointment) {
+      return null;
+    }
+
+    return <>•</>;
+  };
 
   return (
     <CalendarWrapper onClick={() => !visible && setVisible(true)}>
@@ -140,14 +152,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               </Day>
 
               <DotReminder>
-                {documents &&
-                documents.some(
-                  (item) =>
-                    moment(item.date.seconds * 1000).format('YY-MM-DD') ===
-                    moment(day).format('YY-MM-DD')
-                )
-                  ? '•'
-                  : ''}
+                <Dot day={day} />
               </DotReminder>
             </DayWrapper>
           ))}

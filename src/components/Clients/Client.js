@@ -28,6 +28,7 @@ const Client = ({ client }) => {
 
   const wrapperNode = useRef();
 
+  // Function to handle click outside of a given dom element
   const handleClickOutside = (e) => {
     if (wrapperNode.current && wrapperNode.current.contains(e.target)) {
       return;
@@ -35,6 +36,7 @@ const Client = ({ client }) => {
     setVisible(false);
   };
 
+  // Function to add a new check if for the client with the current day
   const handleAddCheckIn = (lastVisit) => {
     const dateFormat = (time) => moment(time).format('YY-MM-DD');
 
@@ -50,6 +52,7 @@ const Client = ({ client }) => {
     return null;
   };
 
+  // Check if there is a check in for the current day
   const handleLastCheckIn = (lastVisit) => {
     const dateFormat = (time) => moment(time).format('YY-MM-DD');
 

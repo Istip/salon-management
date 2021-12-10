@@ -7,7 +7,7 @@ import { useFirestore } from '../../hooks/useFirestore';
 import Form from '../UI/Form';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
-import Error from '../UI/Error';
+import ValidationText from '../UI/ValidationText';
 import AddIcon from '../icons/AddIcon';
 
 const OperationForm = ({ user }) => {
@@ -38,6 +38,7 @@ const OperationForm = ({ user }) => {
       return setValidation(t('validations.operation_text_too_long'));
     }
 
+    // Validate if the entered sentence contains words longer than 10 characters
     if (operation.split(' ').some((word) => word.length > 10)) {
       return setValidation(t('validations.operation_word_too_long'));
     }
@@ -70,15 +71,16 @@ const OperationForm = ({ user }) => {
           {t('settings.add_operation')}
         </Button>
       </Form>
-      <ValidationText>
-        {validation && <Error noMargin>{validation}</Error>}
-      </ValidationText>
+
+      <ValidationTextWrapper>
+        {validation && <ValidationText noMargin>{validation}</ValidationText>}
+      </ValidationTextWrapper>
     </>
   );
 };
 
 // styled components
-const ValidationText = styled.div`
+const ValidationTextWrapper = styled.div`
   width: 100%;
 `;
 

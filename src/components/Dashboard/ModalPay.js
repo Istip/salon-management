@@ -21,9 +21,9 @@ const ModalPay = ({ show, setShow, selected }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate if the entered price is lower than zero or omitted
     if (price === '' || price < 0) {
-      setValidation(t('validations.enter_price'));
-      return null;
+      return setValidation(t('validations.enter_price'));
     }
 
     updateDocument(selected.id, { ...selected, price });
@@ -32,20 +32,21 @@ const ModalPay = ({ show, setShow, selected }) => {
     setShow(false);
   };
 
+  // Function fired when we cancel the form
   const handleCancel = () => {
     setPrice('');
     setValidation('');
     setShow(false);
   };
 
-  const iconProps = {
-    color: tokens.colors.primaryLight1,
-  };
-
   useEffect(() => {
     setPrice('');
     // eslint-disable-next-line
   }, [selected]);
+
+  const iconProps = {
+    color: tokens.colors.primaryLight1,
+  };
 
   return (
     <Modal
@@ -72,7 +73,5 @@ const ModalPay = ({ show, setShow, selected }) => {
     </Modal>
   );
 };
-
-// styled components
 
 export default ModalPay;

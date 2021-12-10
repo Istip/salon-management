@@ -25,6 +25,7 @@ const Signup = () => {
 
   const { t } = useTranslation();
 
+  // Sign up the user by submitting the form
   const handleSubmit = (e) => {
     e.preventDefault();
 

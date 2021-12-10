@@ -52,7 +52,7 @@ const Users = () => {
             <GenderSummary>
               <GenderNumber className="female">
                 <Text variant="regular12">
-                  <b>{females.length}</b>{' '}
+                  <Bold>{females.length}</Bold>{' '}
                   {females.length === 1
                     ? t('reports.female')
                     : t('reports.females')}
@@ -145,5 +145,7 @@ const GenderNumber = styled.div`
     background: ${tokens.colors.pink};
   }
 `;
+
+const Bold = styled.b``;
 
 export default Users;

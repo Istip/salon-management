@@ -21,6 +21,11 @@ const EventList = ({ events, error, selectedDate }) => {
 
   const { t } = useTranslation();
 
+  // Check if the date is after or the same as current day
+  const checkDate =
+    selectedDate.isSameOrAfter(moment()) ||
+    selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD');
+
   if (!events) {
     return null;
   }
@@ -31,8 +36,7 @@ const EventList = ({ events, error, selectedDate }) => {
         <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
           {t('dashboard.appointments')}
         </Text>
-        {(selectedDate.isSameOrAfter(moment()) ||
-          selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD')) && (
+        {checkDate && (
           <Button
             onClick={() => setShowAdd(!showAdd)}
             icon={<AddIcon color="#fff" />}

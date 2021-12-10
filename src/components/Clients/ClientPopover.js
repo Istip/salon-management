@@ -1,51 +1,49 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { tokens } from '../UI/tokens';
 import { useFirestore } from '../../hooks/useFirestore';
+import { useTranslation } from 'react-i18next';
+import { tokens } from '../UI/tokens';
 
 // project components
 import PhoneIcon from '../icons/PhoneIcon';
 import MarkIcon from '../icons/MarkIcon';
 import UserMinusIcon from '../icons/UserMinusIcon';
 import Button from '../UI/Button';
-import { useTranslation } from 'react-i18next';
 
 const ClientPopover = ({ visible, client }) => {
   const { deleteDocument, updateDocument } = useFirestore('clients');
 
   const { t } = useTranslation();
 
+  if (!visible) {
+    return null;
+  }
+
   return (
-    <>
-      {visible && (
-        <>
-          <Popover>
-            <Button
-              variant="error"
-              icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
-              onClick={() => deleteDocument(client.id)}
-            >
-              {t('client.delete')}
-            </Button>
+    <Popover>
+      <Button
+        variant="error"
+        icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
+        onClick={() => deleteDocument(client.id)}
+      >
+        {t('client.delete')}
+      </Button>
 
-            <Button
-              variant="warning"
-              icon={<MarkIcon color={tokens.colors.warning} size={18} />}
-              onClick={() =>
-                updateDocument(client.id, { ...client, elite: !client.elite })
-              }
-            />
+      <Button
+        variant="warning"
+        icon={<MarkIcon color={tokens.colors.warning} size={18} />}
+        onClick={() =>
+          updateDocument(client.id, { ...client, elite: !client.elite })
+        }
+      />
 
-            <a href={`tel:${client.phone}`}>
-              <Button
-                variant="success"
-                icon={<PhoneIcon color={tokens.colors.success} size={18} />}
-              />
-            </a>
-          </Popover>
-        </>
-      )}
-    </>
+      <a href={`tel:${client.phone}`}>
+        <Button
+          variant="success"
+          icon={<PhoneIcon color={tokens.colors.success} size={18} />}
+        />
+      </a>
+    </Popover>
   );
 };
 

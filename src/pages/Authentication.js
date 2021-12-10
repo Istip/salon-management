@@ -13,6 +13,28 @@ const Authentication = () => {
 
   const { t } = useTranslation();
 
+  const AuthText = () => {
+    if (page === 'login') {
+      return (
+        <>
+          <Small>{t('auth.not_yet_member')}</Small>
+          <SmallLink onClick={() => setPage('signup')}>
+            {t('auth.sign_up')}
+          </SmallLink>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Small>{t('auth.already_a_member')}</Small>
+        <SmallLink onClick={() => setPage('login')}>
+          {t('auth.login')}
+        </SmallLink>
+      </>
+    );
+  };
+
   return (
     <AuthenticationWrapper>
       <PageHeader>
@@ -22,21 +44,7 @@ const Authentication = () => {
         {page === 'login' ? <Login /> : <Signup />}
 
         <Menu>
-          {page === 'login' ? (
-            <>
-              <Small>{t('auth.not_yet_member')}</Small>
-              <SmallLink onClick={() => setPage('signup')}>
-                {t('auth.sign_up')}
-              </SmallLink>
-            </>
-          ) : (
-            <>
-              <Small>{t('auth.already_a_member')}</Small>
-              <SmallLink onClick={() => setPage('login')}>
-                {t('auth.login')}
-              </SmallLink>
-            </>
-          )}
+          <AuthText />
         </Menu>
       </PageBody>
     </AuthenticationWrapper>

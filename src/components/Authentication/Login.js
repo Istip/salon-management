@@ -20,6 +20,7 @@ const Login = () => {
 
   const { t } = useTranslation();
 
+  // Login the user by submitting the form
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);

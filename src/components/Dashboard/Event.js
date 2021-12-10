@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { tokens } from '../UI/tokens';
 import { useFirestore } from '../../hooks/useFirestore';
+import { useTranslation } from 'react-i18next';
+import { tokens } from '../UI/tokens';
 
 // project components
 import DropdownIcon from '../icons/DropdownIcon';
@@ -11,7 +12,6 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
-import { useTranslation } from 'react-i18next';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
@@ -20,6 +20,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
 
   const { t } = useTranslation();
 
+  // Function to save selected event to state and open modal
   const handlePriceModal = async () => {
     await setSelected(event);
     setShowPay(true);
