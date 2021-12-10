@@ -116,7 +116,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
           label={t('input.label.event_type')}
           selected={action}
           setSelected={setAction}
-          list={actions}
+          list={actions.sort()}
         />
 
         <GenderWrapper>

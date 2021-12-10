@@ -72,7 +72,7 @@ const Operations = ({ documents }) => {
       </FlexCenter>
 
       <OperationsWrapper>
-        {operations.map((operation, i) => (
+        {operations.sort().map((operation, i) => (
           <OperationBadge key={i} onClick={() => setSelected(operation)}>
             {operation === selected && (
               <OperationDelete onClick={deleteOperation} ref={wrapperNode}>
