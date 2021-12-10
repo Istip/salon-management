@@ -44,6 +44,7 @@ const OperationForm = ({ user }) => {
 
     updateDocument(currentUser.id, data);
     setOperation('');
+    setValidation('');
   };
 
   // Clearing the input field and also resetting the validation text
