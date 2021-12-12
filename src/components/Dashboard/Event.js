@@ -194,6 +194,7 @@ const ExtraContent = styled.div`
   visibility: hidden;
   padding: 0 10px;
   pointer-events: none;
+  overflow: hidden;
   opacity: 0;
 
   &.visible {
