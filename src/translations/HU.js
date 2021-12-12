@@ -34,7 +34,7 @@ export const HU = {
 
   warning: {
     no_appointments: 'Erre a napra még nincs foglalás!',
-    no_clients: 'Még nem adtál hozzá klienseket!',
+    no_clients: 'Még nincsenek klienseid!',
   },
 
   button: {
@@ -81,6 +81,7 @@ export const HU = {
     only_visit: 'Egyetlen látogatás',
     last_visit: 'Utolsó látogatások',
     new: 'ÚJ',
+    marked: 'Megjelölt',
   },
 
   dashboard: {

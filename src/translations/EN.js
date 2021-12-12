@@ -82,6 +82,7 @@ export const EN = {
     only_visit: 'Only visit',
     last_visit: 'Last visits',
     new: 'NEW',
+    marked: 'Marked',
   },
 
   dashboard: {
