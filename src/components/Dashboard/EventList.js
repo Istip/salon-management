@@ -30,6 +30,13 @@ const EventList = ({ events, error, selectedDate }) => {
     return null;
   }
 
+  const nextEvent = events.find(
+    (event) =>
+      moment(event.date.seconds * 1000).format('YY-MM-DD HH:mm') >
+        moment().format('YY-MM-DD HH:mm') &&
+      moment(event.date.seconds * 1000).isSame(moment(), 'day')
+  );
+
   return (
     <EventListWrapper>
       <AddEvent>
@@ -59,6 +66,7 @@ const EventList = ({ events, error, selectedDate }) => {
                   event={event}
                   setSelected={setSelected}
                   setShowPay={setShowPay}
+                  next={nextEvent}
                 />
               ))}
           </>

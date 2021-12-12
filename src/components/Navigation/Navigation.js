@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 import ClientsIcon from '../icons/ClientsIcon';
-import CalendarIcon from '../icons/CalendarIcon';
+import NotesIcon from '../icons/NotesIcon';
 import TimeIcon from '../icons/TimeIcon';
 
 const Navigation = () => {
@@ -31,9 +31,7 @@ const Navigation = () => {
     {
       to: '/reports',
       title: t('navigation.reports'),
-      icon: (
-        <CalendarIcon color={pathname === '/reports' ? primary : darkGrey} />
-      ),
+      icon: <NotesIcon color={pathname === '/reports' ? primary : darkGrey} />,
     },
   ];
 
@@ -98,7 +96,7 @@ const IconWrapper = styled.div`
 
 const IconText = styled.small`
   color: ${({ active }) => (active ? `${primary}` : `${darkGrey}`)};
-  font-weight: ${({ active }) => (active ? 700 : 500)};
+  font-weight: ${({ active }) => (active ? 700 : 400)};
   font-size: 10px;
   margin-top: 4px;
 `;

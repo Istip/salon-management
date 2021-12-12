@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useTranslation } from 'react-i18next';
 import { timestamp } from '../../firebase/config';
+import { capitalize } from '../../utils/capitalize';
 import { tokens } from '../UI/tokens';
 
 // project components
@@ -159,7 +160,9 @@ const Client = ({ client }) => {
                 variant="medium12"
                 color={tokens.colors.primaryDark1}
               >
-                {moment(visit.seconds * 1000).format('MMMM DD, YYYY')}
+                {capitalize(
+                  moment(visit.seconds * 1000).format('MMMM DD, YYYY')
+                )}
               </Text>
             ))}
 

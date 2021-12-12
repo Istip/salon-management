@@ -12,8 +12,9 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
+import NextUserIcon from '../icons/NextUserIcon';
 
-const Event = ({ event, setSelected, setShowPay }) => {
+const Event = ({ event, setSelected, setShowPay, next }) => {
   const [visible, setVisible] = useState(false);
 
   const { deleteDocument, updateDocument } = useFirestore('events');
@@ -26,24 +27,51 @@ const Event = ({ event, setSelected, setShowPay }) => {
     setShowPay(true);
   };
 
+  // Function return if date is after the current moment
+  const ifFutureEvent = (appointment) => {
+    const formatTime =
+      moment(appointment.date.seconds * 1000).format('YY:MM:DD HH:mm') >
+      moment().format('YY:MM:DD HH:mm');
+
+    const notFinished = event.finished !== true;
+
+    if (formatTime && notFinished) return true;
+  };
+
   return (
     <EventWrapper>
       <EventInfo>
         <EventTime>
-          <Text variant="black10" color={tokens.colors.primaryDark2}>
+          <Text
+            tag="div"
+            variant="black10"
+            color={
+              next === event
+                ? tokens.colors.success
+                : tokens.colors.primaryDark2
+            }
+          >
             {moment(event.date.seconds * 1000).format('HH:mm')}
+
+            {next === event && (
+              <NextIndicator>
+                <NextUserIcon color={tokens.colors.success} size={18} />
+              </NextIndicator>
+            )}
           </Text>
         </EventTime>
-        <EventCard finished={event.finished}>
-          {moment(event.date.seconds * 1000).format('YY:MM:DD HH:mm') >
-            moment().format('YY:MM:DD HH:mm') &&
-            event.finished !== true && (
-              <FlexCenter style={{ paddingTop: '10px' }}>
-                <Text variant="medium10" color={tokens.colors.mediumGrey}>
-                  {t('dashboard.unfinished_appointment')}
-                </Text>
-              </FlexCenter>
-            )}
+
+        <EventCard
+          finished={event.finished}
+          className={next === event ? 'next' : ''}
+        >
+          {ifFutureEvent(event) && (
+            <FlexCenter style={{ paddingTop: '10px' }}>
+              <Text variant="medium10" color={tokens.colors.mediumGrey}>
+                {t('dashboard.unfinished_appointment')}
+              </Text>
+            </FlexCenter>
+          )}
 
           <VisibleContent>
             <Content>
@@ -141,6 +169,14 @@ const Content = styled.div`
   display: flex;
 `;
 
+const NextIndicator = styled.span`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  text-align: center;
+`;
+
 const VisibleContent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -157,9 +193,11 @@ const ExtraContent = styled.div`
   transition: 250ms ease;
   visibility: hidden;
   padding: 0 10px;
+  pointer-events: none;
   opacity: 0;
 
   &.visible {
+    pointer-events: auto;
     max-height: 70px;
     visibility: visible;
     padding: 10px;
@@ -191,7 +229,6 @@ const EventType = styled.div`
   background: ${tokens.colors.primaryLight4};
   border: 1px solid ${tokens.colors.primary};
   border-radius: 10px;
-  cursor: pointer;
 `;
 
 const EventDescription = styled.div`
@@ -209,10 +246,11 @@ const EventInfo = styled.div`
   width: 100%;
   display: flex;
   min-height: 60px;
-  margin: 10px 0;
+  margin: 20px 0;
 `;
 
 const EventTime = styled.span`
+  position: relative;
   min-width: 50px;
   max-width: 50px;
   display: flex;
@@ -221,6 +259,10 @@ const EventTime = styled.span`
 
   /* monospace the numbers */
   font-feature-settings: 'tnum' on, 'lnum' on;
+
+  span {
+    position: absolute;
+  }
 `;
 
 const EventCard = styled.div`
@@ -231,6 +273,21 @@ const EventCard = styled.div`
     props.finished ? `${tokens.colors.primaryLight3}` : '#fff'};
   border: 1px solid ${tokens.colors.primaryLight3};
   border-radius: 12px;
+  transition: 250ms ease;
+
+  &:hover {
+    border: 1px solid ${tokens.colors.primary};
+    box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
+  }
+
+  &.next {
+    border: 1px solid ${tokens.colors.success};
+    box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
+
+    &:hover {
+      box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
+    }
+  }
 `;
 
 export default Event;
