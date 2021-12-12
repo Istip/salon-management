@@ -130,6 +130,7 @@ const SelectMenu = styled.div`
   box-shadow: 0px 6px 20px -8px rgba(14, 44, 77, 0.25);
   color: ${tokens.colors.primaryDark1};
   z-index: 1;
+  scroll-snap-type: y mandatory;
 `;
 
 const SelectMenuItem = styled.div`
@@ -137,6 +138,7 @@ const SelectMenuItem = styled.div`
   padding: 10px;
   background: ${tokens.colors.primaryLight4};
   transition: 250ms ease;
+  scroll-snap-align: start;
 
   &.active {
     background: ${tokens.colors.primaryLight3};
