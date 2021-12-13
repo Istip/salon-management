@@ -108,9 +108,9 @@ const Client = ({ client }) => {
           </Info>
         </LeftSide>
 
-        <RightSide onClick={() => setVisible(!visible)}>
+        <RightSide onClick={() => setVisible(!visible)} ref={wrapperNode}>
           <EllipsisIcon color={tokens.colors.primaryDark4} />
-          <PopoverWrapper ref={wrapperNode}>
+          <PopoverWrapper>
             <ClientPopover
               visible={visible}
               setVisible={setVisible}
