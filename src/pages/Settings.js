@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useCollection } from '../hooks/useCollection';
 import { tokens } from '../components/UI/tokens';
@@ -40,7 +41,7 @@ const SettingsWrapper = styled.div`
 
 const SettingCard = styled.div`
   border: 1px solid ${tokens.colors.primaryLight3};
-  background: #fff;
+  background: ${tokens.colors.fff};
   padding: 20px;
   border-radius: 12px;
   margin-top: 10px;
@@ -60,3 +61,8 @@ const DividerLine = styled.div`
 `;
 
 export default Settings;
+
+// Prop types
+Settings.propTypes = {
+  setLanguage: PropTypes.func.isRequired,
+};

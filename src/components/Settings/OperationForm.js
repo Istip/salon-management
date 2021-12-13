@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -9,6 +10,7 @@ import Input from '../UI/Input';
 import Button from '../UI/Button';
 import ValidationText from '../UI/ValidationText';
 import AddIcon from '../icons/AddIcon';
+import { tokens } from '../UI/tokens';
 
 const OperationForm = ({ user }) => {
   const [operation, setOperation] = useState('');
@@ -67,7 +69,7 @@ const OperationForm = ({ user }) => {
           clearable
           required
         />
-        <Button block icon={<AddIcon color="#fff" />}>
+        <Button block icon={<AddIcon color={tokens.colors.fff} />}>
           {t('settings.add_operation')}
         </Button>
       </Form>
@@ -85,3 +87,8 @@ const ValidationTextWrapper = styled.div`
 `;
 
 export default OperationForm;
+
+// Prop types
+OperationForm.propTypes = {
+  user: PropTypes.array.isRequired,
+};

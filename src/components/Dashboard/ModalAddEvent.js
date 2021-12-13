@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -168,3 +169,14 @@ const GenderType = styled.div`
 `;
 
 export default ModalAddEvent;
+
+// Prop types
+ModalAddEvent.propTypes = {
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  setShow: PropTypes.func,
+  show: PropTypes.bool,
+};

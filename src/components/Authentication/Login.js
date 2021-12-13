@@ -62,7 +62,7 @@ const Login = () => {
         type="submit"
         disabled={loading}
         block
-        icon={<CheckIcon color="#fff" size={18} />}
+        icon={<CheckIcon color={tokens.colors.fff} size={18} />}
       >
         {t('auth.login').toUpperCase()}
       </Button>

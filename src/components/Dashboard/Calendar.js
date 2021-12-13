@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -172,7 +173,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
 // styled components
 const CalendarWrapper = styled.div`
-  background: #fff;
+  background: ${tokens.colors.fff};
   box-shadow: 0px 4px 20px -8px rgba(14, 44, 77, 0.15);
   margin-bottom: 20px;
   transition: 500ms ease;
@@ -255,7 +256,7 @@ const Day = styled.div`
   transition: 250ms ease;
 
   &.today {
-    color: #fff;
+    color: ${tokens.colors.fff};
     background: ${tokens.colors.primaryLight2};
     scroll-snap-align: start;
     border: none;
@@ -289,3 +290,10 @@ const ArrowWrapper = styled.span`
 `;
 
 export default Calendar;
+
+// Prop types
+Calendar.propTypes = {
+  documents: PropTypes.array,
+  selectedDate: PropTypes.object,
+  setSelectedDate: PropTypes.func,
+};

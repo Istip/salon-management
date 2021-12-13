@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -146,3 +147,9 @@ const GenderWrapper = styled.div`
 `;
 
 export default ModalAddClient;
+
+// Prop types
+ModalAddClient.propTypes = {
+  setShow: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};

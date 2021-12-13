@@ -91,7 +91,7 @@ const Users = () => {
 // styled components
 const UsersWrapper = styled.div`
   border: 1px solid ${tokens.colors.primaryLight3};
-  background: #fff;
+  background: ${tokens.colors.fff};
   padding: 10px;
   border-radius: 12px;
   margin-top: 10px;
@@ -135,7 +135,7 @@ const GenderSummary = styled.div`
 const GenderNumber = styled.div`
   border-radius: 4px;
   padding: 4px 12px;
-  color: #fff;
+  color: ${tokens.colors.fff};
 
   &.male {
     background: ${tokens.colors.primary};

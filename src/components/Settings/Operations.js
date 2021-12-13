@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -139,3 +140,8 @@ const ErrorWrapper = styled.div`
 `;
 
 export default Operations;
+
+// Prop Types
+Operations.propTypes = {
+  documents: PropTypes.array,
+};

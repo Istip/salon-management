@@ -53,7 +53,7 @@ const Modal = ({
 const ModalContent = styled.div`
   position: absolute;
   max-width: 350px;
-  background: #fff;
+  background: ${tokens.colors.fff};
   border: 1px solid ${tokens.colors.primaryLight3};
   border-radius: 4px;
   box-shadow: 0px 4px 20px -8px rgba(14, 44, 77, 0.15);

@@ -145,7 +145,7 @@ const Backdrop = styled.div`
 
 const Popover = styled.div`
   width: 200px;
-  background: #fff;
+  background: ${tokens.colors.fff};
   border-radius: 4px;
   border: 1px solid ${tokens.colors.primaryLight3};
   position: absolute;
@@ -211,7 +211,7 @@ const AppbarWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: ${tokens.colors.fff};
   border-bottom: 1px solid ${tokens.colors.lightGrey};
   padding: 20px;
 `;

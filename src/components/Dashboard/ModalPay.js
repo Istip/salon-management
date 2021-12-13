@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
@@ -75,3 +76,10 @@ const ModalPay = ({ show, setShow, selected }) => {
 };
 
 export default ModalPay;
+
+// Prop types
+ModalPay.propTypes = {
+  selected: PropTypes.any,
+  setShow: PropTypes.func,
+  show: PropTypes.bool,
+};

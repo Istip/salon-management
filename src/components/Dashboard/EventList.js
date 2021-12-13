@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
@@ -46,7 +47,7 @@ const EventList = ({ events, error, selectedDate }) => {
         {checkDate && (
           <Button
             onClick={() => setShowAdd(!showAdd)}
-            icon={<AddIcon color="#fff" />}
+            icon={<AddIcon color={tokens.colors.fff} />}
           >
             {t('dashboard.new')}
           </Button>
@@ -104,3 +105,14 @@ const AddEvent = styled.div`
 `;
 
 export default EventList;
+
+// Prop types
+EventList.propTypes = {
+  error: PropTypes.string,
+  events: PropTypes.array,
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+};

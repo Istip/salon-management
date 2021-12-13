@@ -33,7 +33,7 @@ const Clients = () => {
           </Text>
           <Button
             onClick={() => setShow(!show)}
-            icon={<AddIcon color="#fff" />}
+            icon={<AddIcon color={tokens.colors.fff} />}
           >
             {t('client.new')}
           </Button>

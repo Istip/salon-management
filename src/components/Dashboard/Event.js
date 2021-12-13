@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -271,7 +272,7 @@ const EventCard = styled.div`
   flex-direction: column;
   width: 100%;
   background: ${(props) =>
-    props.finished ? `${tokens.colors.primaryLight3}` : '#fff'};
+    props.finished ? `${tokens.colors.primaryLight3}` : `${tokens.colors.fff}`};
   border: 1px solid ${tokens.colors.primaryLight3};
   border-radius: 12px;
   transition: 250ms ease;
@@ -292,3 +293,22 @@ const EventCard = styled.div`
 `;
 
 export default Event;
+
+// Prop types
+Event.propTypes = {
+  event: PropTypes.shape({
+    action: PropTypes.string,
+    date: PropTypes.shape({
+      seconds: PropTypes.number,
+      nanoseconds: PropTypes.number,
+    }),
+    finished: PropTypes.bool,
+    gender: PropTypes.oneOf(['male', 'female']),
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    name: PropTypes.string,
+    price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
+  next: PropTypes.any,
+  setSelected: PropTypes.func,
+  setShowPay: PropTypes.func,
+};

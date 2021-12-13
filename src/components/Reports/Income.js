@@ -88,7 +88,7 @@ const Income = () => {
 
 const IncomeWrapper = styled.div`
   border: 1px solid ${tokens.colors.primaryLight3};
-  background: #fff;
+  background: ${tokens.colors.fff};
   padding: 10px;
   border-radius: 12px;
   margin-top: 10px;

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -81,7 +82,7 @@ const Client = ({ client }) => {
           <Info>
             <GenderBadge gender={client.gender} elite={client.elite}>
               {client.elite && <Mark />}
-              <Text variant="medium8" color="#fff">
+              <Text variant="medium8" color={tokens.colors.fff}>
                 {t(`${client.gender}`.toUpperCase())}
               </Text>
             </GenderBadge>
@@ -217,14 +218,14 @@ const Divider = styled.div`
     margin-top: -2px;
     padding: 0 10px;
     text-align: left;
-    background: #fff;
+    background: ${tokens.colors.fff};
   }
 `;
 
 const Mark = styled.span`
   margin: 6px 3px 0 0;
   text-align: left;
-  background: #fff;
+  background: ${tokens.colors.fff};
   width: 8px;
   height: 8px;
   background: ${tokens.colors.warning};
@@ -302,7 +303,7 @@ const RightSide = styled.div`
 
 const ClientWrapper = styled.div`
   border: 1px solid ${tokens.colors.primaryLight3};
-  background: #fff;
+  background: ${tokens.colors.fff};
   padding: 10px;
   border-radius: 12px;
   margin-top: 10px;
@@ -310,3 +311,14 @@ const ClientWrapper = styled.div`
 `;
 
 export default Client;
+
+// Prop types
+Client.propTypes = {
+  client: PropTypes.shape({
+    elite: PropTypes.bool,
+    gender: PropTypes.oneOf(['male', 'female']),
+    id: PropTypes.string,
+    name: PropTypes.string,
+    phone: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
+};

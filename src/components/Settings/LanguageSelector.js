@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import i18n from '../../translations/i18n';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
@@ -43,6 +44,11 @@ const LanguageSelector = ({ setLanguage }) => {
       </FlexBetween>
     </>
   );
+};
+
+// Prop types
+LanguageSelector.propTypes = {
+  setLanguage: PropTypes.func.isRequired,
 };
 
 export default LanguageSelector;

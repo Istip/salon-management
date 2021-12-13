@@ -12,6 +12,7 @@ export const tokens = {
     primaryDark3: '#0e2c4d',
     primaryDark4: '#050f1b',
 
+    fff: '#fff',
     white: '#f6fafe',
     darkGrey: '#111',
     mediumGrey: '#C2C3C4',

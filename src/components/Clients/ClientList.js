@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
@@ -11,7 +12,7 @@ import SearchIcon from '../icons/SearchIcon';
 import MarkIcon from '../icons/MarkIcon';
 import FlexCenter from '../UI/FlexCenter';
 
-const ClientList = ({ clients }) => {
+function ClientList({ clients }) {
   const [value, setValue] = useState('');
   const [filter, setFilter] = useState('');
   const [marked, setMarked] = useState(false);
@@ -38,6 +39,7 @@ const ClientList = ({ clients }) => {
             size={16}
           />
           <Text
+            tag="div"
             variant="medium14"
             color={marked ? tokens.colors.warning : tokens.colors.mediumGrey}
           >
@@ -76,6 +78,7 @@ const ClientList = ({ clients }) => {
 
             {filterOptions.map((option) => (
               <Text
+                tag="div"
                 key={option.value}
                 onClick={option.onClick}
                 variant={isSame(option, filter) ? 'medium14' : 'regular14'}
@@ -128,7 +131,7 @@ const ClientList = ({ clients }) => {
       )}
     </ClientListWrapper>
   );
-};
+}
 
 // styled components
 const ClientListWrapper = styled.div`
@@ -151,3 +154,8 @@ const FilterMenu = styled.div`
 `;
 
 export default ClientList;
+
+// Prop types
+ClientList.propTypes = {
+  clients: PropTypes.array,
+};

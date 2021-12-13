@@ -64,7 +64,7 @@ const AuthenticationWrapper = styled.div`
 const PageHeader = styled.div`
   padding: 20px 0;
   min-height: 120px;
-  background: #fff;
+  background: ${tokens.colors.fff};
   border-bottom: 1px solid ${tokens.colors.lightGrey};
   width: 100%;
   display: flex;

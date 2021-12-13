@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +67,7 @@ const fadeIn = keyframes`
 `;
 
 const Popover = styled.div`
-  background: #fff;
+  background: ${tokens.colors.fff};
   border-radius: 4px;
   border: 1px solid ${tokens.colors.primaryLight3};
   position: absolute;
@@ -88,3 +89,15 @@ const Popover = styled.div`
 `;
 
 export default ClientPopover;
+
+// Prop types
+ClientPopover.propTypes = {
+  client: PropTypes.shape({
+    elite: PropTypes.bool,
+    gender: PropTypes.oneOf(['male', 'female']),
+    id: PropTypes.string,
+    name: PropTypes.string,
+    phone: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
+  visible: PropTypes.bool,
+};

@@ -87,7 +87,7 @@ const Signup = () => {
           type="submit"
           disabled={loading}
           block
-          icon={<SigninIcon color="#fff" size={18} />}
+          icon={<SigninIcon color={tokens.colors.fff} size={18} />}
         >
           {t('auth.sign_up').toUpperCase()}
         </Button>
