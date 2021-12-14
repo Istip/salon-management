@@ -5,6 +5,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useCollection } from '../../hooks/useCollection';
 import { tokens } from '../UI/tokens';
 
 import Hamburger from '../icons/Hamburger';
@@ -13,6 +14,7 @@ import FlexCenter from '../UI/FlexCenter';
 import Logo from '../UI/Logo';
 import Text from '../UI/Text';
 import CalendarIcon from '../icons/CalendarIcon';
+import SecretIcon from '../icons/SecretIcon';
 import SettingsIcon from '../icons/SettingsIcon';
 
 const Appbar = () => {
@@ -28,6 +30,8 @@ const Appbar = () => {
 
   const { t } = useTranslation();
 
+  const { documents } = useCollection('users');
+
   const handleClickOutside = (e) => {
     if (wrapperNode.current && wrapperNode.current.contains(e.target)) {
       return;
@@ -38,6 +42,11 @@ const Appbar = () => {
   const pushToSettings = () => {
     setVisible(false);
     navigate('/settings');
+  };
+
+  const pushToAdminPage = () => {
+    setVisible(false);
+    navigate('/admin');
   };
 
   useEffect(() => {
@@ -91,6 +100,18 @@ const Appbar = () => {
                       </FlexCenter>
                     </PopoverTitle>
                   </FlexCenter>
+
+                  {documents && documents[0].admin && (
+                    <>
+                      <DividerLine />
+                      <PopoverMenuItem onClick={pushToAdminPage}>
+                        <PopoverMenuText>
+                          <SecretIcon {...iconProps} />
+                          {t('appbar.admin')}
+                        </PopoverMenuText>
+                      </PopoverMenuItem>
+                    </>
+                  )}
 
                   <DividerLine />
 

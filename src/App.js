@@ -23,6 +23,7 @@ import Settings from './pages/Settings';
 // moment locale imports
 import 'moment/locale/hu';
 import 'moment/locale/en-gb';
+import Admin from './pages/Admin';
 
 function App() {
   // state handling the global language for translation and moment lolcale
@@ -59,6 +60,16 @@ function App() {
                 element={
                   user ? (
                     <Settings setLanguage={setLanguage} />
+                  ) : (
+                    <Navigate replace to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  user && user.uid === process.env.REACT_APP_ADMIN_ID ? (
+                    <Admin />
                   ) : (
                     <Navigate replace to="/" />
                   )

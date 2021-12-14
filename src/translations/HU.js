@@ -1,10 +1,15 @@
 export const HU = {
+  common: {
+    loading: 'Betöltés..',
+  },
+
   appbar: {
     en: 'Angol',
     hu: 'Magyar',
     hello: 'Hello',
     logout: 'Kilépés',
     settings: 'Beállítások',
+    admin: 'Adminisztráció',
   },
 
   navigation: {
@@ -123,5 +128,10 @@ export const HU = {
     operation_description:
       'Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a munkahelyi profilodnak megfelelően!',
     add_operation: 'Művelet hozzáadása',
+  },
+
+  admin: {
+    admin: 'Admin',
+    user_list: 'Felhasználók listája',
   },
 };

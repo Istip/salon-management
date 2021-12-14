@@ -1,10 +1,15 @@
 export const EN = {
+  common: {
+    loading: 'Loading..',
+  },
+
   appbar: {
     en: 'English',
     hu: 'Hungarian',
     hello: 'Hello',
     logout: 'Log out',
     settings: 'Settings',
+    admin: 'Admin Panel',
   },
 
   navigation: {
@@ -124,5 +129,10 @@ export const EN = {
     operation_description:
       'Below are listed all your operations. Edit them based on your work profile!',
     add_operation: 'Add Operation',
+  },
+
+  admin: {
+    admin: 'Admin',
+    user_list: 'Users list',
   },
 };

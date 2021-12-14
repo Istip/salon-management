@@ -6,7 +6,8 @@ export const useCollection = (
   collection,
   _firstQuery,
   _secondQuery,
-  _orderBy
+  _orderBy,
+  _onlyMe = true
 ) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
@@ -18,11 +19,14 @@ export const useCollection = (
   const firstQuery = useRef(_firstQuery).current;
   const secondQuery = useRef(_secondQuery).current;
   const orderBy = useRef(_orderBy).current;
+  const onlyMe = useRef(_onlyMe).current;
 
   useEffect(() => {
-    let ref = projectFirestore
-      .collection(collection)
-      .where('uid', '==', user.uid);
+    let ref = projectFirestore.collection(collection);
+
+    if (onlyMe) {
+      ref = ref.where('uid', '==', user.uid);
+    }
 
     if (firstQuery) {
       ref = ref.where(...firstQuery);
