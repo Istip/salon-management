@@ -32,8 +32,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
 
   const { addDocument, response } = useFirestore('events');
 
-  const actions = documents ? documents[0].actions : [];
-
   // Resetting the local state back to original
   const resetFields = () => {
     setShow(false);
@@ -84,6 +82,12 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
   const iconProps = {
     color: tokens.colors.primaryLight1,
   };
+
+  if (!documents) {
+    return null;
+  }
+
+  const actions = documents ? documents[0].actions : ['haircut'];
 
   return (
     <Modal
