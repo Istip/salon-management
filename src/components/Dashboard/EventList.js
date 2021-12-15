@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
@@ -12,7 +13,6 @@ import Button from '../UI/Button';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 import ModalPay from './ModalPay';
-import moment from 'moment';
 import Error from '../UI/Error';
 
 const EventList = ({ events, error, selectedDate }) => {
@@ -48,9 +48,8 @@ const EventList = ({ events, error, selectedDate }) => {
           <Button
             onClick={() => setShowAdd(!showAdd)}
             icon={<AddIcon color={tokens.colors.fff} />}
-          >
-            {t('dashboard.new')}
-          </Button>
+            rounded
+          />
         )}
 
         {error && <Error>{error}</Error>}

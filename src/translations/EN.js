@@ -86,7 +86,6 @@ export const EN = {
     modal_title: 'New client',
     only_visit: 'Only visit',
     last_visit: 'Last visits',
-    new: 'NEW',
     marked: 'Marked',
   },
 
@@ -102,8 +101,8 @@ export const EN = {
     male: 'Male',
     female: 'Female',
     modal_title: 'Add income',
-    new: 'NEW',
     no_data: 'N/A',
+    cancel: 'Cancel',
   },
 
   reports: {

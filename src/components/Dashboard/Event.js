@@ -28,6 +28,21 @@ const Event = ({ event, setSelected, setShowPay, next }) => {
     setShowPay(true);
   };
 
+  // Function returning different action for button, based on finished status
+  const handleDeleteButton = () => {
+    setVisible(false);
+
+    if (!event.finished) {
+      return deleteDocument(event.id);
+    }
+
+    return updateDocument(event.id, {
+      ...event,
+      finished: false,
+      price: 0,
+    });
+  };
+
   // Function return if date is after the current moment
   const ifFutureEvent = (appointment) => {
     const formatTime =
@@ -75,7 +90,7 @@ const Event = ({ event, setSelected, setShowPay, next }) => {
           )}
 
           <VisibleContent>
-            <Content>
+            <Content onClick={() => setVisible(!visible)}>
               <EventType>
                 <Text variant="medium8" color={tokens.colors.primary}>
                   {event.action}
@@ -100,64 +115,70 @@ const Event = ({ event, setSelected, setShowPay, next }) => {
               </EventDescription>
             </Content>
 
-            {event.finished ? (
-              <FlexCenter>
-                <Button
-                  variant={event.price ? 'neutral' : 'primary'}
-                  disabled={event.price}
-                  style={{ pointerEvents: event.price ? 'none' : 'auto' }}
-                  onClick={() => handlePriceModal(event)}
-                >
-                  <FlexCenter style={{ flexDirection: 'column' }}>
-                    <Text variant="medium14">
-                      {!event.price
-                        ? t('dashboard.paid')
-                        : t('dashboard.income')}
-                    </Text>
+            <FlexCenter style={{ gap: '6px' }}>
+              {event.finished && (
+                <FlexCenter>
+                  <Button
+                    variant={event.price ? 'neutral' : 'primary'}
+                    disabled={event.price}
+                    style={{ pointerEvents: event.price ? 'none' : 'auto' }}
+                    onClick={() => handlePriceModal(event)}
+                  >
+                    <FlexCenter style={{ flexDirection: 'column' }}>
+                      <Text variant="medium12">
+                        {!event.price
+                          ? t('dashboard.paid')
+                          : t('dashboard.income')}
+                      </Text>
 
-                    {event.price !== 0 && (
-                      <Text variant="regular8">{event.price} RON</Text>
-                    )}
-                  </FlexCenter>
-                </Button>
-              </FlexCenter>
-            ) : (
+                      {event.price !== 0 && (
+                        <Text variant="regular8">{event.price} RON</Text>
+                      )}
+                    </FlexCenter>
+                  </Button>
+                </FlexCenter>
+              )}
+
               <DropDown
                 onClick={() => setVisible(!visible)}
                 className={visible ? 'visible' : ''}
               >
                 <DropdownIcon />
               </DropDown>
-            )}
+            </FlexCenter>
           </VisibleContent>
 
-          <ExtraContent className={visible ? 'visible' : ''}>
+          <ExtraContent
+            className={visible ? 'visible' : ''}
+            finished={event.finished}
+          >
             <Button
               block
               variant="error"
               icon={<DeleteIcon color={tokens.colors.error} />}
-              onClick={() => deleteDocument(event.id)}
+              onClick={handleDeleteButton}
             >
-              {t('dashboard.delete')}
+              {event.finished ? t('dashboard.cancel') : t('dashboard.delete')}
             </Button>
 
             {moment(event.date.seconds * 1000).format('YY:MM:DD') <=
-              moment().format('YY:MM:DD') && (
-              <Button
-                block
-                variant="success"
-                icon={<CheckIcon color={tokens.colors.success} />}
-                onClick={() => {
-                  updateDocument(event.id, {
-                    ...event,
-                    finished: true,
-                  });
-                  setVisible(false);
-                }}
-              >
-                {t('dashboard.finish')}
-              </Button>
-            )}
+              moment().format('YY:MM:DD') &&
+              !event.finished && (
+                <Button
+                  block
+                  variant="success"
+                  icon={<CheckIcon color={tokens.colors.success} />}
+                  onClick={() => {
+                    updateDocument(event.id, {
+                      ...event,
+                      finished: true,
+                    });
+                    setVisible(false);
+                  }}
+                >
+                  {t('dashboard.finish')}
+                </Button>
+              )}
           </ExtraContent>
         </EventCard>
       </EventInfo>
@@ -188,7 +209,10 @@ const ExtraContent = styled.div`
   display: flex;
   justify-content: center;
   gap: 10px;
-  border-top: 1px solid ${tokens.colors.lightGrey};
+  border-top: ${(props) =>
+    props.finished
+      ? `1px solid ${tokens.colors.primaryLight2}`
+      : `1px solid ${tokens.colors.lightGrey}`};
   text-align: center;
   max-height: 0;
   transition: 250ms ease;
@@ -211,6 +235,7 @@ const DropDown = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
   cursor: pointer;
   transition: 250ms ease;
 
@@ -273,17 +298,21 @@ const EventCard = styled.div`
   width: 100%;
   background: ${(props) =>
     props.finished ? `${tokens.colors.primaryLight3}` : `${tokens.colors.fff}`};
+
   border: 1px solid ${tokens.colors.primaryLight3};
-  border-radius: 12px;
+  border-left: 3px solid ${tokens.colors.primaryLight3};
+  border-radius: 0 12px 12px 0;
   transition: 250ms ease;
 
   &:hover {
     border: 1px solid ${tokens.colors.primary};
+    border-left: 3px solid ${tokens.colors.primary};
     box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
   }
 
   &.next {
     border: 1px solid ${tokens.colors.success};
+    border-left: 3px solid ${tokens.colors.success};
     box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
 
     &:hover {

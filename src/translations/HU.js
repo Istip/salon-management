@@ -85,7 +85,6 @@ export const HU = {
     modal_title: 'Új kliens',
     only_visit: 'Egyetlen látogatás',
     last_visit: 'Utolsó látogatások',
-    new: 'ÚJ',
     marked: 'Megjelölt',
   },
 
@@ -101,8 +100,8 @@ export const HU = {
     male: 'Férfi',
     female: 'Nő',
     modal_title: 'Bevétel hozzáadása',
-    new: 'ÚJ',
     no_data: 'elnevezés nélkül',
+    cancel: 'Visszavonás',
   },
 
   reports: {
