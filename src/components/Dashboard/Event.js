@@ -187,6 +187,62 @@ const Event = ({ event, setSelected, setShowPay, next }) => {
 };
 
 // styled components
+const EventWrapper = styled.div`
+  margin: 0 10px;
+`;
+
+const EventInfo = styled.div`
+  width: 100%;
+  display: flex;
+  min-height: 60px;
+  margin: 5px 0;
+`;
+
+const EventTime = styled.span`
+  position: relative;
+  min-width: 50px;
+  max-width: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+
+  /* monospace the numbers */
+  font-feature-settings: 'tnum' on, 'lnum' on;
+
+  span {
+    position: absolute;
+  }
+`;
+
+const EventCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: ${(props) =>
+    props.finished ? `${tokens.colors.primaryLight3}` : `${tokens.colors.fff}`};
+
+  border: 1px solid ${tokens.colors.primaryLight3};
+  border-left: 3px solid ${tokens.colors.primaryLight3};
+  border-radius: 0 12px 12px 0;
+  transition: 250ms ease;
+
+  &:hover {
+    border: 1px solid ${tokens.colors.primary};
+    border-left: 3px solid ${tokens.colors.primary};
+    box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
+  }
+
+  &.next {
+    border: 1px solid ${tokens.colors.success};
+    border-left: 3px solid ${tokens.colors.success};
+    box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
+
+    &:hover {
+      box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
+    }
+  }
+`;
+
 const Content = styled.div`
   display: flex;
 `;
@@ -263,62 +319,6 @@ const EventDescription = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 10px;
-`;
-
-const EventWrapper = styled.div`
-  margin: 0 10px;
-`;
-
-const EventInfo = styled.div`
-  width: 100%;
-  display: flex;
-  min-height: 60px;
-  margin: 20px 0;
-`;
-
-const EventTime = styled.span`
-  position: relative;
-  min-width: 50px;
-  max-width: 50px;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-
-  /* monospace the numbers */
-  font-feature-settings: 'tnum' on, 'lnum' on;
-
-  span {
-    position: absolute;
-  }
-`;
-
-const EventCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background: ${(props) =>
-    props.finished ? `${tokens.colors.primaryLight3}` : `${tokens.colors.fff}`};
-
-  border: 1px solid ${tokens.colors.primaryLight3};
-  border-left: 3px solid ${tokens.colors.primaryLight3};
-  border-radius: 0 12px 12px 0;
-  transition: 250ms ease;
-
-  &:hover {
-    border: 1px solid ${tokens.colors.primary};
-    border-left: 3px solid ${tokens.colors.primary};
-    box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
-  }
-
-  &.next {
-    border: 1px solid ${tokens.colors.success};
-    border-left: 3px solid ${tokens.colors.success};
-    box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
-
-    &:hover {
-      box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
-    }
-  }
 `;
 
 export default Event;

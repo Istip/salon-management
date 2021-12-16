@@ -15,14 +15,13 @@ import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
-import TimeIcon from '../icons/TimeIcon';
 import Select from '../UI/Select';
+import FlexCenter from '../UI/FlexCenter';
 
-const ModalAddEvent = ({ show, setShow, selectedDate }) => {
+const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('');
   const [gender, setGender] = useState('female');
-  const [date, setDate] = useState(moment().format('HH:mm'));
 
   const { documents } = useCollection('users');
 
@@ -38,7 +37,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
     setAction('');
     setName('');
     setGender('female');
-    setDate(moment().format('HH:mm'));
   };
 
   // Function fired when submitting the modal
@@ -53,7 +51,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       price: 0,
       date: timestamp.fromDate(
         moment(selectedDate)
-          .set({ hour: date.slice(0, 2), minute: date.slice(3, 5) })
+          .set({ hour: time.slice(0, 2), minute: time.slice(3, 5) })
           .toDate()
       ),
       uid: user.uid,
@@ -74,11 +72,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
     // eslint-disable-next-line
   }, [response.success]);
 
-  useEffect(() => {
-    setDate(moment().format('HH:mm'));
-    // eslint-disable-next-line
-  }, [show]);
-
   const iconProps = {
     color: tokens.colors.primaryLight1,
   };
@@ -97,6 +90,12 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     >
+      <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
+        <Text color={tokens.colors.success} tag="h1">
+          {time}
+        </Text>
+      </FlexCenter>
+
       <Form style={{ padding: '20px 20px 0' }}>
         <Input
           type="text"
@@ -107,15 +106,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate }) => {
           onChange={(e) => setName(e.target.value)}
           icon={<UserUserIcon {...iconProps} />}
           autoComplete="off"
-        />
-
-        <Input
-          type="time"
-          label={t('input.label.time')}
-          name="meeting-time"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          icon={<TimeIcon {...iconProps} />}
         />
 
         <Select
@@ -183,4 +173,5 @@ ModalAddEvent.propTypes = {
   ]),
   setShow: PropTypes.func,
   show: PropTypes.bool,
+  time: PropTypes.string.isRequired,
 };

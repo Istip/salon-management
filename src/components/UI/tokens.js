@@ -121,4 +121,19 @@ export const fonts = {
     fontWeight: tokens.fontSize[900],
     fontSize: '18px',
   },
+
+  light14: {
+    fontWeight: tokens.fontSize[100],
+    fontSize: '14px',
+  },
+
+  light16: {
+    fontWeight: tokens.fontSize[100],
+    fontSize: '16px',
+  },
+
+  light18: {
+    fontWeight: tokens.fontSize[100],
+    fontSize: '18px',
+  },
 };
