@@ -8,8 +8,14 @@ import Text from '../UI/Text';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 
-const Placeholder = ({ event }) => {
+const Placeholder = ({ event, setTime, setShowAdd }) => {
   const [visible, setVisible] = useState(false);
+
+  // Function to save time to state and open the modal
+  const handleModalOpen = () => {
+    setTime(event);
+    setShowAdd(true);
+  };
 
   return (
     <PlaceholderWrapper>
@@ -24,7 +30,7 @@ const Placeholder = ({ event }) => {
           </Text>
         </PlaceholderTime>
         <PlaceholderCard
-          onClick={() => console.log(event)}
+          onClick={handleModalOpen}
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
         >
@@ -117,4 +123,6 @@ export default Placeholder;
 
 Placeholder.propTypes = {
   event: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  setTime: PropTypes.func.isRequired,
+  setShowAdd: PropTypes.func.isRequired,
 };

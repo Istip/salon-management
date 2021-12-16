@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
-import { tokens } from '../UI/tokens';
 import { timestamps } from '../../utils/timestamps';
+import { useTranslation } from 'react-i18next';
+import { tokens } from '../UI/tokens';
 
 // project components
 import Event from './Event';
 import ModalAdd from './ModalAddEvent';
-import Button from '../UI/Button';
 import ModalPay from './ModalPay';
 import Error from '../UI/Error';
 import Placeholder from './Placeholder';
 import Text from '../UI/Text';
 import FlexCenter from '../UI/FlexCenter';
-import AddIcon from '../icons/AddIcon';
 import TimeIcon from '../icons/TimeIcon';
 import ViewAllIcon from '../icons/ViewAllIcon';
 import CalendarIcon from '../icons/CalendarIcon';
@@ -23,10 +22,13 @@ const EventList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
+  const [time, setTime] = useState('');
 
   // state responsible for the rendered view
   const [active, setActive] = useState('working-hours');
   const [workingHours, setWorkingHours] = useState([16, 37]);
+
+  const { t } = useTranslation();
 
   // Function returning if the passed number is odd or not
   const isOdd = (number) => {
@@ -54,11 +56,6 @@ const EventList = ({ events, error, selectedDate }) => {
       setWorkingHours([16, 37]);
     }
   };
-
-  // Check if the date is after or the same as current day
-  const checkDate =
-    selectedDate.isSameOrAfter(moment()) ||
-    selectedDate.format('YY-MM-DD') === moment().format('YY-MM-DD');
 
   if (!events) {
     return null;
@@ -91,19 +88,37 @@ const EventList = ({ events, error, selectedDate }) => {
 
   return (
     <>
-      <AddEvent>
-        <FilterMenu>
-          {!!clientsForDay.length && (
-            <ClientsBadge
-              finished={clientsForDay.every((item) => item === true)}
-            >
-              <Text variant="regular8" color={tokens.colors.fff}>
-                {clientsForDay.length}
-              </Text>
-            </ClientsBadge>
-          )}
+      <HeadBar>
+        <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+          {t('dashboard.appointments')}
+        </Text>
 
+        <FilterMenu>
           <FlexCenter style={{ gap: '5px' }}>
+            <FilterItem active={active === 'all'} onClick={() => viewAll()}>
+              <FlexCenter>
+                <CalendarIcon color={tokens.colors.primaryDark3} />
+              </FlexCenter>
+            </FilterItem>
+
+            <FilterItem
+              active={active === 'filtered'}
+              onClick={() => viewFiltered()}
+            >
+              {!!clientsForDay.length && (
+                <ClientsBadge
+                  finished={clientsForDay.every((item) => item === true)}
+                >
+                  <Text variant="regular8" color={tokens.colors.fff}>
+                    {clientsForDay.length}
+                  </Text>
+                </ClientsBadge>
+              )}
+              <FlexCenter>
+                <ViewAllIcon color={tokens.colors.primaryDark3} />
+              </FlexCenter>
+            </FilterItem>
+
             <FilterItem
               active={active === 'working-hours'}
               onClick={() => viewWorkingHours()}
@@ -112,33 +127,11 @@ const EventList = ({ events, error, selectedDate }) => {
                 <TimeIcon color={tokens.colors.primaryDark3} />
               </FlexCenter>
             </FilterItem>
-
-            <FilterItem
-              active={active === 'filtered'}
-              onClick={() => viewFiltered()}
-            >
-              <FlexCenter>
-                <ViewAllIcon color={tokens.colors.primaryDark3} />
-              </FlexCenter>
-            </FilterItem>
-
-            <FilterItem active={active === 'all'} onClick={() => viewAll()}>
-              <FlexCenter>
-                <CalendarIcon color={tokens.colors.primaryDark3} />
-              </FlexCenter>
-            </FilterItem>
           </FlexCenter>
         </FilterMenu>
 
-        <Button
-          disabled={!checkDate}
-          onClick={() => setShowAdd(!showAdd)}
-          icon={<AddIcon color={tokens.colors.fff} />}
-          rounded
-        />
-
         {error && <Error>{error}</Error>}
-      </AddEvent>
+      </HeadBar>
 
       {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => {
         return (
@@ -151,7 +144,15 @@ const EventList = ({ events, error, selectedDate }) => {
                 next={nextEvent}
               />
             ) : (
-              <>{active !== 'filtered' && <Placeholder event={event} />}</>
+              <>
+                {active !== 'filtered' && (
+                  <Placeholder
+                    event={event}
+                    setTime={setTime}
+                    setShowAdd={setShowAdd}
+                  />
+                )}
+              </>
             )}
             {isOdd(i) && active !== 'filtered' ? <Divider /> : null}
           </EventItem>
@@ -161,6 +162,7 @@ const EventList = ({ events, error, selectedDate }) => {
       <ModalAdd
         show={showAdd}
         setShow={setShowAdd}
+        time={time}
         selectedDate={selectedDate}
         setSelected
       />
@@ -177,7 +179,7 @@ const Divider = styled.div`
   height: 10px;
 `;
 
-const AddEvent = styled.div`
+const HeadBar = styled.div`
   width: 100%;
   padding: 0 10px 20px 20px;
   display: flex;
@@ -188,7 +190,7 @@ const AddEvent = styled.div`
 const FilterMenu = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
@@ -205,8 +207,8 @@ const FilterMenu = styled.div`
 
 const ClientsBadge = styled.div`
   position: absolute;
-  right: -8px;
-  top: -8px;
+  right: 10px;
+  bottom: -14px;
   border-radius: 20px;
   width: 16px;
   height: 16px;
@@ -222,6 +224,7 @@ const ClientsBadge = styled.div`
 `;
 
 const FilterItem = styled.span`
+  position: relative;
   background: ${(props) =>
     props.active
       ? `${tokens.colors.primaryLight3}`
