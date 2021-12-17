@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { tokens } from '../UI/tokens';
@@ -9,8 +9,6 @@ import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 
 const Placeholder = ({ event, setTime, setShowAdd }) => {
-  const [visible, setVisible] = useState(false);
-
   // Function to save time to state and open the modal
   const handleModalOpen = () => {
     setTime(event);
@@ -29,18 +27,9 @@ const Placeholder = ({ event, setTime, setShowAdd }) => {
             {event}
           </Text>
         </PlaceholderTime>
-        <PlaceholderCard
-          onClick={handleModalOpen}
-          onMouseEnter={() => setVisible(true)}
-          onMouseLeave={() => setVisible(false)}
-        >
+        <PlaceholderCard onClick={handleModalOpen}>
           <FlexCenter style={{ gap: '4px' }}>
             <AddIcon color={tokens.colors.primaryLight2} />
-            <HiddenTime className={visible ? 'visible' : ''}>
-              <Text variant="regular14" color={tokens.colors.primaryLight2}>
-                {event}
-              </Text>
-            </HiddenTime>
           </FlexCenter>
         </PlaceholderCard>
       </PlaceholderInfo>
@@ -76,8 +65,8 @@ const PlaceholderCard = styled.div`
   width: 100%;
   height: 70px;
   border-radius: 0 12px 12px 0;
-  border: 1px dashed ${tokens.colors.primaryLight3};
-  border-left: 3px solid ${tokens.colors.primaryLight3};
+  border: 1px dashed ${tokens.colors.mediumGrey};
+  border-left: 3px solid ${tokens.colors.mediumGrey};
   cursor: pointer;
 
   display: flex;
@@ -101,19 +90,6 @@ const PlaceholderCard = styled.div`
   &:hover {
     box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
     opacity: 1;
-  }
-`;
-
-const HiddenTime = styled.div`
-  max-width: 0;
-  overflow: hidden;
-  transition: 250ms ease;
-
-  /* monospace the numbers */
-  font-feature-settings: 'tnum' on, 'lnum' on;
-
-  &.visible {
-    max-width: 40px;
   }
 `;
 
