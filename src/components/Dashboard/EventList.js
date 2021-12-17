@@ -79,6 +79,7 @@ const EventList = ({ events, error, selectedDate }) => {
     .filter((client) => typeof client !== 'string')
     .map((client) => client.finished);
 
+  // Filtering out which event is the next for the actual day
   const nextEvent = events.find(
     (event) =>
       moment(event.date.seconds * 1000).format('YY-MM-DD HH:mm') >
@@ -89,9 +90,20 @@ const EventList = ({ events, error, selectedDate }) => {
   return (
     <>
       <HeadBar>
-        <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-          {t('dashboard.appointments')}
-        </Text>
+        <Title>
+          {!!clientsForDay.length && (
+            <ClientsBadge
+              finished={clientsForDay.every((item) => item === true)}
+            >
+              <Text variant="regular8" color={tokens.colors.fff}>
+                {clientsForDay.length}
+              </Text>
+            </ClientsBadge>
+          )}
+          <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+            {t('dashboard.appointments')}
+          </Text>
+        </Title>
 
         <FilterMenu>
           <FlexCenter style={{ gap: '5px' }}>
@@ -105,15 +117,6 @@ const EventList = ({ events, error, selectedDate }) => {
               active={active === 'filtered'}
               onClick={() => viewFiltered()}
             >
-              {!!clientsForDay.length && (
-                <ClientsBadge
-                  finished={clientsForDay.every((item) => item === true)}
-                >
-                  <Text variant="regular8" color={tokens.colors.fff}>
-                    {clientsForDay.length}
-                  </Text>
-                </ClientsBadge>
-              )}
               <FlexCenter>
                 <ViewAllIcon color={tokens.colors.primaryDark3} />
               </FlexCenter>
@@ -207,8 +210,8 @@ const FilterMenu = styled.div`
 
 const ClientsBadge = styled.div`
   position: absolute;
-  right: 10px;
-  bottom: -14px;
+  right: -16px;
+  top: -8px;
   border-radius: 20px;
   width: 16px;
   height: 16px;
@@ -221,6 +224,11 @@ const ClientsBadge = styled.div`
     props.finished
       ? `1px solid ${tokens.colors.success}`
       : `1px solid ${tokens.colors.warning}`};
+  transition: 250ms ease;
+
+  &:hover {
+    transform: scale(2);
+  }
 `;
 
 const FilterItem = styled.span`
@@ -237,6 +245,10 @@ const FilterItem = styled.span`
   &:hover {
     background: ${tokens.colors.primaryLight3};
   }
+`;
+
+const Title = styled.div`
+  position: relative;
 `;
 
 export default EventList;
