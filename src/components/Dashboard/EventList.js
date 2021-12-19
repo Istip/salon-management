@@ -30,11 +30,6 @@ const EventList = ({ events, error, selectedDate }) => {
 
   const { t } = useTranslation();
 
-  // Function returning if the passed number is odd or not
-  const isOdd = (number) => {
-    return number % 2;
-  };
-
   // Filter button selecting
   const viewAll = () => {
     if (active !== 'all') {
@@ -78,14 +73,6 @@ const EventList = ({ events, error, selectedDate }) => {
   const clientsForDay = dailyData
     .filter((client) => typeof client !== 'string')
     .map((client) => client.finished);
-
-  // Filtering out which event is the next for the actual day
-  const nextEvent = events.find(
-    (event) =>
-      moment(event.date.seconds * 1000).format('YY-MM-DD HH:mm') >
-        moment().format('YY-MM-DD HH:mm') &&
-      moment(event.date.seconds * 1000).isSame(moment(), 'day')
-  );
 
   return (
     <>
@@ -144,7 +131,6 @@ const EventList = ({ events, error, selectedDate }) => {
                 event={event}
                 setSelected={setSelected}
                 setShowPay={setShowPay}
-                next={nextEvent}
               />
             ) : (
               <>
@@ -157,7 +143,6 @@ const EventList = ({ events, error, selectedDate }) => {
                 )}
               </>
             )}
-            {isOdd(i) && active !== 'filtered' ? <Divider /> : null}
           </EventItem>
         );
       })}
@@ -176,11 +161,6 @@ const EventList = ({ events, error, selectedDate }) => {
 
 // styled components
 const EventItem = styled.div``;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 10px;
-`;
 
 const HeadBar = styled.div`
   width: 100%;

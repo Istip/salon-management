@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import moment from 'moment';
 import { tokens } from '../UI/tokens';
 
 // Project imports
 import Text from '../UI/Text';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
+import CurrentTime from '../UI/CurrentTime';
 
 const Placeholder = ({ event, setTime, setShowAdd }) => {
   // Function to save time to state and open the modal
@@ -15,30 +17,49 @@ const Placeholder = ({ event, setTime, setShowAdd }) => {
     setShowAdd(true);
   };
 
+  const getTimeData = () => {
+    const time = moment().set({
+      hour: event.slice(0, 2),
+      minute: event.slice(3, 5),
+    });
+
+    const after = moment(time).isAfter(moment());
+    const diff = moment().diff(time, 'minutes');
+
+    return { after, diff };
+  };
+
+  const timeData = getTimeData();
+
   return (
-    <PlaceholderWrapper>
-      <PlaceholderInfo>
-        <PlaceholderTime>
-          <Text
-            tag="div"
-            variant="medium10"
-            color={tokens.colors.primaryLight2}
-          >
-            {event}
-          </Text>
-        </PlaceholderTime>
-        <PlaceholderCard onClick={handleModalOpen}>
-          <FlexCenter style={{ gap: '4px' }}>
-            <AddIcon color={tokens.colors.primaryLight2} />
-          </FlexCenter>
-        </PlaceholderCard>
-      </PlaceholderInfo>
-    </PlaceholderWrapper>
+    <>
+      {timeData.after && timeData.diff >= -30 && <CurrentTime />}
+
+      <PlaceholderWrapper>
+        <PlaceholderInfo>
+          <PlaceholderTime>
+            <Text
+              tag="div"
+              variant="medium10"
+              color={tokens.colors.primaryLight2}
+            >
+              {event}
+            </Text>
+          </PlaceholderTime>
+          <PlaceholderCard onClick={handleModalOpen}>
+            <FlexCenter style={{ gap: '4px' }}>
+              <AddIcon color={tokens.colors.primaryLight2} />
+            </FlexCenter>
+          </PlaceholderCard>
+        </PlaceholderInfo>
+      </PlaceholderWrapper>
+    </>
   );
 };
 
 // Styled components
 const PlaceholderWrapper = styled.div`
+  position: relative;
   margin: 0 10px;
 `;
 

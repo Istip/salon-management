@@ -13,9 +13,9 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
-import NextUserIcon from '../icons/NextUserIcon';
+import CurrentTime from '../UI/CurrentTime';
 
-const Event = ({ event, setSelected, setShowPay, next }) => {
+const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
 
   const { deleteDocument, updateDocument } = useFirestore('events');
@@ -54,135 +54,137 @@ const Event = ({ event, setSelected, setShowPay, next }) => {
     if (formatTime && notFinished) return true;
   };
 
+  const getTimeData = () => {
+    const time = moment(event.date.seconds * 1000);
+
+    const after = moment(time).isAfter(moment());
+    const diff = moment().diff(time, 'minutes');
+
+    return { after, diff };
+  };
+
+  const timeData = getTimeData();
+
   return (
-    <EventWrapper>
-      <EventInfo>
-        <EventTime>
-          <Text
-            tag="div"
-            variant="black10"
-            color={
-              next === event
-                ? tokens.colors.success
-                : tokens.colors.primaryDark2
-            }
-          >
-            {moment(event.date.seconds * 1000).format('HH:mm')}
+    <>
+      {timeData.after && timeData.diff >= -30 && <CurrentTime />}
 
-            {next === event && (
-              <NextIndicator>
-                <NextUserIcon color={tokens.colors.success} size={18} />
-              </NextIndicator>
-            )}
-          </Text>
-        </EventTime>
-
-        <EventCard
-          finished={event.finished}
-          className={next === event ? 'next' : ''}
-        >
-          {ifFutureEvent(event) && (
-            <FlexCenter style={{ paddingTop: '10px' }}>
-              <Text variant="medium10" color={tokens.colors.mediumGrey}>
-                {t('dashboard.unfinished_appointment')}
-              </Text>
-            </FlexCenter>
-          )}
-
-          <VisibleContent>
-            <Content onClick={() => setVisible(!visible)}>
-              <EventType>
-                <Text variant="medium8" color={tokens.colors.primary}>
-                  {event.action}
-                </Text>
-              </EventType>
-
-              <EventDescription>
-                <Text
-                  tag="div"
-                  variant="black14"
-                  color={tokens.colors.primaryDark3}
-                >
-                  {event.name}
-                </Text>
-                <Text
-                  tag="div"
-                  variant="regular12"
-                  color={tokens.colors.primary}
-                >
-                  {t(`client.${event.gender}`)}
-                </Text>
-              </EventDescription>
-            </Content>
-
-            <FlexCenter style={{ gap: '6px' }}>
-              {event.finished && (
-                <FlexCenter>
-                  <Button
-                    variant={event.price ? 'neutral' : 'primary'}
-                    disabled={event.price}
-                    style={{ pointerEvents: event.price ? 'none' : 'auto' }}
-                    onClick={() => handlePriceModal(event)}
-                  >
-                    <FlexCenter style={{ flexDirection: 'column' }}>
-                      <Text variant="medium12">
-                        {!event.price
-                          ? t('dashboard.paid')
-                          : t('dashboard.income')}
-                      </Text>
-
-                      {event.price !== 0 && (
-                        <Text variant="regular8">{event.price} RON</Text>
-                      )}
-                    </FlexCenter>
-                  </Button>
-                </FlexCenter>
-              )}
-
-              <DropDown
-                onClick={() => setVisible(!visible)}
-                className={visible ? 'visible' : ''}
-              >
-                <DropdownIcon />
-              </DropDown>
-            </FlexCenter>
-          </VisibleContent>
-
-          <ExtraContent
-            className={visible ? 'visible' : ''}
-            finished={event.finished}
-          >
-            <Button
-              block
-              variant="error"
-              icon={<DeleteIcon color={tokens.colors.error} />}
-              onClick={handleDeleteButton}
+      <EventWrapper>
+        <EventInfo>
+          <EventTime>
+            <Text
+              tag="div"
+              variant="black10"
+              color={tokens.colors.primaryDark2}
             >
-              {event.finished ? t('dashboard.cancel') : t('dashboard.delete')}
-            </Button>
+              {moment(event.date.seconds * 1000).format('HH:mm')}
+            </Text>
+          </EventTime>
 
-            {moment(event.date.seconds * 1000).format('YY:MM:DD') <=
-              moment().format('YY:MM:DD') &&
-              !event.finished && (
-                <Button
-                  block
-                  variant="success"
-                  icon={<CheckIcon color={tokens.colors.success} />}
-                  onClick={() => {
-                    updateDocument(event.id, {
-                      ...event,
-                      finished: true,
-                    });
-                    setVisible(false);
-                  }}
+          <EventCard finished={event.finished}>
+            {ifFutureEvent(event) && (
+              <FlexCenter style={{ paddingTop: '10px' }}>
+                <Text variant="medium10" color={tokens.colors.mediumGrey}>
+                  {t('dashboard.unfinished_appointment')}
+                </Text>
+              </FlexCenter>
+            )}
+
+            <VisibleContent>
+              <Content onClick={() => setVisible(!visible)}>
+                <EventType>
+                  <Text variant="medium8" color={tokens.colors.primary}>
+                    {event.action}
+                  </Text>
+                </EventType>
+
+                <EventDescription>
+                  <Text
+                    tag="div"
+                    variant="black14"
+                    color={tokens.colors.primaryDark3}
+                  >
+                    {event.name}
+                  </Text>
+                  <Text
+                    tag="div"
+                    variant="regular12"
+                    color={tokens.colors.primary}
+                  >
+                    {t(`client.${event.gender}`)}
+                  </Text>
+                </EventDescription>
+              </Content>
+
+              <FlexCenter style={{ gap: '6px' }}>
+                {event.finished && (
+                  <FlexCenter>
+                    <Button
+                      variant={event.price ? 'neutral' : 'primary'}
+                      disabled={event.price}
+                      style={{ pointerEvents: event.price ? 'none' : 'auto' }}
+                      onClick={() => handlePriceModal(event)}
+                    >
+                      <FlexCenter style={{ flexDirection: 'column' }}>
+                        <Text variant="medium12">
+                          {!event.price
+                            ? t('dashboard.paid')
+                            : t('dashboard.income')}
+                        </Text>
+
+                        {event.price !== 0 && (
+                          <Text variant="regular8">{event.price} RON</Text>
+                        )}
+                      </FlexCenter>
+                    </Button>
+                  </FlexCenter>
+                )}
+
+                <DropDown
+                  onClick={() => setVisible(!visible)}
+                  className={visible ? 'visible' : ''}
                 >
-                  {t('dashboard.finish')}
-                </Button>
-              )}
-          </ExtraContent>
-        </EventCard>
-      </EventInfo>
-    </EventWrapper>
+                  <DropdownIcon />
+                </DropDown>
+              </FlexCenter>
+            </VisibleContent>
+
+            <ExtraContent
+              className={visible ? 'visible' : ''}
+              finished={event.finished}
+            >
+              <Button
+                block
+                variant="error"
+                icon={<DeleteIcon color={tokens.colors.error} />}
+                onClick={handleDeleteButton}
+              >
+                {event.finished ? t('dashboard.cancel') : t('dashboard.delete')}
+              </Button>
+
+              {moment(event.date.seconds * 1000).format('YY:MM:DD') <=
+                moment().format('YY:MM:DD') &&
+                !event.finished && (
+                  <Button
+                    block
+                    variant="success"
+                    icon={<CheckIcon color={tokens.colors.success} />}
+                    onClick={() => {
+                      updateDocument(event.id, {
+                        ...event,
+                        finished: true,
+                      });
+                      setVisible(false);
+                    }}
+                  >
+                    {t('dashboard.finish')}
+                  </Button>
+                )}
+            </ExtraContent>
+          </EventCard>
+        </EventInfo>
+      </EventWrapper>
+    </>
   );
 };
 
@@ -231,28 +233,10 @@ const EventCard = styled.div`
     border-left: 3px solid ${tokens.colors.primary};
     box-shadow: 0 0 10px 0 rgba(14, 44, 77, 0.15);
   }
-
-  &.next {
-    border: 1px solid ${tokens.colors.success};
-    border-left: 3px solid ${tokens.colors.success};
-    box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
-
-    &:hover {
-      box-shadow: 0 0 10px 0 rgba(14, 255, 77, 0.15);
-    }
-  }
 `;
 
 const Content = styled.div`
   display: flex;
-`;
-
-const NextIndicator = styled.span`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 22px;
-  text-align: center;
 `;
 
 const VisibleContent = styled.div`
