@@ -62,6 +62,7 @@ const Navbar = styled.nav`
   position: fixed;
   width: 100%;
   bottom: 0;
+  z-index: 2;
   text-align: center;
   border-top: 1px solid ${lightGrey};
   background: ${tokens.colors.fff};

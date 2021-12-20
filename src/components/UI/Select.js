@@ -129,7 +129,7 @@ const SelectMenu = styled.div`
   border: 1px solid ${tokens.colors.primaryDark1};
   box-shadow: 0px 6px 20px -8px rgba(14, 44, 77, 0.25);
   color: ${tokens.colors.primaryDark1};
-  z-index: 1;
+  z-index: 2;
   scroll-snap-type: y mandatory;
 `;
 

@@ -1,61 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import moment from 'moment';
 import { tokens } from '../UI/tokens';
 
 // Project imports
 import Text from '../UI/Text';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
-import CurrentTime from '../UI/CurrentTime';
 
-const Placeholder = ({ event, setTime, setShowAdd, selectedDate }) => {
+const Placeholder = ({ event, setTime, setShowAdd, filtered }) => {
   // Function to save time to state and open the modal
   const handleModalOpen = () => {
     setTime(event);
     setShowAdd(true);
   };
 
-  const getTimeData = () => {
-    const time = moment(selectedDate).set({
-      hour: event.slice(0, 2),
-      minute: event.slice(3, 5),
-    });
-
-    const after = moment(time).isAfter(moment());
-    const diff = moment().diff(time, 'minutes');
-
-    return { time, after, diff };
-  };
-
-  const timeData = getTimeData();
+  if (!filtered) {
+    return null;
+  }
 
   return (
-    <>
-      {timeData.after &&
-        timeData.diff >= -30 &&
-        timeData.time.isSame(moment(), 'day') && <CurrentTime />}
-
-      <PlaceholderWrapper>
-        <PlaceholderInfo>
-          <PlaceholderTime>
-            <Text
-              tag="div"
-              variant="medium10"
-              color={tokens.colors.primaryLight2}
-            >
-              {event}
-            </Text>
-          </PlaceholderTime>
-          <PlaceholderCard onClick={handleModalOpen}>
-            <FlexCenter style={{ gap: '4px' }}>
-              <AddIcon color={tokens.colors.primaryLight2} />
-            </FlexCenter>
-          </PlaceholderCard>
-        </PlaceholderInfo>
-      </PlaceholderWrapper>
-    </>
+    <PlaceholderWrapper>
+      <PlaceholderInfo>
+        <PlaceholderTime>
+          <Text
+            tag="div"
+            variant="medium10"
+            color={tokens.colors.primaryLight2}
+          >
+            {event}
+          </Text>
+        </PlaceholderTime>
+        <PlaceholderCard onClick={handleModalOpen}>
+          <FlexCenter style={{ gap: '4px' }}>
+            <AddIcon color={tokens.colors.primaryLight2} />
+          </FlexCenter>
+        </PlaceholderCard>
+      </PlaceholderInfo>
+    </PlaceholderWrapper>
   );
 };
 
@@ -121,11 +103,7 @@ export default Placeholder;
 // Prop types
 
 Placeholder.propTypes = {
-  selectedDate: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  filtered: PropTypes.bool.isRequired,
   event: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   setTime: PropTypes.func.isRequired,
   setShowAdd: PropTypes.func.isRequired,

@@ -13,7 +13,6 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
-import CurrentTime from '../UI/CurrentTime';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
@@ -54,23 +53,16 @@ const Event = ({ event, setSelected, setShowPay }) => {
     if (formatTime && notFinished) return true;
   };
 
-  const getTimeData = () => {
-    const time = moment(event.date.seconds * 1000);
-
-    const after = moment(time).isAfter(moment());
-    const diff = moment().diff(time, 'minutes');
-
-    return { after, diff, time };
+  // Function return if the date is today and event is not finished yet
+  const isUnfinishedEvent = (appointment) => {
+    return (
+      moment(appointment.date.seconds * 1000).format('YY:MM:DD') <=
+        moment().format('YY:MM:DD') && !event.finished
+    );
   };
-
-  const timeData = getTimeData();
 
   return (
     <>
-      {timeData.after &&
-        timeData.diff >= -30 &&
-        timeData.time.isSame(moment(), 'day') && <CurrentTime />}
-
       <EventWrapper>
         <EventInfo>
           <EventTime>
@@ -164,24 +156,22 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 {event.finished ? t('dashboard.cancel') : t('dashboard.delete')}
               </Button>
 
-              {moment(event.date.seconds * 1000).format('YY:MM:DD') <=
-                moment().format('YY:MM:DD') &&
-                !event.finished && (
-                  <Button
-                    block
-                    variant="success"
-                    icon={<CheckIcon color={tokens.colors.success} />}
-                    onClick={() => {
-                      updateDocument(event.id, {
-                        ...event,
-                        finished: true,
-                      });
-                      setVisible(false);
-                    }}
-                  >
-                    {t('dashboard.finish')}
-                  </Button>
-                )}
+              {isUnfinishedEvent(event) && (
+                <Button
+                  block
+                  variant="success"
+                  icon={<CheckIcon color={tokens.colors.success} />}
+                  onClick={() => {
+                    updateDocument(event.id, {
+                      ...event,
+                      finished: true,
+                    });
+                    setVisible(false);
+                  }}
+                >
+                  {t('dashboard.finish')}
+                </Button>
+              )}
             </ExtraContent>
           </EventCard>
         </EventInfo>

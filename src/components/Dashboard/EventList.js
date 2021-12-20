@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -15,6 +15,7 @@ import Error from '../UI/Error';
 import Placeholder from './Placeholder';
 import Text from '../UI/Text';
 import FlexCenter from '../UI/FlexCenter';
+import CurrentTime from '../UI/CurrentTime';
 import TimeIcon from '../icons/TimeIcon';
 import ViewAllIcon from '../icons/ViewAllIcon';
 import CalendarIcon from '../icons/CalendarIcon';
@@ -24,6 +25,7 @@ const EventList = ({ events, error, selectedDate }) => {
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
   const [time, setTime] = useState('');
+  const [currentTime, setCurrentTime] = useState(moment());
 
   // state responsible for the rendered view
   const [active, setActive] = useLocalStorage('Type', 'working-hours');
@@ -53,14 +55,21 @@ const EventList = ({ events, error, selectedDate }) => {
     }
   };
 
+  useEffect(() => {
+    const intervalID = setTimeout(() => {
+      setCurrentTime(moment());
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+  }, [currentTime]);
+
   if (!events) {
     return null;
   }
 
-  // Constant returning the mix of two arrays:
-  // ... imported timestamps which holds the daily calendar timestamps
-  // ... if the timestamp has match with an event, it replaces the timestamp
-  // ... and holds the data of the event instead
+  // Constant returning the mix of two arrays: imported timestamps which holds the daily
+  // calendar timestamps if the timestamp has match with an event, it replaces the timestamp
+  // and holds the data of the event instead
   const dailyData =
     events &&
     timestamps.map(
@@ -74,6 +83,31 @@ const EventList = ({ events, error, selectedDate }) => {
   const clientsForDay = dailyData
     .filter((client) => typeof client !== 'string')
     .map((client) => client.finished);
+
+  // Function returning the time, time difference and if event is after current time
+  const getTimeData = (event) => {
+    const time =
+      typeof event === 'string'
+        ? moment(selectedDate).set({
+            hour: event.slice(0, 2),
+            minute: event.slice(3, 5),
+          })
+        : moment(event.date.seconds * 1000);
+
+    const after = moment(time).isAfter(moment());
+    const diff = moment().diff(time, 'minutes');
+
+    return { time, after, diff };
+  };
+
+  // Function returns true if the event is the next in the timeline
+  const isNextEvent = (event) => {
+    return (
+      getTimeData(event).after &&
+      getTimeData(event).diff >= -30 &&
+      getTimeData(event).time.isSame(moment(), 'day')
+    );
+  };
 
   return (
     <>
@@ -127,24 +161,27 @@ const EventList = ({ events, error, selectedDate }) => {
       {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => {
         return (
           <EventItem key={i}>
-            {typeof event !== 'string' ? (
-              <Event
-                event={event}
-                setSelected={setSelected}
-                setShowPay={setShowPay}
-              />
-            ) : (
-              <>
-                {active !== 'filtered' && (
-                  <Placeholder
-                    event={event}
-                    setTime={setTime}
-                    setShowAdd={setShowAdd}
-                    selectedDate={selectedDate}
-                  />
-                )}
-              </>
-            )}
+            <EventTimeWrapper>
+              {isNextEvent(event) && <CurrentTime time={currentTime} />}
+            </EventTimeWrapper>
+
+            <EventItemWrapper>
+              {typeof event !== 'string' ? (
+                <Event
+                  event={event}
+                  setSelected={setSelected}
+                  setShowPay={setShowPay}
+                />
+              ) : (
+                <Placeholder
+                  filtered={active !== 'filtered'}
+                  event={event}
+                  setTime={setTime}
+                  setShowAdd={setShowAdd}
+                  selectedDate={selectedDate}
+                />
+              )}
+            </EventItemWrapper>
           </EventItem>
         );
       })}
@@ -232,6 +269,10 @@ const FilterItem = styled.span`
 const Title = styled.div`
   position: relative;
 `;
+
+const EventItemWrapper = styled.div``;
+
+const EventTimeWrapper = styled.div``;
 
 export default EventList;
 
