@@ -5,7 +5,7 @@ import { useCollection } from '../hooks/useCollection';
 
 // project components
 import Calendar from '../components/Dashboard/Calendar';
-import EventList from '../components/Dashboard/EventList';
+import EventsList from '../components/Dashboard/EventsList';
 import Error from '../components/UI/Error';
 
 const Dashboard = () => {
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
       {error && <Error>{error}</Error>}
 
-      <EventList
+      <EventsList
         events={filteredEvents}
         error={error}
         selectedDate={selectedDate}
