@@ -60,14 +60,16 @@ const Event = ({ event, setSelected, setShowPay }) => {
     const after = moment(time).isAfter(moment());
     const diff = moment().diff(time, 'minutes');
 
-    return { after, diff };
+    return { after, diff, time };
   };
 
   const timeData = getTimeData();
 
   return (
     <>
-      {timeData.after && timeData.diff >= -30 && <CurrentTime />}
+      {timeData.after &&
+        timeData.diff >= -30 &&
+        timeData.time.isSame(moment(), 'day') && <CurrentTime />}
 
       <EventWrapper>
         <EventInfo>

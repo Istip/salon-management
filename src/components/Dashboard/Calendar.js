@@ -152,7 +152,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
                 </Text>
               </Day>
 
-              <DotReminder>
+              <DotReminder className={visible ? 'visible' : ''}>
                 <Dot day={day} />
               </DotReminder>
             </DayWrapper>
@@ -185,7 +185,7 @@ const CalendarWrapper = styled.div`
 
 const MonthSelector = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 20px 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -210,12 +210,14 @@ const DaySelectorWrapper = styled.div`
   scroll-snap-type: y mandatory;
   opacity: 0;
   max-height: 0;
+  margin-top: 0;
 
   transition: 250ms ease;
 
   &.visible {
     opacity: 1;
     max-height: 60px;
+    margin-top: 20px;
   }
 `;
 
@@ -233,6 +235,12 @@ const DotReminder = styled.span`
   justify-content: center;
   color: ${tokens.colors.primaryDark1};
   pointer-events: none;
+  transition: 100ms ease-in;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
 `;
 
 const Day = styled.div`

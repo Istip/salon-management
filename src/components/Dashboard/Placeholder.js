@@ -10,7 +10,7 @@ import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
 import CurrentTime from '../UI/CurrentTime';
 
-const Placeholder = ({ event, setTime, setShowAdd }) => {
+const Placeholder = ({ event, setTime, setShowAdd, selectedDate }) => {
   // Function to save time to state and open the modal
   const handleModalOpen = () => {
     setTime(event);
@@ -18,7 +18,7 @@ const Placeholder = ({ event, setTime, setShowAdd }) => {
   };
 
   const getTimeData = () => {
-    const time = moment().set({
+    const time = moment(selectedDate).set({
       hour: event.slice(0, 2),
       minute: event.slice(3, 5),
     });
@@ -26,14 +26,16 @@ const Placeholder = ({ event, setTime, setShowAdd }) => {
     const after = moment(time).isAfter(moment());
     const diff = moment().diff(time, 'minutes');
 
-    return { after, diff };
+    return { time, after, diff };
   };
 
   const timeData = getTimeData();
 
   return (
     <>
-      {timeData.after && timeData.diff >= -30 && <CurrentTime />}
+      {timeData.after &&
+        timeData.diff >= -30 &&
+        timeData.time.isSame(moment(), 'day') && <CurrentTime />}
 
       <PlaceholderWrapper>
         <PlaceholderInfo>
@@ -119,6 +121,11 @@ export default Placeholder;
 // Prop types
 
 Placeholder.propTypes = {
+  selectedDate: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   event: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   setTime: PropTypes.func.isRequired,
   setShowAdd: PropTypes.func.isRequired,

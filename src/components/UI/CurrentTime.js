@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import React from 'react';
 import styled from 'styled-components';
 import { tokens } from './tokens';
 
@@ -7,11 +7,21 @@ import { tokens } from './tokens';
 import Text from './Text';
 
 const CurrentTime = () => {
+  const [time, setTime] = useState(moment());
+
+  useEffect(() => {
+    const intervalID = setTimeout(() => {
+      setTime(moment());
+    }, 60000);
+
+    return () => clearInterval(intervalID);
+  }, [time]);
+
   return (
     <Line>
       <TimeBadge>
         <Text variant="black10" color={tokens.colors.fff}>
-          {moment().format('HH:mm')}
+          {time.format('HH:mm')}
         </Text>
       </TimeBadge>
     </Line>

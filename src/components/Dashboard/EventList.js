@@ -5,6 +5,7 @@ import moment from 'moment';
 import { timestamps } from '../../utils/timestamps';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 // project components
 import Event from './Event';
@@ -25,8 +26,8 @@ const EventList = ({ events, error, selectedDate }) => {
   const [time, setTime] = useState('');
 
   // state responsible for the rendered view
-  const [active, setActive] = useState('working-hours');
-  const [workingHours, setWorkingHours] = useState([16, 37]);
+  const [active, setActive] = useLocalStorage('Type', 'working-hours');
+  const [workingHours, setWorkingHours] = useLocalStorage('Hours', [16, 37]);
 
   const { t } = useTranslation();
 
@@ -139,6 +140,7 @@ const EventList = ({ events, error, selectedDate }) => {
                     event={event}
                     setTime={setTime}
                     setShowAdd={setShowAdd}
+                    selectedDate={selectedDate}
                   />
                 )}
               </>
