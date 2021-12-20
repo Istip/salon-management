@@ -24,7 +24,7 @@ CurrentTime.propTypes = {
 
 const Line = styled.div`
   width: 100%;
-  border-top: 1px solid ${tokens.colors.warning};
+  border-top: 1px solid ${tokens.colors.success};
   position: relative;
   z-index: 1;
 `;
@@ -35,7 +35,7 @@ const TimeBadge = styled.div`
   left: calc(50% - 4px);
   padding: 4px 8px;
   text-align: center;
-  background: ${tokens.colors.warning};
+  background: ${tokens.colors.success};
   border-radius: 10px;
   font-feature-settings: 'tnum' on, 'lnum' on;
 `;

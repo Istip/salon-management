@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import moment from 'moment';
 import { timestamps } from '../../utils/timestamps';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -23,18 +22,6 @@ const EventsList = ({ events, error, selectedDate }) => {
   // state responsible for the rendered view
   const [active, setActive] = useLocalStorage('Type', 'working-hours');
   const [workingHours, setWorkingHours] = useLocalStorage('Hours', [16, 37]);
-
-  useEffect(() => {
-    const intervalID = setTimeout(() => {
-      setCurrentTime(moment());
-    }, 1000);
-
-    return () => clearInterval(intervalID);
-  }, [currentTime]);
-
-  if (!events) {
-    return null;
-  }
 
   // Constant returning the mix of two arrays: imported timestamps which holds the daily
   // calendar timestamps if the timestamp has match with an event, it replaces the timestamp
@@ -73,6 +60,19 @@ const EventsList = ({ events, error, selectedDate }) => {
     );
   };
 
+  // Side effect for clock ticking
+  useEffect(() => {
+    const intervalID = setTimeout(() => {
+      setCurrentTime(moment());
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+  }, [currentTime]);
+
+  if (!events) {
+    return null;
+  }
+
   return (
     <>
       <EventsTitle
@@ -83,14 +83,14 @@ const EventsList = ({ events, error, selectedDate }) => {
         setWorkingHours={setWorkingHours}
       />
 
-      {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => {
-        return (
-          <EventItem key={i}>
-            <EventTimeWrapper>
+      <div>
+        {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
+          <div key={i}>
+            <div>
               {isNextEvent(event) && <CurrentTime time={currentTime} />}
-            </EventTimeWrapper>
+            </div>
 
-            <EventItemWrapper>
+            <div>
               {typeof event !== 'string' ? (
                 <Event
                   event={event}
@@ -106,10 +106,10 @@ const EventsList = ({ events, error, selectedDate }) => {
                   selectedDate={selectedDate}
                 />
               )}
-            </EventItemWrapper>
-          </EventItem>
-        );
-      })}
+            </div>
+          </div>
+        ))}
+      </div>
 
       <ModalAdd
         show={showAdd}
@@ -122,13 +122,6 @@ const EventsList = ({ events, error, selectedDate }) => {
     </>
   );
 };
-
-// styled components
-const EventItem = styled.div``;
-
-const EventItemWrapper = styled.div``;
-
-const EventTimeWrapper = styled.div``;
 
 export default EventsList;
 

@@ -7,23 +7,23 @@ import { tokens } from '../UI/tokens';
 // Project imports
 import Text from '../UI/Text';
 import Error from '../UI/Error';
-import FilterMenu from './FilterMenu';
+import EventsFilter from './EventsFilter';
 
 const EventsTitle = ({ data, error, active, setActive, setWorkingHours }) => {
   const { t } = useTranslation();
 
   // Return the number of daily clients
-  const clientsForDay = data
+  const totalClients = data
     .filter((client) => typeof client !== 'string')
     .map((client) => client.finished);
 
   return (
     <HeadBar>
       <Title>
-        {!!clientsForDay.length && (
-          <ClientsBadge finished={clientsForDay.every((item) => item === true)}>
+        {!!totalClients.length && (
+          <ClientsBadge finished={totalClients.every((item) => item === true)}>
             <Text variant="regular8" color={tokens.colors.fff}>
-              {clientsForDay.length}
+              {totalClients.length}
             </Text>
           </ClientsBadge>
         )}
@@ -32,7 +32,7 @@ const EventsTitle = ({ data, error, active, setActive, setWorkingHours }) => {
         </Text>
       </Title>
 
-      <FilterMenu
+      <EventsFilter
         active={active}
         setActive={setActive}
         setWorkingHours={setWorkingHours}

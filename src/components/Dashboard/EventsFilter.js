@@ -9,7 +9,7 @@ import TimeIcon from '../icons/TimeIcon';
 import ViewAllIcon from '../icons/ViewAllIcon';
 import FlexCenter from '../UI/FlexCenter';
 
-const FilterMenu = ({ active, setActive, setWorkingHours }) => {
+const EventsFilter = ({ active, setActive, setWorkingHours }) => {
   // Filter button selecting
   const viewAll = () => {
     if (active !== 'all') {
@@ -31,6 +31,7 @@ const FilterMenu = ({ active, setActive, setWorkingHours }) => {
       setWorkingHours([16, 37]);
     }
   };
+
   return (
     <FilterMenuWrapper>
       <FlexCenter style={{ gap: '5px' }}>
@@ -97,11 +98,11 @@ const FilterItem = styled.span`
   }
 `;
 
-export default FilterMenu;
+export default EventsFilter;
 
 // Prop types
 
-FilterMenu.propTypes = {
+EventsFilter.propTypes = {
   active: PropTypes.string.isRequired,
   setActive: PropTypes.func.isRequired,
   setWorkingHours: PropTypes.func.isRequired,
