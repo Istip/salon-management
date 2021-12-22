@@ -1,12 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import { tokens } from './tokens';
 
 // Project imports
 import Text from './Text';
 
-const CurrentTime = ({ time }) => {
+const CurrentTime = () => {
+  const [time, setTime] = useState(moment());
+
+  // Side effect for clock ticking
+  useEffect(() => {
+    const intervalID = setTimeout(() => {
+      setTime(moment());
+    }, 1000);
+
+    return () => clearInterval(intervalID);
+    // eslint-disable-next-line
+  }, [time]);
+
   return (
     <Line>
       <TimeBadge>
@@ -18,10 +30,7 @@ const CurrentTime = ({ time }) => {
   );
 };
 
-CurrentTime.propTypes = {
-  time: PropTypes.object.isRequired,
-};
-
+// styled components
 const Line = styled.div`
   width: 100%;
   border-top: 1px solid ${tokens.colors.success};

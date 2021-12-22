@@ -19,6 +19,8 @@ const Placeholder = ({ event, setTime, setShowAdd, filtered }) => {
     return null;
   }
 
+  console.log();
+
   return (
     <PlaceholderWrapper>
       <PlaceholderInfo>

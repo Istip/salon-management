@@ -103,6 +103,12 @@ export const EN = {
     modal_title: 'Add income',
     no_data: 'N/A',
     cancel: 'Cancel',
+    filter_by: 'Filter',
+    filter: {
+      'working-hours': 'work hours',
+      filtered: 'clients',
+      all: 'whole day',
+    },
   },
 
   reports: {

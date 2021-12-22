@@ -15,6 +15,7 @@ import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserUserIcon from '../icons/UserIcon';
+import EventIcon from '../icons/EventIcon';
 import Select from '../UI/Select';
 import FlexCenter from '../UI/FlexCenter';
 
@@ -113,6 +114,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
           selected={action}
           setSelected={setAction}
           list={actions.sort()}
+          icon={<EventIcon color={tokens.colors.primaryLight1} />}
         />
 
         <GenderWrapper>

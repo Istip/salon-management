@@ -102,6 +102,12 @@ export const HU = {
     modal_title: 'Bevétel hozzáadása',
     no_data: 'elnevezés nélkül',
     cancel: 'Visszavonás',
+    filter_by: 'Szűrés',
+    filter: {
+      'working-hours': 'munkaidő',
+      filtered: 'kliensek',
+      all: 'teljes nap',
+    },
   },
 
   reports: {

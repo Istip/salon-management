@@ -50,16 +50,17 @@ const Select = ({ list, selected, setSelected, ...props }) => {
             <DropdownIcon />
           </FlexCenter>
         </IconWrapper>
-        <FlexCenter style={{ height: '100%' }}>
+
+        {props.icon && <span>{props.icon}</span>}
+
+        <TextWrapper icon={props.icon}>
           <Text
             variant="regular16"
-            color={
-              selected ? tokens.colors.primaryDark4 : tokens.colors.mediumGrey
-            }
+            color={selected ? tokens.colors.primaryDark4 : '#757575'}
           >
             {selected || t('input.placeholder.type_select')}
           </Text>
-        </FlexCenter>
+        </TextWrapper>
 
         {visible && (
           <SelectMenu>
@@ -85,6 +86,7 @@ const Select = ({ list, selected, setSelected, ...props }) => {
 
 // styled components
 const SelectWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 48px;
   background: ${tokens.colors.primaryLight4};
@@ -94,12 +96,21 @@ const SelectWrapper = styled.div`
       ? `1px solid ${tokens.colors.primaryLight3}`
       : `1px solid ${tokens.colors.primaryLight4}`};
   cursor: pointer;
-  position: relative;
   margin-top: ${(props) => (props.hasLabel ? '2px' : 0)};
   transition: 250ms ease;
 
   &:hover {
     border: 1px solid ${tokens.colors.primaryDark1};
+  }
+
+  span {
+    position: absolute;
+    width: 48px;
+    height: 46px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -115,13 +126,20 @@ const IconWrapper = styled.div`
   }
 `;
 
+const TextWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: ${(props) => (props.icon ? '42px' : '12px')};
+`;
+
 const SelectMenu = styled.div`
   position: absolute;
   top: 46px;
   left: -1px;
   right: -1px;
   min-height: 37px;
-  max-height: 120px;
+  max-height: 150px;
   overflow: auto;
   scroll-behavior: smooth;
   background: ${tokens.colors.primaryLight4};

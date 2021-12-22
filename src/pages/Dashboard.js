@@ -36,7 +36,6 @@ const Dashboard = () => {
         events={filteredEvents}
         error={error}
         selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
       />
     </DashboardWrapper>
   );

@@ -79,7 +79,7 @@ const Body = styled.div`
 `;
 
 const Footer = styled.div`
-  padding: 18px;
+  padding: 20px;
   display: flex;
   gap: 10px;
 `;

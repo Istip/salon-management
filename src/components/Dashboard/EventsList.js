@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { timestamps } from '../../utils/timestamps';
@@ -17,15 +17,12 @@ const EventsList = ({ events, error, selectedDate }) => {
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
   const [time, setTime] = useState('');
-  const [currentTime, setCurrentTime] = useState(moment());
 
   // state responsible for the rendered view
   const [active, setActive] = useLocalStorage('Type', 'working-hours');
   const [workingHours, setWorkingHours] = useLocalStorage('Hours', [16, 37]);
 
-  // Constant returning the mix of two arrays: imported timestamps which holds the daily
-  // calendar timestamps if the timestamp has match with an event, it replaces the timestamp
-  // and holds the data of the event instead
+  // Creating array which holds a string timestamp or moment object if exists
   const dailyData =
     events &&
     timestamps.map(
@@ -36,7 +33,7 @@ const EventsList = ({ events, error, selectedDate }) => {
     );
 
   // Function returning the time, time difference and if event is after current time
-  const getTimeData = (event) => {
+  const findNextEvent = (event) => {
     const time =
       typeof event === 'string'
         ? moment(selectedDate).set({
@@ -48,26 +45,8 @@ const EventsList = ({ events, error, selectedDate }) => {
     const after = moment(time).isAfter(moment());
     const diff = moment().diff(time, 'minutes');
 
-    return { time, after, diff };
+    return after && diff >= -30 && time.isSame(moment(), 'day');
   };
-
-  // Function returns true if the event is the next in the timeline
-  const isNextEvent = (event) => {
-    return (
-      getTimeData(event).after &&
-      getTimeData(event).diff >= -30 &&
-      getTimeData(event).time.isSame(moment(), 'day')
-    );
-  };
-
-  // Side effect for clock ticking
-  useEffect(() => {
-    const intervalID = setTimeout(() => {
-      setCurrentTime(moment());
-    }, 1000);
-
-    return () => clearInterval(intervalID);
-  }, [currentTime]);
 
   if (!events) {
     return null;
@@ -86,9 +65,7 @@ const EventsList = ({ events, error, selectedDate }) => {
       <div>
         {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
           <div key={i}>
-            <div>
-              {isNextEvent(event) && <CurrentTime time={currentTime} />}
-            </div>
+            <div>{findNextEvent(event) && <CurrentTime />}</div>
 
             <div>
               {typeof event !== 'string' ? (
@@ -103,7 +80,6 @@ const EventsList = ({ events, error, selectedDate }) => {
                   event={event}
                   setTime={setTime}
                   setShowAdd={setShowAdd}
-                  selectedDate={selectedDate}
                 />
               )}
             </div>

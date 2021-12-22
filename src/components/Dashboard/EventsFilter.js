@@ -5,11 +5,15 @@ import { tokens } from '../UI/tokens';
 
 // Project imports
 import CalendarIcon from '../icons/CalendarIcon';
-import TimeIcon from '../icons/TimeIcon';
 import ViewAllIcon from '../icons/ViewAllIcon';
+import ViewHoursIcon from '../icons/ViewHoursIcon';
 import FlexCenter from '../UI/FlexCenter';
+import Text from '../UI/Text';
+import { useTranslation } from 'react-i18next';
 
 const EventsFilter = ({ active, setActive, setWorkingHours }) => {
+  const { t } = useTranslation();
+
   // Filter button selecting
   const viewAll = () => {
     if (active !== 'all') {
@@ -55,9 +59,18 @@ const EventsFilter = ({ active, setActive, setWorkingHours }) => {
           onClick={() => viewWorkingHours()}
         >
           <FlexCenter>
-            <TimeIcon color={tokens.colors.primaryDark3} />
+            <ViewHoursIcon color={tokens.colors.primaryDark3} />
           </FlexCenter>
         </FilterItem>
+      </FlexCenter>
+
+      <FlexCenter style={{ gap: '2px' }}>
+        <Text tag="span" variant="medium10" color={tokens.colors.primaryDark3}>
+          {t('dashboard.filter_by')}:
+        </Text>
+        <Text tag="span" variant="medium10" color={tokens.colors.primaryLight2}>
+          {t(`dashboard.filter.${active}`)}
+        </Text>
       </FlexCenter>
     </FilterMenuWrapper>
   );
