@@ -7,6 +7,7 @@ import { tokens } from '../components/UI/tokens';
 import Signup from '../components/Authentication/Signup';
 import Login from '../components/Authentication/Login';
 import Logo from '../components/UI/Logo';
+import image from '../assets/auth.jpg';
 
 const Authentication = () => {
   const [page, setPage] = useState('login');
@@ -39,6 +40,7 @@ const Authentication = () => {
     <AuthenticationWrapper>
       <PageHeader>
         <Logo large />
+        <img src={image} alt="Authentication" />
       </PageHeader>
       <PageBody>
         {page === 'login' ? <Login /> : <Signup />}
@@ -72,6 +74,11 @@ const PageHeader = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 6px;
+
+  img {
+    width: 150px;
+    height: auto;
+  }
 `;
 
 const PageBody = styled.div`

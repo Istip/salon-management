@@ -62,12 +62,12 @@ const EventsList = ({ events, error, selectedDate }) => {
         setWorkingHours={setWorkingHours}
       />
 
-      <div>
+      <>
         {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
           <div key={i}>
-            <div>{findNextEvent(event) && <CurrentTime />}</div>
+            <>{findNextEvent(event) && <CurrentTime />}</>
 
-            <div>
+            <>
               {typeof event !== 'string' ? (
                 <Event
                   event={event}
@@ -82,10 +82,10 @@ const EventsList = ({ events, error, selectedDate }) => {
                   setShowAdd={setShowAdd}
                 />
               )}
-            </div>
+            </>
           </div>
         ))}
-      </div>
+      </>
 
       <ModalAdd
         show={showAdd}

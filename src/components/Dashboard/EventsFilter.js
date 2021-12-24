@@ -64,14 +64,9 @@ const EventsFilter = ({ active, setActive, setWorkingHours }) => {
         </FilterItem>
       </FlexCenter>
 
-      <FlexCenter style={{ gap: '2px' }}>
-        <Text tag="span" variant="medium10" color={tokens.colors.primaryDark3}>
-          {t('dashboard.filter_by')}:
-        </Text>
-        <Text tag="span" variant="medium10" color={tokens.colors.primaryLight2}>
-          {t(`dashboard.filter.${active}`)}
-        </Text>
-      </FlexCenter>
+      <Text tag="span" variant="medium10" color={tokens.colors.primaryDark1}>
+        {t('dashboard.filter_by')}: {t(`dashboard.filter.${active}`)}
+      </Text>
     </FilterMenuWrapper>
   );
 };

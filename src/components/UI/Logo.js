@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { tokens } from './tokens';
 
 // project imports
@@ -8,6 +9,8 @@ import LogoIcon from '../../assets/Logo';
 import FlexCenter from './FlexCenter';
 
 const Logo = (props) => {
+  const navigate = useNavigate();
+
   if (props.large) {
     return (
       <FlexCenter style={{ flexDirection: 'column', gap: '5px' }}>
@@ -20,7 +23,7 @@ const Logo = (props) => {
   }
 
   return (
-    <LogoWrapper>
+    <LogoWrapper onClick={() => navigate('/dashnoard')}>
       <LogoIcon size="16" />
       <Text variant="black10" color={tokens.colors.primaryLight2}>
         SMANAGER
@@ -36,6 +39,7 @@ const LogoWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  cursor: pointer;
 `;
 
 export default Logo;
