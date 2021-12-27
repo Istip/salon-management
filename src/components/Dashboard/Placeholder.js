@@ -7,19 +7,28 @@ import { tokens } from '../UI/tokens';
 import Text from '../UI/Text';
 import AddIcon from '../icons/AddIcon';
 import FlexCenter from '../UI/FlexCenter';
+import moment from 'moment';
 
-const Placeholder = ({ event, setTime, setShowAdd, filtered }) => {
+const Placeholder = ({
+  event,
+  setTime,
+  setShowAdd,
+  filtered,
+  selectedDate,
+}) => {
+  const isActiveDay = selectedDate.isSameOrAfter(moment(), 'day');
+
   // Function to save time to state and open the modal
   const handleModalOpen = () => {
-    setTime(event);
-    setShowAdd(true);
+    if (isActiveDay) {
+      setTime(event);
+      setShowAdd(true);
+    }
   };
 
   if (!filtered) {
     return null;
   }
-
-  console.log();
 
   return (
     <PlaceholderWrapper>
@@ -33,7 +42,7 @@ const Placeholder = ({ event, setTime, setShowAdd, filtered }) => {
             {event}
           </Text>
         </PlaceholderTime>
-        <PlaceholderCard onClick={handleModalOpen}>
+        <PlaceholderCard onClick={handleModalOpen} active={isActiveDay}>
           <FlexCenter style={{ gap: '4px' }}>
             <AddIcon color={tokens.colors.primaryLight2} />
           </FlexCenter>
@@ -74,6 +83,7 @@ const PlaceholderCard = styled.div`
   border-radius: 0 12px 12px 0;
   border: 1px dashed ${tokens.colors.mediumGrey};
   border-left: 3px solid ${tokens.colors.mediumGrey};
+  pointer-events: ${(props) => (props.active ? 'auto' : 'none')};
   cursor: pointer;
 
   display: flex;

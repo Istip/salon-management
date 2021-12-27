@@ -80,6 +80,7 @@ const EventsList = ({ events, error, selectedDate }) => {
                   event={event}
                   setTime={setTime}
                   setShowAdd={setShowAdd}
+                  selectedDate={selectedDate}
                 />
               )}
             </>
