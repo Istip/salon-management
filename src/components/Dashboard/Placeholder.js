@@ -43,9 +43,11 @@ const Placeholder = ({
           </Text>
         </PlaceholderTime>
         <PlaceholderCard onClick={handleModalOpen} active={isActiveDay}>
-          <FlexCenter style={{ gap: '4px' }}>
-            <AddIcon color={tokens.colors.primaryLight2} />
-          </FlexCenter>
+          {isActiveDay && (
+            <FlexCenter style={{ gap: '4px' }}>
+              <AddIcon color={tokens.colors.primaryLight2} size={32} />
+            </FlexCenter>
+          )}
         </PlaceholderCard>
       </PlaceholderInfo>
     </PlaceholderWrapper>

@@ -23,7 +23,7 @@ const CurrentTime = () => {
     <Line>
       <TimeBadge>
         <Text variant="black10" color={tokens.colors.fff}>
-          {time.format('HH:mm:ss')}
+          {time.format('HH:mm')}
         </Text>
       </TimeBadge>
     </Line>
@@ -41,7 +41,7 @@ const Line = styled.div`
 const TimeBadge = styled.div`
   position: absolute;
   top: -10px;
-  left: calc(50% - 4px);
+  left: calc(50% + 5px);
   padding: 4px 8px;
   text-align: center;
   background: ${tokens.colors.success};
