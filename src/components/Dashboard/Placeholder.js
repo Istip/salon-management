@@ -95,12 +95,12 @@ const PlaceholderCard = styled.div`
   background-image: linear-gradient(
     45deg,
     #ffffff 25%,
-    #fafcfe 25%,
-    #fafcfe 50%,
+    #f9f9f9 25%,
+    #f9f9f9 50%,
     #ffffff 50%,
     #ffffff 75%,
-    #fafcfe 75%,
-    #fafcfe 100%
+    #f9f9f9 75%,
+    #f9f9f9 100%
   );
   background-size: 30px 30px;
   opacity: 0.75;
