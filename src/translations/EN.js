@@ -93,7 +93,6 @@ export const EN = {
     appointments: 'Appointments',
     new_appointment: 'New appointment',
     jump_back: 'Jump back to',
-    unfinished_appointment: 'Unfinished appointment',
     paid: 'Paid',
     income: 'Income',
     finish: 'Finish',
@@ -109,6 +108,8 @@ export const EN = {
       filtered: 'clients',
       all: 'whole day',
     },
+    late: 'Late',
+    minutes: 'minute(s)',
   },
 
   reports: {

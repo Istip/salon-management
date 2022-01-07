@@ -110,7 +110,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
           <Text variant="black14" color={tokens.colors.primaryDark3}>
             {visible
               ? date.format('YYYY MMMM')
-              : selectedDate.format('YYYY MMMM DD')}
+              : selectedDate.format('YYYY MMMM D')}
           </Text>
 
           {todayIsSelected() && (

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import styled from 'styled-components';
 import { timestamps } from '../../utils/timestamps';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-// project components
+// Project imports
 import Event from './Event';
 import ModalAdd from './ModalAddEvent';
 import ModalPay from './ModalPay';
 import Placeholder from './Placeholder';
-import CurrentTime from '../UI/CurrentTime';
 import EventsTitle from './EventsTitle';
 
 const EventsList = ({ events, error, selectedDate }) => {
@@ -32,22 +32,6 @@ const EventsList = ({ events, error, selectedDate }) => {
         ) || obj
     );
 
-  // Function returning the time, time difference and if event is after current time
-  const findNextEvent = (event) => {
-    const time =
-      typeof event === 'string'
-        ? moment(selectedDate).set({
-            hour: event.slice(0, 2),
-            minute: event.slice(3, 5),
-          })
-        : moment(event.date.seconds * 1000);
-
-    const after = moment(time).isAfter(moment());
-    const diff = moment().diff(time, 'minutes');
-
-    return after && diff >= -30 && time.isSame(moment(), 'day');
-  };
-
   if (!events) {
     return null;
   }
@@ -65,8 +49,6 @@ const EventsList = ({ events, error, selectedDate }) => {
       <>
         {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
           <div key={i}>
-            <>{findNextEvent(event) && <CurrentTime />}</>
-
             <>
               {typeof event !== 'string' ? (
                 <Event
@@ -84,6 +66,8 @@ const EventsList = ({ events, error, selectedDate }) => {
                 />
               )}
             </>
+
+            {i % 2 !== 0 && active !== 'filtered' && <Divider />}
           </div>
         ))}
       </>
@@ -92,6 +76,7 @@ const EventsList = ({ events, error, selectedDate }) => {
         show={showAdd}
         setShow={setShowAdd}
         time={time}
+        setTime={setTime}
         selectedDate={selectedDate}
         setSelected
       />
@@ -99,6 +84,11 @@ const EventsList = ({ events, error, selectedDate }) => {
     </>
   );
 };
+
+// Styled components
+const Divider = styled.div`
+  height: 20px;
+`;
 
 export default EventsList;
 

@@ -18,11 +18,13 @@ import UserUserIcon from '../icons/UserIcon';
 import EventIcon from '../icons/EventIcon';
 import Select from '../UI/Select';
 import FlexCenter from '../UI/FlexCenter';
+import Slider from '../UI/Slider';
 
 const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('');
   const [gender, setGender] = useState('female');
+  const [late, setLate] = useState(0);
 
   const { documents } = useCollection('users');
 
@@ -38,12 +40,14 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
     setAction('');
     setName('');
     setGender('female');
+    setLate(0);
   };
 
   // Function fired when submitting the modal
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Object that gonna be published to server
     addDocument({
       name,
       action: action || t('dashboard.no_data'),
@@ -56,6 +60,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
           .toDate()
       ),
       uid: user.uid,
+      late,
     });
 
     resetFields();
@@ -92,9 +97,26 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
       onCancel={handleCancel}
     >
       <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
-        <Text color={tokens.colors.success} tag="h1">
-          {time}
-        </Text>
+        <TimeWrapper>
+          <Text variant="display" color={tokens.colors.success} tag="h1">
+            {time}
+          </Text>
+        </TimeWrapper>
+      </FlexCenter>
+
+      <FlexCenter
+        style={{
+          gap: '10px',
+          padding: '20px 20px 0 20px',
+        }}
+      >
+        <Slider
+          label={`${t('dashboard.late')}: ${late} ${t('dashboard.minutes')}`}
+          value={late}
+          min={0}
+          max={29}
+          onChange={(e) => setLate(e.target.value)}
+        />
       </FlexCenter>
 
       <Form style={{ padding: '20px 20px 0' }}>
@@ -120,7 +142,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
         <GenderWrapper>
           <GenderType onClick={() => setGender('female')}>
             <Text
-              variant={gender === 'female' ? 'black12' : 'regular12'}
+              variant={gender === 'female' ? 'black18' : 'regular18'}
               color={gender === 'female' ? primary : grey}
             >
               {t('dashboard.female').toUpperCase()}
@@ -129,7 +151,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
 
           <GenderType onClick={() => setGender('male')}>
             <Text
-              variant={gender === 'male' ? 'black12' : 'regular12'}
+              variant={gender === 'male' ? 'black18' : 'regular18'}
               color={gender === 'male' ? primary : grey}
             >
               {t('dashboard.male').toUpperCase()}
@@ -162,6 +184,10 @@ const GenderType = styled.div`
   &:last-child {
     padding-right: 20px;
   }
+`;
+
+const TimeWrapper = styled.span`
+  font-feature-settings: 'tnum' on, 'lnum' on;
 `;
 
 export default ModalAddEvent;

@@ -50,6 +50,12 @@ export const fonts = {
     fontWeight: tokens.fontSize[900],
   },
 
+  display: {
+    fontSize: '3rem',
+    letterSpacing: '-0.7px',
+    fontWeight: tokens.fontSize[700],
+  },
+
   regular8: {
     fontWeight: tokens.fontSize[400],
     fontSize: '8px',
@@ -75,6 +81,11 @@ export const fonts = {
   regular16: {
     fontWeight: tokens.fontSize[400],
     fontSize: '16px',
+  },
+
+  regular18: {
+    fontWeight: tokens.fontSize[400],
+    fontSize: '18px',
   },
 
   medium8: {

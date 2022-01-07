@@ -13,6 +13,7 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
+import TimeIcon from '../icons/TimeIcon';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
@@ -42,17 +43,6 @@ const Event = ({ event, setSelected, setShowPay }) => {
     });
   };
 
-  // Function return if date is after the current moment
-  const ifFutureEvent = (appointment) => {
-    const formatTime =
-      moment(appointment.date.seconds * 1000).format('YY:MM:DD HH:mm') >
-      moment().format('YY:MM:DD HH:mm');
-
-    const notFinished = event.finished !== true;
-
-    if (formatTime && notFinished) return true;
-  };
-
   // Function return if the date is today and event is not finished yet
   const isUnfinishedEvent = (appointment) => {
     return (
@@ -60,6 +50,21 @@ const Event = ({ event, setSelected, setShowPay }) => {
         moment().format('YY:MM:DD') && !event.finished
     );
   };
+
+  // Function to return the time calculating if the client lates
+  const returnLate = (event) => {
+    if (event.late !== 0) {
+      return moment(event.date.seconds * 1000)
+        .add(event.late, 'minutes')
+        .format('HH:mm');
+    }
+
+    return moment(event.date.seconds * 1000).format('HH:mm');
+  };
+
+  const lateColor = event.finished
+    ? tokens.colors.primaryLight1
+    : tokens.colors.error;
 
   return (
     <>
@@ -71,18 +76,24 @@ const Event = ({ event, setSelected, setShowPay }) => {
               variant="black10"
               color={tokens.colors.primaryDark2}
             >
-              {moment(event.date.seconds * 1000).format('HH:mm')}
+              {returnLate(event)}
             </Text>
           </EventTime>
 
           <EventCard finished={event.finished}>
-            {ifFutureEvent(event) && (
-              <FlexCenter style={{ paddingTop: '10px' }}>
-                <Text variant="medium10" color={tokens.colors.mediumGrey}>
-                  {t('dashboard.unfinished_appointment')}
-                </Text>
-              </FlexCenter>
-            )}
+            <>
+              {event.late ? (
+                <FlexCenter style={{ marginTop: '6px', gap: '4px' }}>
+                  <TimeIcon color={lateColor} size={12} />
+
+                  <Text tag="div" variant="regular10" color={lateColor}>
+                    {`${t('dashboard.late')}: ${event.late} ${t(
+                      'dashboard.minutes'
+                    )}`}
+                  </Text>
+                </FlexCenter>
+              ) : null}
+            </>
 
             <VisibleContent>
               <Content onClick={() => setVisible(!visible)}>
@@ -100,6 +111,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   >
                     {event.name}
                   </Text>
+
                   <Text
                     tag="div"
                     variant="regular12"
@@ -255,6 +267,8 @@ const ExtraContent = styled.div`
   opacity: 0;
 
   &.visible {
+    background: ${tokens.colors.fff};
+    border-radius: 0 0 12px 0;
     pointer-events: auto;
     max-height: 70px;
     visibility: visible;
@@ -313,7 +327,6 @@ Event.propTypes = {
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
-  next: PropTypes.any,
   setSelected: PropTypes.func,
   setShowPay: PropTypes.func,
 };

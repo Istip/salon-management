@@ -92,7 +92,6 @@ export const HU = {
     appointments: 'Időpontok',
     new_appointment: 'Új időpont',
     jump_back: 'Visszaugrás:',
-    unfinished_appointment: 'Befejezetlen időpont',
     paid: 'Kifizetés',
     income: 'Bevétel',
     finish: 'Befejezés',
@@ -108,6 +107,8 @@ export const HU = {
       filtered: 'kliensek',
       all: 'teljes nap',
     },
+    late: 'Késés',
+    minutes: 'perc',
   },
 
   reports: {
