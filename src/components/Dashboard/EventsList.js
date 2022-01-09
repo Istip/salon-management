@@ -32,6 +32,11 @@ const EventsList = ({ events, error, selectedDate }) => {
         ) || obj
     );
 
+  // Function to return if a number is odd or not
+  const isOdd = (number) => {
+    return number % 2 !== 0;
+  };
+
   if (!events) {
     return null;
   }
@@ -68,7 +73,7 @@ const EventsList = ({ events, error, selectedDate }) => {
               )}
             </>
 
-            {i % 2 !== 0 && active !== 'filtered' && <Divider />}
+            {isOdd(i) && active !== 'filtered' && <Divider />}
           </div>
         ))}
       </>

@@ -8,6 +8,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import { useCollection } from '../../hooks/useCollection';
 import { timestamp } from '../../firebase/config';
 import { tokens } from '../UI/tokens';
+import { capitalize } from '../../utils/capitalize';
 
 // project components
 import Form from '../UI/Form';
@@ -153,7 +154,9 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
         }}
       >
         <Slider
-          label={`${t('dashboard.late')}: ${late} ${t('dashboard.minutes')}`}
+          label={`${capitalize(t('dashboard.late'))}: ${late} ${t(
+            'dashboard.minutes'
+          )}`}
           value={late}
           min={0}
           max={29}
