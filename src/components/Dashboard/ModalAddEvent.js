@@ -20,7 +20,7 @@ import Select from '../UI/Select';
 import FlexCenter from '../UI/FlexCenter';
 import Slider from '../UI/Slider';
 
-const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
+const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   const [name, setName] = useState('');
   const [action, setAction] = useState('');
   const [gender, setGender] = useState('female');
@@ -71,6 +71,36 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
     resetFields();
   };
 
+  // Function to change the time and the minutes
+  const changeTime = (type = 'hour') => {
+    const hour = time.slice(0, 2);
+    const minute = time.slice(3, 5);
+    const parsedHour = parseInt(hour);
+
+    if (type === 'hour') {
+      if (parsedHour + 1 < 10) {
+        const newTime = `0${parseInt(time.slice(0, 2)) + 1}:${minute}`;
+        return setTime(newTime);
+      }
+
+      if (parsedHour + 1 >= 10 && parsedHour + 1 < 24) {
+        const newTime = `${parseInt(time.slice(0, 2)) + 1}:${minute}`;
+        return setTime(newTime);
+      }
+
+      const newTime = `00:${minute}`;
+      return setTime(newTime);
+    }
+
+    if (type === 'minute') {
+      if (minute === '00') {
+        return setTime(`${hour}:30`);
+      }
+
+      return setTime(`${hour}:00`);
+    }
+  };
+
   useEffect(() => {
     if (response.success) {
       resetFields();
@@ -99,7 +129,8 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time }) => {
       <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
         <TimeWrapper>
           <Text variant="display" color={tokens.colors.success} tag="h1">
-            {time}
+            <span onClick={() => changeTime()}>{time.slice(0, 2)}:</span>
+            <span onClick={() => changeTime('minute')}>{time.slice(3, 5)}</span>
           </Text>
         </TimeWrapper>
       </FlexCenter>

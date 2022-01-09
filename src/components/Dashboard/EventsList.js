@@ -16,7 +16,7 @@ const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [selected, setSelected] = useState(0);
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('12:00');
 
   // state responsible for the rendered view
   const [active, setActive] = useLocalStorage('Type', 'working-hours');
@@ -44,6 +44,7 @@ const EventsList = ({ events, error, selectedDate }) => {
         active={active}
         setActive={setActive}
         setWorkingHours={setWorkingHours}
+        setShowAdd={setShowAdd}
       />
 
       <>

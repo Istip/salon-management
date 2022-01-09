@@ -8,8 +8,18 @@ import { tokens } from '../UI/tokens';
 import Text from '../UI/Text';
 import Error from '../UI/Error';
 import EventsFilter from './EventsFilter';
+import Button from '../UI/Button';
+import FlexCenter from '../UI/FlexCenter';
+import AddIcon from '../icons/AddIcon';
 
-const EventsTitle = ({ data, error, active, setActive, setWorkingHours }) => {
+const EventsTitle = ({
+  data,
+  error,
+  active,
+  setActive,
+  setWorkingHours,
+  setShowAdd,
+}) => {
   const { t } = useTranslation();
 
   // Return the number of daily clients
@@ -32,11 +42,18 @@ const EventsTitle = ({ data, error, active, setActive, setWorkingHours }) => {
         </Text>
       </Title>
 
-      <EventsFilter
-        active={active}
-        setActive={setActive}
-        setWorkingHours={setWorkingHours}
-      />
+      <FlexCenter style={{ gap: '10px' }}>
+        <EventsFilter
+          active={active}
+          setActive={setActive}
+          setWorkingHours={setWorkingHours}
+        />
+        <Button
+          icon={<AddIcon color={tokens.colors.fff} size={22} />}
+          onClick={() => setShowAdd(true)}
+          rounded
+        />
+      </FlexCenter>
 
       {error && <Error>{error}</Error>}
     </HeadBar>
@@ -77,6 +94,10 @@ const ClientsBadge = styled.div`
 
 const Title = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 `;
 
 export default EventsTitle;
