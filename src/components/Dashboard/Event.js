@@ -64,7 +64,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
 
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
-    : tokens.colors.error;
+    : tokens.colors.mediumGrey;
 
   return (
     <>
@@ -83,13 +83,13 @@ const Event = ({ event, setSelected, setShowPay }) => {
           <EventCard finished={event.finished}>
             <>
               {event.late ? (
-                <FlexCenter style={{ marginTop: '6px', gap: '4px' }}>
+                <FlexCenter style={{ marginTop: '6px', gap: '2px' }}>
                   <TimeIcon color={lateColor} size={12} />
 
                   <Text tag="div" variant="regular10" color={lateColor}>
-                    {`${t('dashboard.late')}: ${event.late} ${t(
-                      'dashboard.minutes'
-                    )}`}
+                    {`${moment(event.date.seconds * 1000).format('HH:mm')} ${t(
+                      'dashboard.late'
+                    )}: ${event.late} ${t('dashboard.minutes')}`}
                   </Text>
                 </FlexCenter>
               ) : null}

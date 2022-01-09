@@ -107,7 +107,7 @@ export const HU = {
       filtered: 'kliensek',
       all: 'teljes nap',
     },
-    late: 'Késés',
+    late: 'csúszás',
     minutes: 'perc',
   },
 

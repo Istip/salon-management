@@ -108,7 +108,7 @@ export const EN = {
       filtered: 'clients',
       all: 'whole day',
     },
-    late: 'Late',
+    late: 'late',
     minutes: 'minute(s)',
   },
 

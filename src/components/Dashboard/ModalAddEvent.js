@@ -101,6 +101,15 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
     }
   };
 
+  // Function to display the minutes with the late added
+  const formattedMinutes = () => {
+    const minutes = parseInt(late) + parseInt(time.slice(3, 5));
+    if (minutes < 10) {
+      return `0${minutes}`;
+    }
+    return minutes;
+  };
+
   useEffect(() => {
     if (response.success) {
       resetFields();
@@ -130,7 +139,9 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
         <TimeWrapper>
           <Text variant="display" color={tokens.colors.success} tag="h1">
             <span onClick={() => changeTime()}>{time.slice(0, 2)}:</span>
-            <span onClick={() => changeTime('minute')}>{time.slice(3, 5)}</span>
+            <span onClick={() => changeTime('minute')}>
+              {formattedMinutes()}
+            </span>
           </Text>
         </TimeWrapper>
       </FlexCenter>
