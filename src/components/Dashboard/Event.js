@@ -82,7 +82,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
 
           <EventCard finished={event.finished}>
             <>
-              {event.late ? (
+              {parseInt(event.late) > 0 ? (
                 <FlexCenter style={{ marginTop: '6px', gap: '2px' }}>
                   <TimeIcon color={lateColor} size={12} />
 
