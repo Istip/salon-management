@@ -26,10 +26,11 @@ const EventsList = ({ events, error, selectedDate }) => {
   const dailyData =
     events &&
     timestamps.map(
-      (obj) =>
+      (timestamp) =>
         events.find(
-          (o) => moment(o.date.seconds * 1000).format('HH:mm') === obj
-        ) || obj
+          (match) =>
+            moment(match.date.seconds * 1000).format('HH:mm') === timestamp
+        ) || timestamp
     );
 
   // Function to return if a number is odd or not
