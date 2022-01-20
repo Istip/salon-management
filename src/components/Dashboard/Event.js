@@ -62,6 +62,15 @@ const Event = ({ event, setSelected, setShowPay }) => {
     return moment(event.date.seconds * 1000).format('HH:mm');
   };
 
+  // Function for opening the given event's hidden buttons content
+  const handleOpen = (event) => {
+    if (!event.finished) {
+      return setVisible(!visible);
+    }
+
+    return;
+  };
+
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
     : tokens.colors.mediumGrey;
@@ -95,8 +104,8 @@ const Event = ({ event, setSelected, setShowPay }) => {
               ) : null}
             </>
 
-            <VisibleContent>
-              <Content onClick={() => setVisible(!visible)}>
+            <VisibleContent onClick={() => handleOpen(event)}>
+              <Content>
                 <EventType>
                   <Text variant="medium8" color={tokens.colors.primary}>
                     {event.action}
@@ -155,36 +164,37 @@ const Event = ({ event, setSelected, setShowPay }) => {
               </FlexCenter>
             </VisibleContent>
 
-            <ExtraContent
-              className={visible ? 'visible' : ''}
-              finished={event.finished}
-            >
-              <Button
-                block
-                variant="error"
-                icon={<DeleteIcon color={tokens.colors.error} />}
-                onClick={handleDeleteButton}
-              >
-                {event.finished ? t('dashboard.cancel') : t('dashboard.delete')}
-              </Button>
-
-              {isUnfinishedEvent(event) && (
+            {visible && (
+              <ExtraContent finished={event.finished}>
                 <Button
                   block
-                  variant="success"
-                  icon={<CheckIcon color={tokens.colors.success} />}
-                  onClick={() => {
-                    updateDocument(event.id, {
-                      ...event,
-                      finished: true,
-                    });
-                    setVisible(false);
-                  }}
+                  variant="error"
+                  icon={<DeleteIcon color={tokens.colors.error} />}
+                  onClick={handleDeleteButton}
                 >
-                  {t('dashboard.finish')}
+                  {event.finished
+                    ? t('dashboard.cancel')
+                    : t('dashboard.delete')}
                 </Button>
-              )}
-            </ExtraContent>
+
+                {isUnfinishedEvent(event) && (
+                  <Button
+                    block
+                    variant="success"
+                    icon={<CheckIcon color={tokens.colors.success} />}
+                    onClick={() => {
+                      updateDocument(event.id, {
+                        ...event,
+                        finished: true,
+                      });
+                      setVisible(false);
+                    }}
+                  >
+                    {t('dashboard.finish')}
+                  </Button>
+                )}
+              </ExtraContent>
+            )}
           </EventCard>
         </EventInfo>
       </EventWrapper>
@@ -258,23 +268,8 @@ const ExtraContent = styled.div`
       ? `1px solid ${tokens.colors.primaryLight2}`
       : `1px solid ${tokens.colors.lightGrey}`};
   text-align: center;
-  max-height: 0;
   transition: 250ms ease;
-  visibility: hidden;
-  padding: 0 10px;
-  pointer-events: none;
-  overflow: hidden;
-  opacity: 0;
-
-  &.visible {
-    background: ${tokens.colors.fff};
-    border-radius: 0 0 12px 0;
-    pointer-events: auto;
-    max-height: 70px;
-    visibility: visible;
-    padding: 10px;
-    opacity: 1;
-  }
+  padding: 10px;
 `;
 
 const DropDown = styled.div`
