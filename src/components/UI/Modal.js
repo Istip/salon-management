@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { tokens } from './tokens';
@@ -18,6 +19,15 @@ const Modal = ({
   ...props
 }) => {
   const { t } = useTranslation();
+
+  // Disable background scrolling when modal is opened
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [show]);
 
   return (
     <ModalWrapper className={show ? 'show' : ''} show={show}>
@@ -115,3 +125,13 @@ const Backdrop = styled.div`
 `;
 
 export default Modal;
+
+// Prop types
+Modal.propTypes = {
+  onCancel: PropTypes.func,
+  onSubmit: PropTypes.func,
+  setShow: PropTypes.func,
+  show: PropTypes.bool,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  variant: PropTypes.string,
+};

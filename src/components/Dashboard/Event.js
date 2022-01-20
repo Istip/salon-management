@@ -270,6 +270,8 @@ const ExtraContent = styled.div`
   text-align: center;
   transition: 250ms ease;
   padding: 10px;
+  background: ${tokens.colors.fff};
+  border-radius: 0 0 12px 0;
 `;
 
 const DropDown = styled.div`
