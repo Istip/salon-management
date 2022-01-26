@@ -19,11 +19,11 @@ import Dashboard from './pages/Dashboard';
 import Reports from './pages/Reports';
 import Authentication from './pages/Authentication';
 import Settings from './pages/Settings';
+import Admin from './pages/Admin';
 
 // moment locale imports
 import 'moment/locale/hu';
 import 'moment/locale/en-gb';
-import Admin from './pages/Admin';
 
 function App() {
   // state handling the global language for translation and moment lolcale
