@@ -134,8 +134,8 @@ const FilterItem = styled.div`
   justify-content: center;
   background: ${(props) =>
     props.active
-      ? `${tokens.colors.primaryLight1}`
-      : `${tokens.colors.primaryLight3}`};
+      ? `${tokens.colors.primaryLight2}`
+      : `${tokens.colors.primaryLight4}`};
   padding: 6px;
   cursor: pointer;
   transition: 250ms ease;
