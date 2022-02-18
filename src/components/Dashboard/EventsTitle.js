@@ -55,7 +55,7 @@ const EventsTitle = ({
 
         {error && <Error>{error}</Error>}
       </HeadBar>
-      
+
       <EventsFilter
         active={active}
         setActive={setActive}
@@ -68,7 +68,7 @@ const EventsTitle = ({
 // Styled components
 const HeadBar = styled.div`
   width: 100%;
-  padding: 0 10px 20px 20px;
+  padding: 0 10px 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;

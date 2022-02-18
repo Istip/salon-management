@@ -116,7 +116,7 @@ const EventsFilter = ({ active, setActive, setWorkingHours }) => {
 // Styled components
 
 const Wrapper = styled.div`
-  margin: 0 10px 20px 60px;
+  margin: 0 10px 20px 20px;
   width: auto;
 `;
 
@@ -124,8 +124,6 @@ const FilterMenuWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.primaryLight1};
   width: 100%;
 `;
 
@@ -139,18 +137,21 @@ const FilterItem = styled.div`
       ? `${tokens.colors.primaryLight1}`
       : `${tokens.colors.primaryLight3}`};
   padding: 6px;
-  border-radius: 0px;
   cursor: pointer;
   transition: 250ms ease;
+  border-top: 1px solid ${tokens.colors.primaryLight1};
+  border-bottom: 1px solid ${tokens.colors.primaryLight1};
 
   &:first-child {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
+    border-left: 1px solid ${tokens.colors.primaryLight1};
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
   }
 
   &:last-child {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-right: 1px solid ${tokens.colors.primaryLight1};
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 
   &:hover {
