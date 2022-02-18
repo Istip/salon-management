@@ -28,35 +28,40 @@ const EventsTitle = ({
     .map((client) => client.finished);
 
   return (
-    <HeadBar>
-      <Title>
-        {!!totalClients.length && (
-          <ClientsBadge finished={totalClients.every((item) => item === true)}>
-            <Text variant="regular8" color={tokens.colors.fff}>
-              {totalClients.length}
-            </Text>
-          </ClientsBadge>
-        )}
-        <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-          {t('dashboard.appointments')}
-        </Text>
-      </Title>
+    <>
+      <HeadBar>
+        <Title>
+          {!!totalClients.length && (
+            <ClientsBadge
+              finished={totalClients.every((item) => item === true)}
+            >
+              <Text variant="regular8" color={tokens.colors.fff}>
+                {totalClients.length}
+              </Text>
+            </ClientsBadge>
+          )}
+          <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
+            {t('dashboard.appointments')}
+          </Text>
+        </Title>
 
-      <FlexCenter style={{ gap: '10px' }}>
-        <EventsFilter
-          active={active}
-          setActive={setActive}
-          setWorkingHours={setWorkingHours}
-        />
-        <Button
-          icon={<AddIcon color={tokens.colors.fff} size={22} />}
-          onClick={() => setShowAdd(true)}
-          rounded
-        />
-      </FlexCenter>
+        <FlexCenter style={{ gap: '10px' }}>
+          <Button
+            icon={<AddIcon color={tokens.colors.fff} size={22} />}
+            onClick={() => setShowAdd(true)}
+            rounded
+          />
+        </FlexCenter>
 
-      {error && <Error>{error}</Error>}
-    </HeadBar>
+        {error && <Error>{error}</Error>}
+      </HeadBar>
+      
+      <EventsFilter
+        active={active}
+        setActive={setActive}
+        setWorkingHours={setWorkingHours}
+      />
+    </>
   );
 };
 
