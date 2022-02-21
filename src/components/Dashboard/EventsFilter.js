@@ -155,7 +155,7 @@ const FilterItem = styled.div`
   }
 
   &:hover {
-    background: ${tokens.colors.primaryLight1};
+    background: ${tokens.colors.primaryLight2};
   }
 `;
 
