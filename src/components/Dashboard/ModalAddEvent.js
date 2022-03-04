@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useCollection } from '../../hooks/useCollection';
@@ -15,15 +16,15 @@ import Form from '../UI/Form';
 import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
-import UserUserIcon from '../icons/UserIcon';
-import EventIcon from '../icons/EventIcon';
+import UserIcon from '../icons/UserIcon';
+import PaletteIcon from '../icons/PaletteIcon';
 import Select from '../UI/Select';
 import FlexCenter from '../UI/FlexCenter';
 import Slider from '../UI/Slider';
 
 const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   const [name, setName] = useState('');
-  const [action, setAction] = useState('');
+  const [action, setAction] = useLocalStorage('savedActionType', '');
   const [gender, setGender] = useState('female');
   const [late, setLate] = useState(0);
 
@@ -38,7 +39,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   // Resetting the local state back to original
   const resetFields = () => {
     setShow(false);
-    setAction('');
     setName('');
     setGender('female');
     setLate(0);
@@ -172,7 +172,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          icon={<UserUserIcon {...iconProps} />}
+          icon={<UserIcon {...iconProps} />}
           autoComplete="off"
         />
 
@@ -181,22 +181,28 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           selected={action}
           setSelected={setAction}
           list={actions.sort()}
-          icon={<EventIcon color={tokens.colors.primaryLight1} />}
+          icon={<PaletteIcon color={tokens.colors.primaryLight1} />}
         />
 
         <GenderWrapper>
-          <GenderType onClick={() => setGender('female')}>
+          <GenderType
+            onClick={() => setGender('female')}
+            className={gender === 'female' ? 'active' : ''}
+          >
             <Text
-              variant={gender === 'female' ? 'black18' : 'regular18'}
+              variant={gender === 'female' ? 'black12' : 'regular12'}
               color={gender === 'female' ? primary : grey}
             >
               {t('dashboard.female').toUpperCase()}
             </Text>
           </GenderType>
 
-          <GenderType onClick={() => setGender('male')}>
+          <GenderType
+            onClick={() => setGender('male')}
+            className={gender === 'male' ? 'active' : ''}
+          >
             <Text
-              variant={gender === 'male' ? 'black18' : 'regular18'}
+              variant={gender === 'male' ? 'black12' : 'regular12'}
               color={gender === 'male' ? primary : grey}
             >
               {t('dashboard.male').toUpperCase()}
@@ -209,25 +215,34 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
 };
 
 const primary = tokens.colors.primaryDark1;
-const grey = tokens.colors.mediumGrey;
+const grey = tokens.colors.primaryLight2;
 
 // styled components
 const GenderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 20px 0 10px;
+  width: 100%;
+  background: ${tokens.colors.primaryLight4};
+  border-radius: 4px;
+  border: 1px solid ${tokens.colors.primaryLight3};
+
+  margin-top: 20px;
 `;
 
 const GenderType = styled.div`
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  /* background: tomato; */
+  padding: 8px 0;
+  border-radius: 4px;
+  transition: 250ms ease;
 
-  &:first-child {
-    padding-left: 20px;
-  }
-
-  &:last-child {
-    padding-right: 20px;
+  &.active {
+    background: ${tokens.colors.primaryLight3};
   }
 `;
 
