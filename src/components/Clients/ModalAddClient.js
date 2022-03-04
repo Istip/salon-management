@@ -109,6 +109,7 @@ const ModalAddClient = ({ show, setShow }) => {
           style={{ marginBottom: '0' }}
           icon={<PhoneIcon {...iconProps} />}
           autoComplete="off"
+          min={0}
         />
 
         <GenderWrapper>
