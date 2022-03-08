@@ -113,38 +113,68 @@ const ModalAddClient = ({ show, setShow }) => {
         />
 
         <GenderWrapper>
-          <Text
-            variant={gender === 'female' ? 'black12' : 'regular12'}
-            color={gender === 'female' ? primary : grey}
+          <GenderType
             onClick={() => setGender('female')}
+            className={gender === 'female' ? 'active' : ''}
           >
-            {t('client.female').toUpperCase()}
-          </Text>
-          <Text
-            variant={gender === 'male' ? 'black12' : 'regular12'}
-            color={gender === 'male' ? primary : grey}
+            <Text
+              variant={gender === 'female' ? 'black12' : 'regular12'}
+              color={gender === 'female' ? white : primary}
+            >
+              {t('client.female').toUpperCase()}
+            </Text>
+          </GenderType>
+
+          <GenderType
             onClick={() => setGender('male')}
+            className={gender === 'male' ? 'active' : ''}
           >
-            {t('client.male').toUpperCase()}
-          </Text>
+            <Text
+              variant={gender === 'male' ? 'black12' : 'regular12'}
+              color={gender === 'male' ? white : primary}
+            >
+              {t('client.male').toUpperCase()}
+            </Text>
+          </GenderType>
         </GenderWrapper>
       </Form>
 
+      <br />
       {validation && <ValidationText>{validation}</ValidationText>}
     </Modal>
   );
 };
 
-const primary = tokens.colors.primaryDark1;
-const grey = tokens.colors.mediumGrey;
+const primary = tokens.colors.primary;
+const white = tokens.colors.fff;
 
 // styled components
 const GenderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 10px;
+  width: 100%;
+  background: ${tokens.colors.primaryLight4};
+  border-radius: 4px;
+  margin-top: 20px;
+`;
+
+const GenderType = styled.div`
   cursor: pointer;
-  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px 0;
+  border-radius: 4px;
+  border: 1px solid ${tokens.colors.primaryLight4};
+
+  transition: 250ms ease;
+
+  &.active {
+    border: 1px solid ${tokens.colors.primaryLight2};
+    background: ${tokens.colors.primaryLight2};
+  }
 `;
 
 export default ModalAddClient;

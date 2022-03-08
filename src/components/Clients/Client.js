@@ -122,8 +122,13 @@ const Client = ({ client }) => {
 
       {client.visits.length !== 0 && handleLastCheckIn(client.visits) ? (
         <Button
+          block
           variant="neutral"
-          style={{ pointerEvents: 'none', marginTop: '10px' }}
+          style={{
+            pointerEvents: 'none',
+            marginTop: '10px',
+            marginBottom: '20px',
+          }}
           size="medium"
           icon={<SuccessIcon />}
         >
@@ -131,6 +136,7 @@ const Client = ({ client }) => {
         </Button>
       ) : (
         <Button
+          block
           variant="secondary"
           style={{ marginTop: '10px' }}
           size="medium"
