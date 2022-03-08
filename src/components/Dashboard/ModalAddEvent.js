@@ -191,7 +191,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           >
             <Text
               variant={gender === 'female' ? 'black12' : 'regular12'}
-              color={gender === 'female' ? primary : grey}
+              color={gender === 'female' ? white : primary}
             >
               {t('dashboard.female').toUpperCase()}
             </Text>
@@ -203,19 +203,20 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           >
             <Text
               variant={gender === 'male' ? 'black12' : 'regular12'}
-              color={gender === 'male' ? primary : grey}
+              color={gender === 'male' ? white : primary}
             >
               {t('dashboard.male').toUpperCase()}
             </Text>
           </GenderType>
         </GenderWrapper>
       </Form>
+      <br />
     </Modal>
   );
 };
 
-const primary = tokens.colors.primaryDark1;
-const grey = tokens.colors.primaryLight2;
+const primary = tokens.colors.primary;
+const white = tokens.colors.fff;
 
 // styled components
 const GenderWrapper = styled.div`
@@ -224,8 +225,6 @@ const GenderWrapper = styled.div`
   width: 100%;
   background: ${tokens.colors.primaryLight4};
   border-radius: 4px;
-  border: 1px solid ${tokens.colors.primaryLight3};
-
   margin-top: 20px;
 `;
 
@@ -236,13 +235,15 @@ const GenderType = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  /* background: tomato; */
   padding: 8px 0;
   border-radius: 4px;
+  border: 1px solid ${tokens.colors.primaryLight4};
+
   transition: 250ms ease;
 
   &.active {
-    background: ${tokens.colors.primaryLight3};
+    border: 1px solid ${tokens.colors.primaryLight2};
+    background: ${tokens.colors.primaryLight2};
   }
 `;
 
