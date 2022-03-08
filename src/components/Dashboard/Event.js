@@ -13,6 +13,7 @@ import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
 import DeleteIcon from '../icons/DeleteIcon';
+import UndoIcon from '../icons/UndoIcon';
 import TimeIcon from '../icons/TimeIcon';
 
 const Event = ({ event, setSelected, setShowPay }) => {
@@ -169,7 +170,13 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 <Button
                   block
                   variant="error"
-                  icon={<DeleteIcon color={tokens.colors.error} />}
+                  icon={
+                    event.finished ? (
+                      <UndoIcon color={tokens.colors.error} />
+                    ) : (
+                      <DeleteIcon color={tokens.colors.error} />
+                    )
+                  }
                   onClick={handleDeleteButton}
                 >
                   {event.finished
