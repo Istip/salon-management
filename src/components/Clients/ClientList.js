@@ -35,13 +35,13 @@ function ClientList({ clients }) {
       name: (
         <FlexCenter style={{ marginLeft: '10px', gap: '2px' }}>
           <MarkIcon
-            color={marked ? tokens.colors.warning : tokens.colors.mediumGrey}
+            color={marked ? tokens.colors.warning : tokens.colors.darkGrey}
             size={16}
           />
           <Text
             tag="div"
             variant="medium14"
-            color={marked ? tokens.colors.warning : tokens.colors.mediumGrey}
+            color={marked ? tokens.colors.warning : tokens.colors.darkGrey}
           >
             {t('client.marked')}
           </Text>
@@ -57,7 +57,7 @@ function ClientList({ clients }) {
   }
 
   const primary = tokens.colors.primary;
-  const grey = tokens.colors.mediumGrey;
+  const primaryLighter = tokens.colors.primaryLight1;
 
   const isSame = (a, b) => {
     if (a.value === b) return true;
@@ -81,8 +81,8 @@ function ClientList({ clients }) {
                 tag="div"
                 key={option.value}
                 onClick={option.onClick}
-                variant={isSame(option, filter) ? 'medium14' : 'regular14'}
-                color={isSame(option, filter) ? primary : grey}
+                variant={isSame(option, filter) ? 'black14' : 'regular14'}
+                color={isSame(option, filter) ? primary : primaryLighter}
               >
                 {option.name}
               </Text>
@@ -145,8 +145,13 @@ const WarningWrapper = styled.div`
 const FilterMenu = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 10px;
   gap: 10px;
+  padding: 10px;
+  border: 1px solid ${tokens.colors.primaryLight4};
+  background: ${tokens.colors.fff};
+  border-radius: 4px;
 
   span {
     margin-right: 6px;

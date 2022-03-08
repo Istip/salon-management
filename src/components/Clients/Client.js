@@ -124,11 +124,7 @@ const Client = ({ client }) => {
         <Button
           block
           variant="neutral"
-          style={{
-            pointerEvents: 'none',
-            marginTop: '10px',
-            marginBottom: '20px',
-          }}
+          style={{ pointerEvents: 'none', marginTop: '10px' }}
           size="medium"
           icon={<SuccessIcon />}
         >
@@ -149,7 +145,7 @@ const Client = ({ client }) => {
 
       {client.visits.length !== 0 && (
         <>
-          <Divider>
+          <Divider style={{ marginTop: '30px' }}>
             <Text tag="span" variant="medium10">
               <FlexCenter style={{ gap: '5px' }}>
                 <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
