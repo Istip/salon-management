@@ -22,6 +22,7 @@ import DropdownIcon from '../icons/DropdownIcon';
 
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
+  const [showVisits, setShowVisits] = useState(false);
   const [visitNumber, setVisitNumber] = useState(1);
 
   const { updateDocument } = useFirestore('clients');
@@ -144,8 +145,17 @@ const Client = ({ client }) => {
       )}
 
       {client.visits.length !== 0 && (
+        <DropDown
+          onClick={() => setShowVisits(!showVisits)}
+          className={showVisits ? 'visible' : ''}
+        >
+          <DropdownIcon />
+        </DropDown>
+      )}
+
+      {client.visits.length !== 0 && showVisits && (
         <>
-          <Divider style={{ marginTop: '30px' }}>
+          <Divider>
             <Text tag="span" variant="medium10">
               <FlexCenter style={{ gap: '5px' }}>
                 <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
@@ -202,6 +212,20 @@ const DropdownButton = styled.div`
   transition: 250ms ease;
 
   &.showAll {
+    transform: rotate(180deg);
+  }
+`;
+
+const DropDown = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 250ms ease;
+
+  &.visible {
     transform: rotate(180deg);
   }
 `;
