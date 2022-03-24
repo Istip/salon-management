@@ -16,6 +16,12 @@ const ClientPopover = ({ visible, client }) => {
 
   const { t } = useTranslation();
 
+  // Function to remove the selected client
+  const deleteClient = (id) => {
+    deleteDocument(id);
+    navigator.vibrate(100);
+  };
+
   if (!visible) {
     return null;
   }
@@ -25,7 +31,7 @@ const ClientPopover = ({ visible, client }) => {
       <Button
         variant="error"
         icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
-        onClick={() => deleteDocument(client.id)}
+        onClick={() => deleteClient(client.id)}
       >
         {t('client.delete')}
       </Button>
