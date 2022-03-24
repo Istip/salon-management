@@ -124,7 +124,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
             >
               <FlexCenter style={{ gap: '5px' }}>
                 <TimeIcon size={12} />{' '}
-                <Text variant="regular10">{t('dashboard.today')}</Text>
+                <Text variant="regular8">{t('dashboard.today')}</Text>
               </FlexCenter>
             </Button>
           )}
