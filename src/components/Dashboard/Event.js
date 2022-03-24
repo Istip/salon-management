@@ -288,6 +288,7 @@ const DropDown = styled.div`
   height: 100%;
   cursor: pointer;
   transition: 250ms ease;
+  margin: 0 10px;
 
   &.visible {
     transform: rotate(180deg);
