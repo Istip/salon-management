@@ -110,6 +110,7 @@ export const EN = {
     },
     late: 'late',
     minutes: 'minute(s)',
+    today: 'Today',
   },
 
   reports: {

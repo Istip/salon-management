@@ -109,6 +109,7 @@ export const HU = {
     },
     late: 'csúszás',
     minutes: 'perc',
+    today: 'Mai nap',
   },
 
   reports: {
