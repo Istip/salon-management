@@ -33,6 +33,7 @@ const Operations = ({ documents }) => {
       return setValidation(t('validations.one_operation_left'));
     }
 
+    navigator.vibrate(100);
     updateDocument(documents[0].id, data);
   };
 

@@ -32,6 +32,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
   // Function returning different action for button, based on finished status
   const handleDeleteButton = () => {
     setVisible(false);
+    navigator.vibrate(100);
 
     if (!event.finished) {
       return deleteDocument(event.id);
