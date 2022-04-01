@@ -47,7 +47,7 @@ const EventsList = ({ events, error, selectedDate }) => {
 
   if (!events) {
     return (
-      <FlexCenter>
+      <FlexCenter style={{ height: '50vh' }}>
         <Text variant="h2" tag="h2" color={tokens.colors.primary}>
           {t('common.loading')}
         </Text>
