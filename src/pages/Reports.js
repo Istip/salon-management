@@ -4,15 +4,18 @@ import styled from 'styled-components';
 // project components
 import Users from '../components/Reports/Users';
 import Income from '../components/Reports/Income';
+import Animate from '../components/UI/Animate';
 
 const Reports = () => {
   return (
-    <ReportsWrapper>
-      <ElementWrapper>
-        <Income />
-        <Users />
-      </ElementWrapper>
-    </ReportsWrapper>
+    <Animate>
+      <ReportsWrapper>
+        <ElementWrapper>
+          <Income />
+          <Users />
+        </ElementWrapper>
+      </ReportsWrapper>
+    </Animate>
   );
 };
 

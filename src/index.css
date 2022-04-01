@@ -10,6 +10,7 @@ html {
   box-sizing: border-box;
   letter-spacing: -0.5px;
   -webkit-tap-highlight-color: transparent;
+  scrollbar-width: thin;
 }
 
 *::selection {

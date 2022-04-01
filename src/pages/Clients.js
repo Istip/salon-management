@@ -11,6 +11,7 @@ import ClientList from '../components/Clients/ClientList';
 import AddIcon from '../components/icons/AddIcon';
 import Error from '../components/UI/Error';
 import { useTranslation } from 'react-i18next';
+import Animate from '../components/UI/Animate';
 
 const Clients = () => {
   const [show, setShow] = useState(false);
@@ -25,7 +26,7 @@ const Clients = () => {
   const clients = documents;
 
   return (
-    <>
+    <Animate>
       <ClientsWrapper>
         <Title>
           <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
@@ -44,7 +45,7 @@ const Clients = () => {
       </ClientsWrapper>
 
       <Modal show={show} setShow={setShow} />
-    </>
+    </Animate>
   );
 };
 

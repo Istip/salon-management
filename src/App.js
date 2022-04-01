@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useAuthContext } from './hooks/useAuthContext';
+import { AnimatePresence } from 'framer-motion';
 
 // project imports
 import Navigation from './components/Navigation/Navigation';
@@ -37,7 +38,7 @@ function App() {
   }, [language]);
 
   return (
-    <>
+    <AnimatePresence exitBeforeEnter>
       {authIsReady && (
         <Router>
           {user && <Appbar />}
@@ -93,7 +94,7 @@ function App() {
           {user && <Navigation />}
         </Router>
       )}
-    </>
+    </AnimatePresence>
   );
 }
 

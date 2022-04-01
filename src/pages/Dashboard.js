@@ -7,6 +7,7 @@ import { useCollection } from '../hooks/useCollection';
 import Calendar from '../components/Dashboard/Calendar';
 import EventsList from '../components/Dashboard/EventsList';
 import Error from '../components/UI/Error';
+import Animate from '../components/UI/Animate';
 
 const Dashboard = () => {
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -23,21 +24,23 @@ const Dashboard = () => {
     );
 
   return (
-    <DashboardWrapper>
-      <Calendar
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        documents={documents}
-      />
+    <Animate>
+      <DashboardWrapper>
+        <Calendar
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          documents={documents}
+        />
 
-      {error && <Error>{error}</Error>}
+        {error && <Error>{error}</Error>}
 
-      <EventsList
-        events={filteredEvents}
-        error={error}
-        selectedDate={selectedDate}
-      />
-    </DashboardWrapper>
+        <EventsList
+          events={filteredEvents}
+          error={error}
+          selectedDate={selectedDate}
+        />
+      </DashboardWrapper>
+    </Animate>
   );
 };
 

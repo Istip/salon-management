@@ -11,6 +11,7 @@ import ModalAdd from './ModalAddEvent';
 import ModalPay from './ModalPay';
 import Placeholder from './Placeholder';
 import EventsTitle from './EventsTitle';
+import { motion } from 'framer-motion';
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -56,7 +57,12 @@ const EventsList = ({ events, error, selectedDate }) => {
       <>
         {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
           <div key={i}>
-            <>
+            <motion.div
+              initial={{ translateX: -50, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ translateX: 10, opacity: 0 }}
+              transition={{ duration: 0.25, delay: i * 0.1 }}
+            >
               {typeof event !== 'string' ? (
                 <Event
                   event={event}
@@ -72,7 +78,7 @@ const EventsList = ({ events, error, selectedDate }) => {
                   selectedDate={selectedDate}
                 />
               )}
-            </>
+            </motion.div>
 
             {isOdd(i) && active !== 'filtered' && <Divider />}
           </div>
