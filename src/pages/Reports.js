@@ -8,14 +8,14 @@ import Animate from '../components/UI/Animate';
 
 const Reports = () => {
   return (
-    <Animate>
-      <ReportsWrapper>
+    <ReportsWrapper>
+      <Animate>
         <ElementWrapper>
           <Income />
           <Users />
         </ElementWrapper>
-      </ReportsWrapper>
-    </Animate>
+      </Animate>
+    </ReportsWrapper>
   );
 };
 

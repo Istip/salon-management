@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
@@ -121,7 +122,16 @@ function ClientList({ clients }) {
             }
             return null;
           })
-          .map((client) => <Client key={client.id} client={client} />)
+          .map((client, i) => (
+            <motion.div
+              initial={{ translateY: -50, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              exit={{ translateY: 10, opacity: 0 }}
+              transition={{ duration: 0.25, delay: i * 0.05 }}
+            >
+              <Client key={client.id} client={client} />
+            </motion.div>
+          ))
       ) : (
         <WarningWrapper>
           <Text variant="regular14" color={tokens.colors.primaryLight3}>

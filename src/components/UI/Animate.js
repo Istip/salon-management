@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 
 const Animate = (props) => {
   const variants = {
-    hidden: { opacity: 0, x: -400, y: 0 },
-    enter: { opacity: 1, x: 0, y: 0 },
-    exit: { opacity: 0, x: -400, y: -400 },
+    hidden: { opacity: 0, x: -20 },
+    enter: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: 0 },
   };
 
   return (
