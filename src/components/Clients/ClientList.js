@@ -124,12 +124,13 @@ function ClientList({ clients }) {
           })
           .map((client, i) => (
             <motion.div
+              key={client.id}
               initial={{ translateY: -50, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
               exit={{ translateY: 10, opacity: 0 }}
               transition={{ duration: 0.25, delay: i * 0.05 }}
             >
-              <Client key={client.id} client={client} />
+              <Client client={client} />
             </motion.div>
           ))
       ) : (
