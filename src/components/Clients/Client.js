@@ -249,7 +249,7 @@ const Divider = styled.div`
 `;
 
 const Mark = styled.span`
-  margin: 6px 3px 0 0;
+  margin: 13px -5px 0 0;
   text-align: left;
   background: ${tokens.colors.fff};
   width: 8px;
