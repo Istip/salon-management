@@ -4,9 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { timestamps } from '../../utils/timestamps';
-import { useTranslation } from 'react-i18next';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { tokens } from '../UI/tokens';
 
 // Project imports
 import Event from './Event';
@@ -15,7 +13,7 @@ import ModalPay from './ModalPay';
 import Placeholder from './Placeholder';
 import EventsTitle from './EventsTitle';
 import FlexCenter from '../UI/FlexCenter';
-import Text from '../UI/Text';
+import Loading from '../UI/Loading';
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -38,8 +36,6 @@ const EventsList = ({ events, error, selectedDate }) => {
         ) || timestamp
     );
 
-  const { t } = useTranslation();
-
   // Function to return if a number is odd or not
   const isOdd = (number) => {
     return number % 2 !== 0;
@@ -48,9 +44,7 @@ const EventsList = ({ events, error, selectedDate }) => {
   if (!events) {
     return (
       <FlexCenter style={{ height: '50vh' }}>
-        <Text variant="h2" tag="h2" color={tokens.colors.primary}>
-          {t('common.loading')}
-        </Text>
+        <Loading />
       </FlexCenter>
     );
   }
