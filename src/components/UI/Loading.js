@@ -1,48 +1,50 @@
 import styled, { keyframes } from 'styled-components';
+import { tokens } from '../UI/tokens';
+import FlexCenter from './FlexCenter';
 
-const Loading = () => {
+const Loading = (props) => {
   return (
-    <Ripple>
-      <div />
-      <div />
-    </Ripple>
+    <Circle>
+      <FlexCenter>
+        <InnerCircle />
+      </FlexCenter>
+    </Circle>
   );
 };
 
-const Animation = keyframes`
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
+const Rotate = keyframes`
+0% {
+  transform: scale(1) rotate(0deg);
+}
+
+50% {
+  transform: scale(1.5) rotate(180deg);
+}
+
+100% {
+  transform: scale(1) rotate(360deg);
+}
 `;
 
-const Ripple = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
+const Circle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  border: 2px solid ${tokens.colors.primary};
+  border-bottom: 2px solid ${tokens.colors.primaryLight3};
+  animation: ${Rotate} 1s ease infinite;
+`;
 
-  & div {
-    position: absolute;
-    border: 4px solid #88b8ef;
-    opacity: 1;
-    border-radius: 50%;
-    animation: ${Animation} 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-  }
-
-  & div:nth-child(2) {
-    animation-delay: -0.5s;
-  }
+const InnerCircle = styled.div`
+  width: 22px;
+  height: 22px;
+  border-radius: 100px;
+  border: 2px solid ${tokens.colors.primary};
+  border-bottom: 2px solid ${tokens.colors.primaryLight3};
+  animation: ${Rotate} 1s ease infinite;
 `;
 
 export default Loading;
