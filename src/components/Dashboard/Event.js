@@ -58,8 +58,16 @@ const Event = ({ event }) => {
   // Function return if the date is today and event is not finished yet
   const isUnfinishedEvent = (appointment) => {
     return (
-      moment(appointment.date.seconds * 1000).format('YY:MM:DD') <=
-        moment().format('YY:MM:DD') && !event.finished
+      moment(appointment.date.seconds * 1000).format('YY.MM.DD') <=
+        moment().format('YY.MM.DD') && !event.finished
+    );
+  };
+
+  // Check if the passed event is in the future
+  const isFutureEvent = (appointment) => {
+    return (
+      moment(appointment.date.seconds * 1000).format('YY.MM.DD') >
+      moment().format('YY.MM.DD')
     );
   };
 
@@ -175,7 +183,7 @@ const Event = ({ event }) => {
             {visible && (
               <ExtraContent finished={event.finished}>
                 <Button
-                  block={event.finished}
+                  block={event.finished || isFutureEvent(event)}
                   variant="error"
                   icon={
                     event.finished ? (
@@ -186,7 +194,11 @@ const Event = ({ event }) => {
                   }
                   onClick={handleDeleteButton}
                 >
-                  {event.finished ? t('dashboard.cancel') : ''}
+                  {event.finished
+                    ? t('dashboard.cancel')
+                    : isFutureEvent(event)
+                    ? t('dashboard.delete')
+                    : ''}
                 </Button>
 
                 {isUnfinishedEvent(event) && (
