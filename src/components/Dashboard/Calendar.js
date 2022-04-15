@@ -143,7 +143,11 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               onClick={() => setSelectedDate(day)}
             >
               <Day
-                className={isToday(day) ? 'today' : ''}
+                className={
+                  isToday(day)
+                    ? `today ${day.format('dd')}`
+                    : `${day.format('dd')}`
+                }
                 today={day.format('YY-MM-DD') === moment().format('YY-MM-DD')}
                 weekend={daysOfWeekend.includes(day.format('dd'))}
               >
@@ -209,7 +213,7 @@ const DaySelector = styled.div`
 
 const DaySelectorWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  /* gap: 10px; */
   scroll-snap-type: y mandatory;
   opacity: 0;
   max-height: 0;
@@ -230,7 +234,7 @@ const DayWrapper = styled.span`
 
 const DotReminder = styled.span`
   position: absolute;
-  bottom: 12px;
+  bottom: 9px;
   width: 40px;
   height: 2px;
   display: flex;
@@ -253,9 +257,13 @@ const Day = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   padding: 8px 0;
-  border-radius: 4px;
+
+  border: 1px solid ${tokens.colors.lightGrey};
+  border-left: 0;
+  border-right: 0;
+
   color: ${(props) =>
     !props.today
       ? `${tokens.colors.primaryDark3}`
@@ -264,13 +272,43 @@ const Day = styled.div`
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
   scroll-snap-align: start;
   gap: 8px;
-  transition: 250ms ease;
+  /* transition: 250ms ease; */
 
   &.today {
     color: ${tokens.colors.fff};
     background: ${tokens.colors.primaryLight2};
     scroll-snap-align: start;
-    border: none;
+  }
+
+  &.today.h,
+  &.today.Mo {
+    color: ${tokens.colors.fff};
+    background: ${tokens.colors.primaryLight2};
+    scroll-snap-align: start;
+    border-radius: 4px 0 0 4px;
+  }
+
+  &.today.v,
+  &.today.Su {
+    color: ${tokens.colors.fff};
+    background: ${tokens.colors.primaryLight2};
+    scroll-snap-align: start;
+    border-radius: 0 4px 4px 0;
+  }
+
+  &.h,
+  &.Mo {
+    border: 1px solid ${tokens.colors.lightGrey};
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+  }
+
+  &.v,
+  &.Su {
+    border: 1px solid ${tokens.colors.lightGrey};
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    margin-right: 5px;
   }
 `;
 
