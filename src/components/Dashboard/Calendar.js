@@ -80,8 +80,19 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
         inline: 'center',
       });
     }
+
+    if (
+      date.format('YY-MM') !== moment().format('YY-MM') &&
+      selectedDate.format('YY-MM') !== date.format('YY-MM')
+    ) {
+      dayRef.current.childNodes[0].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    }
     // eslint-disable-next-line
-  }, [selectedDate]);
+  }, [selectedDate, date]);
 
   const Dot = ({ day }) => {
     const dayWithAppointment =
@@ -252,7 +263,7 @@ const DotReminder = styled.span`
 
 const Day = styled.div`
   cursor: pointer;
-  min-width: 40px;
+  min-width: 45px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -272,7 +283,6 @@ const Day = styled.div`
     props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
   scroll-snap-align: start;
   gap: 8px;
-  /* transition: 250ms ease; */
 
   &.today {
     color: ${tokens.colors.fff};
