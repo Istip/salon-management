@@ -44,7 +44,7 @@ const Event = ({ event }) => {
 
   // Function to finish an event with the given price
   const handleFinishButton = () => {
-    if (price && price > 0) {
+    if (price && price >= 0) {
       updateDocument(event.id, {
         ...event,
         finished: true,
