@@ -7,17 +7,20 @@ import { useTranslation } from 'react-i18next';
 import { tokens } from '../UI/tokens';
 
 // project components
-import DropdownIcon from '../icons/DropdownIcon';
-import CheckIcon from '../icons/CheckIcon';
 import Text from '../UI/Text';
 import Button from '../UI/Button';
 import FlexCenter from '../UI/FlexCenter';
+import Input from '../UI/Input';
+import DropdownIcon from '../icons/DropdownIcon';
+import CheckIcon from '../icons/CheckIcon';
+import MoneyIcon from '../icons/MoneyIcon';
 import DeleteIcon from '../icons/DeleteIcon';
 import UndoIcon from '../icons/UndoIcon';
 import TimeIcon from '../icons/TimeIcon';
 
 const Event = ({ event, setSelected, setShowPay }) => {
   const [visible, setVisible] = useState(false);
+  const [price, setPrice] = useState('');
 
   const { deleteDocument, updateDocument } = useFirestore('events');
 
@@ -43,6 +46,19 @@ const Event = ({ event, setSelected, setShowPay }) => {
       finished: false,
       price: 0,
     });
+  };
+
+  // Function to finish an event with the given price
+  const handleFinishButton = () => {
+    if (price && price > 0) {
+      updateDocument(event.id, {
+        ...event,
+        finished: true,
+        price,
+      });
+      setVisible(false);
+      setPrice('');
+    }
   };
 
   // Function return if the date is today and event is not finished yet
@@ -76,6 +92,10 @@ const Event = ({ event, setSelected, setShowPay }) => {
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
     : tokens.colors.mediumGrey;
+
+  const iconProps = {
+    color: tokens.colors.primaryLight1,
+  };
 
   return (
     <>
@@ -169,7 +189,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
             {visible && (
               <ExtraContent finished={event.finished}>
                 <Button
-                  block
+                  block={event.finished}
                   variant="error"
                   icon={
                     event.finished ? (
@@ -186,6 +206,27 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 </Button>
 
                 {isUnfinishedEvent(event) && (
+                  <>
+                    <Input
+                      style={{ marginTop: 0, marginBottom: 0 }}
+                      type="number"
+                      name="price"
+                      min={0}
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      placeholder={t('input.placeholder.payed')}
+                      icon={<MoneyIcon {...iconProps} />}
+                      noMargin
+                    />
+
+                    <Button
+                      icon={<CheckIcon color={tokens.colors.white} />}
+                      onClick={handleFinishButton}
+                    />
+                  </>
+                )}
+
+                {/* {isUnfinishedEvent(event) && (
                   <Button
                     block
                     variant="success"
@@ -200,7 +241,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   >
                     {t('dashboard.finish')}
                   </Button>
-                )}
+                )} */}
               </ExtraContent>
             )}
           </EventCard>

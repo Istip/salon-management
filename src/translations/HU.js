@@ -66,7 +66,7 @@ export const HU = {
       client_name: 'Kliens neve..',
       phone_number: 'Kliens telefonszáma..',
       client_search: 'Keresés név vagy telefonszám alapján..',
-      payed: 'Kifizetett összeg..',
+      payed: 'Fizetett összeg..',
       operation: 'Művelet rövid elnevezése..',
       type_select: 'Válassz műveletet..',
     },

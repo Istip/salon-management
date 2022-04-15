@@ -67,7 +67,7 @@ export const EN = {
       client_name: 'Enter client name..',
       phone_number: 'Enter client phone number..',
       client_search: 'Search client name or phone..',
-      payed: 'Introduce the ammount..',
+      payed: 'Enter price..',
       operation: 'Short name for the operation..',
       type_select: 'Select operation..',
     },
