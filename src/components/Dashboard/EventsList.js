@@ -9,7 +9,6 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 // Project imports
 import Event from './Event';
 import ModalAdd from './ModalAddEvent';
-import ModalPay from './ModalPay';
 import Placeholder from './Placeholder';
 import EventsTitle from './EventsTitle';
 import FlexCenter from '../UI/FlexCenter';
@@ -17,8 +16,6 @@ import Loading from '../UI/Loading';
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
-  const [showPay, setShowPay] = useState(false);
-  const [selected, setSelected] = useState(0);
   const [time, setTime] = useState('12:00');
 
   // state responsible for the rendered view
@@ -70,11 +67,7 @@ const EventsList = ({ events, error, selectedDate }) => {
               transition={{ duration: 0.25, delay: i * 0.05 }}
             >
               {typeof event !== 'string' ? (
-                <Event
-                  event={event}
-                  setSelected={setSelected}
-                  setShowPay={setShowPay}
-                />
+                <Event event={event} />
               ) : (
                 <Placeholder
                   filtered={active !== 'filtered'}
@@ -99,7 +92,6 @@ const EventsList = ({ events, error, selectedDate }) => {
         selectedDate={selectedDate}
         setSelected
       />
-      <ModalPay show={showPay} setShow={setShowPay} selected={selected} />
     </>
   );
 };

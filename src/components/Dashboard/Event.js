@@ -18,19 +18,13 @@ import DeleteIcon from '../icons/DeleteIcon';
 import UndoIcon from '../icons/UndoIcon';
 import TimeIcon from '../icons/TimeIcon';
 
-const Event = ({ event, setSelected, setShowPay }) => {
+const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
   const [price, setPrice] = useState('');
 
   const { deleteDocument, updateDocument } = useFirestore('events');
 
   const { t } = useTranslation();
-
-  // Function to save selected event to state and open modal
-  const handlePriceModal = async () => {
-    await setSelected(event);
-    setShowPay(true);
-  };
 
   // Function returning different action for button, based on finished status
   const handleDeleteButton = () => {
@@ -157,21 +151,13 @@ const Event = ({ event, setSelected, setShowPay }) => {
                 {event.finished && (
                   <FlexCenter>
                     <Button
-                      variant={event.price ? 'neutral' : 'primary'}
-                      disabled={event.price}
-                      style={{ pointerEvents: event.price ? 'none' : 'auto' }}
-                      onClick={() => handlePriceModal(event)}
+                      variant="neutral"
+                      disabled
+                      style={{ pointerEvents: 'none' }}
                     >
                       <FlexCenter style={{ flexDirection: 'column' }}>
-                        <Text variant="medium12">
-                          {!event.price
-                            ? t('dashboard.paid')
-                            : t('dashboard.income')}
-                        </Text>
-
-                        {event.price !== 0 && (
-                          <Text variant="regular8">{event.price} RON</Text>
-                        )}
+                        <Text variant="medium12">{t('dashboard.income')}</Text>
+                        <Text variant="regular8">{event.price} RON</Text>
                       </FlexCenter>
                     </Button>
                   </FlexCenter>
@@ -200,9 +186,7 @@ const Event = ({ event, setSelected, setShowPay }) => {
                   }
                   onClick={handleDeleteButton}
                 >
-                  {event.finished
-                    ? t('dashboard.cancel')
-                    : t('dashboard.delete')}
+                  {event.finished ? t('dashboard.cancel') : ''}
                 </Button>
 
                 {isUnfinishedEvent(event) && (
@@ -225,23 +209,6 @@ const Event = ({ event, setSelected, setShowPay }) => {
                     />
                   </>
                 )}
-
-                {/* {isUnfinishedEvent(event) && (
-                  <Button
-                    block
-                    variant="success"
-                    icon={<CheckIcon color={tokens.colors.success} />}
-                    onClick={() => {
-                      updateDocument(event.id, {
-                        ...event,
-                        finished: true,
-                      });
-                      setVisible(false);
-                    }}
-                  >
-                    {t('dashboard.finish')}
-                  </Button>
-                )} */}
               </ExtraContent>
             )}
           </EventCard>
