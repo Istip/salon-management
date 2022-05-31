@@ -73,21 +73,21 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const daysOfMonth = getDaysOfTheMonth();
 
   useEffect(() => {
-    // always scroll to the selected day
-    if (dayRef.current) {
-      dayRef.current.childNodes[selectedDate.format('D') - 1].scrollIntoView({
+    // when changing months, scroll to the first day of the month
+    if (
+      date.format('YY-MM') !== moment().format('YY-MM') &&
+      selectedDate.format('YY-MM') !== date.format('YY-MM')
+    ) {
+      return dayRef.current.childNodes[0].scrollIntoView({
         behavior: 'smooth',
         block: 'center',
         inline: 'center',
       });
     }
 
-    // when changing months, scroll to the first day of the month
-    if (
-      date.format('YY-MM') !== moment().format('YY-MM') &&
-      selectedDate.format('YY-MM') !== date.format('YY-MM')
-    ) {
-      dayRef.current.childNodes[0].scrollIntoView({
+    // always scroll to the selected day
+    if (dayRef.current) {
+      dayRef.current.childNodes[selectedDate.format('D') - 1].scrollIntoView({
         behavior: 'smooth',
         block: 'center',
         inline: 'center',
