@@ -160,6 +160,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           value={late}
           min={0}
           max={29}
+          step={5}
           onChange={(e) => setLate(e.target.value)}
         />
       </FlexCenter>

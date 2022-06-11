@@ -93,7 +93,7 @@ const Event = ({ event }) => {
 
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
-    : tokens.colors.mediumGrey;
+    : tokens.colors.error;
 
   const iconProps = {
     color: tokens.colors.primaryLight1,
@@ -102,7 +102,21 @@ const Event = ({ event }) => {
   return (
     <>
       <EventWrapper>
-        <EventInfo>
+        {parseInt(event.late) ? (
+          <FakeBg late={parseInt(event.late)}>
+            <FlexCenter style={{ gap: '2px', height: '100%' }}>
+              <TimeIcon color={lateColor} size={12} />
+
+              <Text tag="div" variant="regular10" color={lateColor}>
+                {`${moment(event.date.seconds * 1000).format('HH:mm')} ${t(
+                  'dashboard.late'
+                )}: ${event.late} ${t('dashboard.minutes')}`}
+              </Text>
+            </FlexCenter>
+          </FakeBg>
+        ) : null}
+
+        <EventInfo late={event.late}>
           <EventTime>
             <Text
               tag="div"
@@ -113,21 +127,7 @@ const Event = ({ event }) => {
             </Text>
           </EventTime>
 
-          <EventCard finished={event.finished}>
-            <>
-              {parseInt(event.late) > 0 ? (
-                <FlexCenter style={{ marginTop: '6px', gap: '2px' }}>
-                  <TimeIcon color={lateColor} size={12} />
-
-                  <Text tag="div" variant="regular10" color={lateColor}>
-                    {`${moment(event.date.seconds * 1000).format('HH:mm')} ${t(
-                      'dashboard.late'
-                    )}: ${event.late} ${t('dashboard.minutes')}`}
-                  </Text>
-                </FlexCenter>
-              ) : null}
-            </>
-
+          <EventCard finished={event.finished} late={event.late}>
             <VisibleContent onClick={() => handleOpen(event)}>
               <Content>
                 <EventType>
@@ -239,7 +239,7 @@ const EventInfo = styled.div`
   width: 100%;
   display: flex;
   min-height: 60px;
-  margin: 5px 0;
+  margin: ${(props) => (props.late ? '0 5px 5px 0' : '5px 0')};
 `;
 
 const EventTime = styled.span`
@@ -267,7 +267,7 @@ const EventCard = styled.div`
 
   border: 1px solid ${tokens.colors.primaryLight3};
   border-left: 3px solid ${tokens.colors.primaryLight3};
-  border-radius: 0 12px 12px 0;
+  border-radius: ${(props) => (props.late ? '0 0 12px 0' : '0 12px 12px 0')};
   transition: 250ms ease;
 
   &:hover {
@@ -335,6 +335,26 @@ const EventDescription = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 10px;
+`;
+
+const FakeBg = styled.div`
+  height: ${(props) => (props.late < 14 ? '14px' : `${props.late}px`)};
+  margin-left: 50px;
+  border-radius: 0 12px 0 0;
+  border: 1px dashed ${tokens.colors.mediumGrey};
+  border-left: 3px solid ${tokens.colors.mediumGrey};
+  border-bottom: none;
+  background-image: linear-gradient(
+    45deg,
+    #ffffff 25%,
+    #f9f9f9 25%,
+    #f9f9f9 50%,
+    #ffffff 50%,
+    #ffffff 75%,
+    #f9f9f9 75%,
+    #f9f9f9 100%
+  );
+  background-size: 30px 30px;
 `;
 
 export default Event;
