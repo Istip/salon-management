@@ -17,7 +17,7 @@ import Modal from '../UI/Modal';
 import Input from '../UI/Input';
 import Text from '../UI/Text';
 import UserIcon from '../icons/UserIcon';
-import PaletteIcon from '../icons/PaletteIcon';
+import FaceIcon from '../icons/FaceIcon';
 import Select from '../UI/Select';
 import FlexCenter from '../UI/FlexCenter';
 import Slider from '../UI/Slider';
@@ -182,7 +182,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           selected={action}
           setSelected={setAction}
           list={actions.sort()}
-          icon={<PaletteIcon color={tokens.colors.primaryLight1} />}
+          icon={<FaceIcon color={tokens.colors.primaryLight1} />}
         />
 
         <GenderWrapper>
