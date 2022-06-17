@@ -20,7 +20,7 @@ import TimeIcon from '../icons/TimeIcon';
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
 
   const { deleteDocument, updateDocument } = useFirestore('events');
 
@@ -44,14 +44,14 @@ const Event = ({ event }) => {
 
   // Function to finish an event with the given price
   const handleFinishButton = () => {
-    if (price && price >= 0) {
+    if ((price && price > 0) || price === 0) {
       updateDocument(event.id, {
         ...event,
         finished: true,
         price,
       });
       setVisible(false);
-      setPrice('');
+      setPrice(0);
     }
   };
 
