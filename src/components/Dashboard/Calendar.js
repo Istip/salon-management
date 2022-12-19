@@ -115,7 +115,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   return (
     <CalendarWrapper onClick={() => !visible && setVisible(true)}>
       <MonthSelector visible={visible}>
-        <Button variant="neutral" size="small">
+        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
           <ArrowWrapper onClick={minusMonth} visible={visible}>
             <ArrowLeftIcon color={tokens.colors.darkGrey} />
           </ArrowWrapper>
@@ -145,7 +145,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
           )}
         </FlexCenter>
 
-        <Button variant="neutral" size="small">
+        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
           <ArrowWrapper onClick={plusMonth} visible={visible}>
             <ArrowRightIcon color={tokens.colors.darkGrey} />
           </ArrowWrapper>
