@@ -359,6 +359,7 @@ const ArrowWrapper = styled.span`
 const Badge = styled.div`
   background: ${tokens.colors.primary};
   color: ${tokens.colors.white};
+  border: 1px solid ${tokens.colors.primaryDark2};
   padding: 2px;
   width: 12px;
   height: 12px;
