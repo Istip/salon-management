@@ -97,6 +97,7 @@ const Event = ({ event }) => {
   const handlers = useSwipeable({
     onSwipedRight: () =>
       !event.finished ? handleFinishButton() : handleDeleteButton(),
+    onSwipedLeft: () => deleteDocument(event.id),
   });
 
   const lateColor = event.finished
