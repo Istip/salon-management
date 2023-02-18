@@ -17,6 +17,7 @@ import MoneyIcon from "../icons/MoneyIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import UndoIcon from "../icons/UndoIcon";
 import TimeIcon from "../icons/TimeIcon";
+import { useSwipeable } from "react-swipeable";
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
@@ -44,6 +45,8 @@ const Event = ({ event }) => {
 
   // Function to finish an event with the given price
   const handleFinishButton = () => {
+    navigator.vibrate(100);
+
     if ((price && price > 0) || price === 0) {
       updateDocument(event.id, {
         ...event,
@@ -91,6 +94,11 @@ const Event = ({ event }) => {
     return;
   };
 
+  const handlers = useSwipeable({
+    onSwipedRight: () =>
+      !event.finished ? handleFinishButton() : handleDeleteButton(),
+  });
+
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
     : tokens.colors.error;
@@ -101,7 +109,7 @@ const Event = ({ event }) => {
 
   return (
     <>
-      <EventWrapper>
+      <EventWrapper {...handlers}>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
             <FlexCenter style={{ gap: "2px", height: "100%" }}>
