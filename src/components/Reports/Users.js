@@ -1,17 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useCollection } from '../../hooks/useCollection';
-import { Link } from 'react-router-dom';
-import { tokens } from '../UI/tokens';
+import React from "react";
+import styled from "styled-components";
+import { useCollection } from "../../hooks/useCollection";
+import { Link } from "react-router-dom";
+import { tokens } from "../UI/tokens";
 
 // project components
-import FlexCenter from '../UI/FlexCenter';
-import Text from '../UI/Text';
-import Error from '../UI/Error';
-import { useTranslation } from 'react-i18next';
+import FlexCenter from "../UI/FlexCenter";
+import Text from "../UI/Text";
+import Error from "../UI/Error";
+import { useTranslation } from "react-i18next";
+import Button from "../UI/Button";
 
 const Users = () => {
-  const { documents, error } = useCollection('clients');
+  const { documents, error } = useCollection("clients");
 
   const { t } = useTranslation();
 
@@ -23,27 +24,27 @@ const Users = () => {
     return <Error>{error}</Error>;
   }
 
-  const males = documents.filter((doc) => doc.gender === 'male');
-  const females = documents.filter((doc) => doc.gender === 'female');
+  const males = documents.filter((doc) => doc.gender === "male");
+  const females = documents.filter((doc) => doc.gender === "female");
 
   return (
     <>
       <UsersWrapper>
         <FlexCenter>
           <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-            {t('reports.clients')}
+            {t("reports.clients")}
           </Text>
         </FlexCenter>
         {documents.length ? (
           <>
             <UsersSummary>
               <Text variant="black14" color={tokens.colors.primaryDark3}>
-                {t('reports.total')}:
+                {t("reports.total")}:
               </Text>
 
               <Text variant="black14" color={tokens.colors.primary}>
-                {documents.length}{' '}
-                {documents.length <= 1 ? t('reports.c') : t('reports.cs')}
+                {documents.length}{" "}
+                {documents.length <= 1 ? t("reports.c") : t("reports.cs")}
               </Text>
             </UsersSummary>
 
@@ -52,34 +53,32 @@ const Users = () => {
             <GenderSummary>
               <GenderNumber className="female">
                 <Text variant="regular12">
-                  <b>{females.length}</b>{' '}
+                  <b>{females.length}</b>{" "}
                   {females.length === 1
-                    ? t('reports.female')
-                    : t('reports.females')}
+                    ? t("reports.female")
+                    : t("reports.females")}
                 </Text>
               </GenderNumber>
 
               <GenderNumber className="male">
                 <Text variant="regular12">
-                  <b>{males.length}</b>{' '}
-                  {males.length === 1 ? t('reports.male') : t('reports.males')}
+                  <b>{males.length}</b>{" "}
+                  {males.length === 1 ? t("reports.male") : t("reports.males")}
                 </Text>
               </GenderNumber>
             </GenderSummary>
           </>
         ) : (
           <>
-            <FlexCenter style={{ margin: '10px 0' }}>
+            <FlexCenter style={{ margin: "10px 0" }}>
               <Text variant="regular14" color={tokens.colors.primaryLight3}>
-                {t('warning.no_clients')}
+                {t("warning.no_clients")}
               </Text>
             </FlexCenter>
             <FlexCenter>
-              <LinkWrapper>
-                <Text variant="regular14" color={tokens.colors.primary}>
-                  <Link to="/clients">{t('reports.add_client')}</Link>
-                </Text>
-              </LinkWrapper>
+              <Button block variant="secondary">
+                <Link to="/clients">{t("reports.add_client")}</Link>
+              </Button>
             </FlexCenter>
           </>
         )}
@@ -103,17 +102,6 @@ const UsersSummary = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-`;
-
-const LinkWrapper = styled.div`
-  transition: 250ms ease;
-  margin-top: 5px;
-
-  a {
-    text-decoration: none;
-    color: ${tokens.colors.primary};
-    font-weight: 700;
-  }
 `;
 
 const DividerLine = styled.div`
