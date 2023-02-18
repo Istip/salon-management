@@ -250,10 +250,6 @@ const EventTime = styled.span`
   justify-content: center;
   padding: 10px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   /* monospace the numbers */
   font-feature-settings: "tnum" on, "lnum" on;
 
