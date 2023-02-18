@@ -75,6 +75,12 @@ const ButtonItem = styled.button`
     }
   }
 
+  &.ghost {
+    color: transparent;
+    background: transparent;
+    border: none;
+  }
+
   &.success {
     color: ${tokens.colors.success};
     background: ${tokens.colors.success + '33'};

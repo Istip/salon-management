@@ -115,9 +115,11 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   return (
     <CalendarWrapper onClick={() => !visible && setVisible(true)}>
       <MonthSelector visible={visible}>
-        <ArrowWrapper onClick={minusMonth} visible={visible}>
-          <ArrowLeftIcon color={tokens.colors.primaryDark3} />
-        </ArrowWrapper>
+        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
+          <ArrowWrapper onClick={minusMonth} visible={visible}>
+            <ArrowLeftIcon color={tokens.colors.darkGrey} />
+          </ArrowWrapper>
+        </Button>
 
         <FlexCenter style={{ gap: '10px' }}>
           <Text variant="black14" color={tokens.colors.primaryDark3}>
@@ -128,7 +130,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
           {todayIsSelected() && (
             <Button
-              variant="neutral"
+              variant="secondary"
               size="small"
               onClick={() => handleResetDate()}
               title={`${t('dashboard.jump_back')} ${moment().format(
@@ -136,16 +138,18 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               )}`}
             >
               <FlexCenter style={{ gap: '5px' }}>
-                <TimeIcon size={12} />{' '}
+                <TimeIcon size={12} color={tokens.colors.primary} />{' '}
                 <Text variant="regular8">{t('dashboard.today')}</Text>
               </FlexCenter>
             </Button>
           )}
         </FlexCenter>
 
-        <ArrowWrapper onClick={plusMonth} visible={visible}>
-          <ArrowRightIcon color={tokens.colors.primaryDark3} />
-        </ArrowWrapper>
+        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
+          <ArrowWrapper onClick={plusMonth} visible={visible}>
+            <ArrowRightIcon color={tokens.colors.darkGrey} />
+          </ArrowWrapper>
+        </Button>
       </MonthSelector>
 
       <DaySelector>
@@ -247,8 +251,8 @@ const DayWrapper = styled.span`
 
 const DotReminder = styled.span`
   position: absolute;
-  bottom: 9px;
-  width: 40px;
+  bottom: 8px;
+  width: 46px;
   height: 2px;
   display: flex;
   align-items: center;
