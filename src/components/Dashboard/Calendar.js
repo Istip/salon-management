@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { capitalize } from '../../utils/capitalize';
-import { tokens } from '../UI/tokens';
+import React, { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { capitalize } from "../../utils/capitalize";
+import { tokens } from "../UI/tokens";
 
 // project components
-import ArrowLeftIcon from '../icons/ArrowLeftIcon';
-import ArrowRightIcon from '../icons/ArrowRightIcon';
-import DropdownIcon from '../icons/DropdownIcon';
-import TimeIcon from '../icons/TimeIcon';
-import Text from '../../components/UI/Text';
-import Button from '../../components/UI/Button';
-import FlexCenter from '../../components/UI/FlexCenter';
+import ArrowLeftIcon from "../icons/ArrowLeftIcon";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
+import DropdownIcon from "../icons/DropdownIcon";
+import TimeIcon from "../icons/TimeIcon";
+import Text from "../../components/UI/Text";
+import Button from "../../components/UI/Button";
+import FlexCenter from "../../components/UI/FlexCenter";
 
 const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   const [date, setDate] = useState(moment());
@@ -23,14 +23,14 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   const dayRef = useRef();
 
-  const daysOfWeekend = ['szo', 'v', 'Sa', 'Su'];
+  const daysOfWeekend = ["szo", "v", "Sa", "Su"];
 
   const plusMonth = () => {
-    setDate(moment(date).add(1, 'month'));
+    setDate(moment(date).add(1, "month"));
   };
 
   const minusMonth = () => {
-    setDate(moment(date).subtract(1, 'month'));
+    setDate(moment(date).subtract(1, "month"));
   };
 
   const getDaysOfTheMonth = () => {
@@ -48,8 +48,8 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   // Function to check if today is selected
   const todayIsSelected = () => {
-    const today = moment().format('YY-MM-DD');
-    const selected = selectedDate.format('YY-MM-DD');
+    const today = moment().format("YY-MM-DD");
+    const selected = selectedDate.format("YY-MM-DD");
     if (today !== selected) {
       return true;
     }
@@ -65,7 +65,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
 
   // Function checks if the day property is the same as the current day
   const isToday = (day) => {
-    if (day.format('YY-MM-DD') === selectedDate.format('YY-MM-DD')) {
+    if (day.format("YY-MM-DD") === selectedDate.format("YY-MM-DD")) {
       return true;
     }
   };
@@ -75,57 +75,61 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
   useEffect(() => {
     // when changing months, scroll to the first day of the month
     if (
-      date.format('YY-MM') !== moment().format('YY-MM') &&
-      selectedDate.format('YY-MM') !== date.format('YY-MM')
+      date.format("YY-MM") !== moment().format("YY-MM") &&
+      selectedDate.format("YY-MM") !== date.format("YY-MM")
     ) {
       return dayRef.current.childNodes[0].scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'center',
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
       });
     }
 
     // always scroll to the selected day
     if (dayRef.current) {
-      dayRef.current.childNodes[selectedDate.format('D') - 1].scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'center',
+      dayRef.current.childNodes[selectedDate.format("D") - 1].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
       });
     }
     // eslint-disable-next-line
   }, [selectedDate, date]);
 
   const Dot = ({ day }) => {
-    const dayWithAppointment =
-      documents &&
-      documents.some(
-        (item) =>
-          moment(item.date.seconds * 1000).format('YY-MM-DD') ===
-          moment(day).format('YY-MM-DD')
-      );
+    const dayWithAppointment = documents?.filter(
+      (item) =>
+        moment(item.date.seconds * 1000).format("YY-MM-DD") ===
+        moment(day).format("YY-MM-DD")
+    );
 
-    if (!dayWithAppointment) {
+    console.log(dayWithAppointment);
+
+    if (!dayWithAppointment?.length) {
       return null;
     }
 
-    return <>•</>;
+    return (
+      <Badge>
+        <Text variant="black6">{dayWithAppointment.length}</Text>
+      </Badge>
+    );
   };
 
   return (
     <CalendarWrapper onClick={() => !visible && setVisible(true)}>
       <MonthSelector visible={visible}>
-        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
+        <Button variant={visible ? "neutral" : "ghost"} size="small">
           <ArrowWrapper onClick={minusMonth} visible={visible}>
             <ArrowLeftIcon color={tokens.colors.darkGrey} />
           </ArrowWrapper>
         </Button>
 
-        <FlexCenter style={{ gap: '10px' }}>
+        <FlexCenter style={{ gap: "10px" }}>
           <Text variant="black14" color={tokens.colors.primaryDark3}>
             {visible
-              ? date.format('YYYY MMMM')
-              : selectedDate.format('YYYY MMMM D')}
+              ? date.format("YYYY MMMM")
+              : selectedDate.format("YYYY MMMM D")}
           </Text>
 
           {todayIsSelected() && (
@@ -133,19 +137,19 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
               variant="secondary"
               size="small"
               onClick={() => handleResetDate()}
-              title={`${t('dashboard.jump_back')} ${moment().format(
-                'YYYY-MM-DD'
+              title={`${t("dashboard.jump_back")} ${moment().format(
+                "YYYY-MM-DD"
               )}`}
             >
-              <FlexCenter style={{ gap: '5px' }}>
-                <TimeIcon size={12} color={tokens.colors.primary} />{' '}
-                <Text variant="regular8">{t('dashboard.today')}</Text>
+              <FlexCenter style={{ gap: "5px" }}>
+                <TimeIcon size={12} color={tokens.colors.primary} />{" "}
+                <Text variant="regular8">{t("dashboard.today")}</Text>
               </FlexCenter>
             </Button>
           )}
         </FlexCenter>
 
-        <Button variant={visible ? 'neutral' : 'ghost'} size="small">
+        <Button variant={visible ? "neutral" : "ghost"} size="small">
           <ArrowWrapper onClick={plusMonth} visible={visible}>
             <ArrowRightIcon color={tokens.colors.darkGrey} />
           </ArrowWrapper>
@@ -153,30 +157,30 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
       </MonthSelector>
 
       <DaySelector>
-        <DaySelectorWrapper className={visible ? 'visible' : ''} ref={dayRef}>
+        <DaySelectorWrapper className={visible ? "visible" : ""} ref={dayRef}>
           {daysOfMonth.map((day) => (
             <DayWrapper
-              key={day.format('DD')}
+              key={day.format("DD")}
               onClick={() => setSelectedDate(day)}
             >
               <Day
                 className={
                   isToday(day)
-                    ? `today ${day.format('dd')}`
-                    : `${day.format('dd')}`
+                    ? `today ${day.format("dd")}`
+                    : `${day.format("dd")}`
                 }
-                today={day.format('YY-MM-DD') === moment().format('YY-MM-DD')}
-                weekend={daysOfWeekend.includes(day.format('dd'))}
+                today={day.format("YY-MM-DD") === moment().format("YY-MM-DD")}
+                weekend={daysOfWeekend.includes(day.format("dd"))}
               >
                 <Text variant="medium8" tag="div">
-                  {capitalize(day.format('ddd'))}
+                  {capitalize(day.format("ddd"))}
                 </Text>
                 <Text variant="black12" tag="div">
-                  {day.format('DD')}
+                  {day.format("DD")}
                 </Text>
               </Day>
 
-              <DotReminder className={visible ? 'visible' : ''}>
+              <DotReminder className={visible ? "visible" : ""}>
                 <Dot day={day} />
               </DotReminder>
             </DayWrapper>
@@ -185,7 +189,7 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
       </DaySelector>
 
       <CloseBar onClick={() => setVisible(!visible)} visible={visible}>
-        <IconWrapper className={!visible ? 'visible' : ''}>
+        <IconWrapper className={!visible ? "visible" : ""}>
           <FlexCenter>
             <DropdownIcon />
           </FlexCenter>
@@ -286,7 +290,7 @@ const Day = styled.div`
       ? `${tokens.colors.primaryDark3}`
       : `${tokens.colors.primary}`};
   background: ${(props) =>
-    props.weekend ? `${tokens.colors.lightGrey}` : 'none'};
+    props.weekend ? `${tokens.colors.lightGrey}` : "none"};
   scroll-snap-align: start;
   gap: 8px;
 
@@ -334,7 +338,7 @@ const CloseBar = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: ${(props) => (props.visible ? '10px 0 0 0' : '0')};
+  padding: ${(props) => (props.visible ? "10px 0 0 0" : "0")};
   transition: 100ms ease;
 `;
 
@@ -351,7 +355,19 @@ const ArrowWrapper = styled.span`
   cursor: pointer;
   display: flex;
   align-items: center;
-  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
+  visibility: ${(props) => (props.visible ? "visible" : "hidden")};
+`;
+
+const Badge = styled.div`
+  background: ${tokens.colors.primary};
+  color: ${tokens.colors.white};
+  padding: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Calendar;

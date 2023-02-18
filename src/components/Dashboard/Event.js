@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import moment from 'moment';
-import { useFirestore } from '../../hooks/useFirestore';
-import { useTranslation } from 'react-i18next';
-import { tokens } from '../UI/tokens';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import moment from "moment";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useTranslation } from "react-i18next";
+import { tokens } from "../UI/tokens";
 
 // project components
-import Text from '../UI/Text';
-import Button from '../UI/Button';
-import FlexCenter from '../UI/FlexCenter';
-import Input from '../UI/Input';
-import DropdownIcon from '../icons/DropdownIcon';
-import CheckIcon from '../icons/CheckIcon';
-import MoneyIcon from '../icons/MoneyIcon';
-import DeleteIcon from '../icons/DeleteIcon';
-import UndoIcon from '../icons/UndoIcon';
-import TimeIcon from '../icons/TimeIcon';
+import Text from "../UI/Text";
+import Button from "../UI/Button";
+import FlexCenter from "../UI/FlexCenter";
+import Input from "../UI/Input";
+import DropdownIcon from "../icons/DropdownIcon";
+import CheckIcon from "../icons/CheckIcon";
+import MoneyIcon from "../icons/MoneyIcon";
+import DeleteIcon from "../icons/DeleteIcon";
+import UndoIcon from "../icons/UndoIcon";
+import TimeIcon from "../icons/TimeIcon";
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
   const [price, setPrice] = useState(0);
 
-  const { deleteDocument, updateDocument } = useFirestore('events');
+  const { deleteDocument, updateDocument } = useFirestore("events");
 
   const { t } = useTranslation();
 
@@ -58,16 +58,16 @@ const Event = ({ event }) => {
   // Function return if the date is today and event is not finished yet
   const isUnfinishedEvent = (appointment) => {
     return (
-      moment(appointment.date.seconds * 1000).format('YY.MM.DD') <=
-        moment().format('YY.MM.DD') && !event.finished
+      moment(appointment.date.seconds * 1000).format("YY.MM.DD") <=
+        moment().format("YY.MM.DD") && !event.finished
     );
   };
 
   // Check if the passed event is in the future
   const isFutureEvent = (appointment) => {
     return (
-      moment(appointment.date.seconds * 1000).format('YY.MM.DD') >
-      moment().format('YY.MM.DD')
+      moment(appointment.date.seconds * 1000).format("YY.MM.DD") >
+      moment().format("YY.MM.DD")
     );
   };
 
@@ -75,11 +75,11 @@ const Event = ({ event }) => {
   const returnLate = (event) => {
     if (event.late !== 0) {
       return moment(event.date.seconds * 1000)
-        .add(event.late, 'minutes')
-        .format('HH:mm');
+        .add(event.late, "minutes")
+        .format("HH:mm");
     }
 
-    return moment(event.date.seconds * 1000).format('HH:mm');
+    return moment(event.date.seconds * 1000).format("HH:mm");
   };
 
   // Function for opening the given event's hidden buttons content
@@ -104,13 +104,13 @@ const Event = ({ event }) => {
       <EventWrapper>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
-            <FlexCenter style={{ gap: '2px', height: '100%' }}>
+            <FlexCenter style={{ gap: "2px", height: "100%" }}>
               <TimeIcon color={lateColor} size={12} />
 
               <Text tag="div" variant="regular10" color={lateColor}>
-                {`${moment(event.date.seconds * 1000).format('HH:mm')} ${t(
-                  'dashboard.late'
-                )}: ${event.late} ${t('dashboard.minutes')}`}
+                {`${moment(event.date.seconds * 1000).format("HH:mm")} ${t(
+                  "dashboard.late"
+                )}: ${event.late} ${t("dashboard.minutes")}`}
               </Text>
             </FlexCenter>
           </FakeBg>
@@ -155,16 +155,16 @@ const Event = ({ event }) => {
                 </EventDescription>
               </Content>
 
-              <FlexCenter style={{ gap: '6px' }}>
+              <FlexCenter style={{ gap: "6px" }}>
                 {event.finished && (
                   <FlexCenter>
                     <Button
                       variant="neutral"
                       disabled
-                      style={{ pointerEvents: 'none' }}
+                      style={{ pointerEvents: "none" }}
                     >
-                      <FlexCenter style={{ flexDirection: 'column' }}>
-                        <Text variant="medium12">{t('dashboard.income')}</Text>
+                      <FlexCenter style={{ flexDirection: "column" }}>
+                        <Text variant="medium12">{t("dashboard.income")}</Text>
                         <Text variant="regular8">{event.price} RON</Text>
                       </FlexCenter>
                     </Button>
@@ -173,7 +173,7 @@ const Event = ({ event }) => {
 
                 <DropDown
                   onClick={() => setVisible(!visible)}
-                  className={visible ? 'visible' : ''}
+                  className={visible ? "visible" : ""}
                 >
                   <DropdownIcon />
                 </DropDown>
@@ -195,10 +195,10 @@ const Event = ({ event }) => {
                   onClick={handleDeleteButton}
                 >
                   {event.finished
-                    ? t('dashboard.cancel')
+                    ? t("dashboard.cancel")
                     : isFutureEvent(event)
-                    ? t('dashboard.delete')
-                    : ''}
+                    ? t("dashboard.delete")
+                    : ""}
                 </Button>
 
                 {isUnfinishedEvent(event) && (
@@ -210,7 +210,7 @@ const Event = ({ event }) => {
                       min={0}
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
-                      placeholder={t('input.placeholder.payed')}
+                      placeholder={t("input.placeholder.payed")}
                       icon={<MoneyIcon {...iconProps} />}
                       noMargin
                     />
@@ -239,7 +239,7 @@ const EventInfo = styled.div`
   width: 100%;
   display: flex;
   min-height: 60px;
-  margin: ${(props) => (props.late ? '0 5px 5px 0' : '5px 0')};
+  margin: ${(props) => (props.late ? "0 5px 5px 0" : "5px 0")};
 `;
 
 const EventTime = styled.span`
@@ -250,8 +250,12 @@ const EventTime = styled.span`
   justify-content: center;
   padding: 10px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   /* monospace the numbers */
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 
   span {
     position: absolute;
@@ -267,7 +271,7 @@ const EventCard = styled.div`
 
   border: 1px solid ${tokens.colors.primaryLight3};
   border-left: 3px solid ${tokens.colors.primaryLight3};
-  border-radius: ${(props) => (props.late ? '0 0 12px 0' : '0 12px 12px 0')};
+  border-radius: ${(props) => (props.late ? "0 0 12px 0" : "0 12px 12px 0")};
   transition: 250ms ease;
 
   &:hover {
@@ -338,7 +342,7 @@ const EventDescription = styled.div`
 `;
 
 const FakeBg = styled.div`
-  height: ${(props) => (props.late < 14 ? '14px' : `${props.late}px`)};
+  height: ${(props) => (props.late < 14 ? "14px" : `${props.late}px`)};
   margin-left: 50px;
   border-radius: 0 12px 0 0;
   border: 1px dashed ${tokens.colors.mediumGrey};
@@ -368,7 +372,7 @@ Event.propTypes = {
       nanoseconds: PropTypes.number,
     }),
     finished: PropTypes.bool,
-    gender: PropTypes.oneOf(['male', 'female']),
+    gender: PropTypes.oneOf(["male", "female"]),
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     name: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
