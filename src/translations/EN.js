@@ -40,7 +40,7 @@ export const EN = {
 
   warning: {
     no_appointments: "You have no appointment for this day!",
-    no_clients: "You haven't added any clients yet!",
+    no_clients: "You don't have any clients added yet!",
   },
 
   button: {
