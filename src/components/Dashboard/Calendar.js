@@ -103,8 +103,6 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
         moment(day).format("YY-MM-DD")
     );
 
-    console.log(dayWithAppointment);
-
     if (!dayWithAppointment?.length) {
       return null;
     }
