@@ -40,7 +40,7 @@ const Event = ({ event }) => {
         toast.error(
           `${t("dashboard.deleted")}: ${
             event.name || t(`dashboard.${event.gender}`)
-          } 🕒${returnLate(event)}.`
+          } ${event.action} 🕒${returnLate(event)}.`
         )
       );
     }
