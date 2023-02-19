@@ -18,6 +18,7 @@ import DeleteIcon from "../icons/DeleteIcon";
 import UndoIcon from "../icons/UndoIcon";
 import TimeIcon from "../icons/TimeIcon";
 import { useSwipeable } from "react-swipeable";
+import { toast } from "react-toastify";
 
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
@@ -32,8 +33,17 @@ const Event = ({ event }) => {
     setVisible(false);
     navigator.vibrate(100);
 
+    console.log(event);
+
     if (!event.finished) {
-      return deleteDocument(event.id);
+      return (
+        deleteDocument(event.id) &&
+        toast.error(
+          `${t("dashboard.deleted")}: ${
+            event.name || t(`dashboard.${event.gender}`)
+          } ${event.action}!`
+        )
+      );
     }
 
     return updateDocument(event.id, {
