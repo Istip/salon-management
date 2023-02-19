@@ -44,3 +44,15 @@ html {
 a {
   all: unset;
 }
+
+.Toastify__toast--error {
+  background: #eb431e;
+  border-bottom: 1px solid #c23c1e;
+  font-size: 12px;
+}
+
+.Toastify__toast--success {
+  background: #26aa5b;
+  border-bottom: 1px solid #248a4d;
+  font-size: 12px;
+}
