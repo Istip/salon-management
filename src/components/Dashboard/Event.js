@@ -33,15 +33,15 @@ const Event = ({ event }) => {
     setVisible(false);
     navigator.vibrate(100);
 
-    console.log(event);
-
     if (!event.finished) {
       return (
         deleteDocument(event.id) &&
         toast.error(
           `${t("dashboard.deleted")}: ${
             event.name || t(`dashboard.${event.gender}`)
-          } ${event.action}!`
+          } ${event.action} 🕒${moment(event.date.seconds * 1000).format(
+            "HH:mm"
+          )}.`
         )
       );
     }
