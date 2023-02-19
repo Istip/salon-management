@@ -49,6 +49,16 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const date = timestamp.fromDate(
+      moment(selectedDate)
+        .set({ hour: time.slice(0, 2), minute: time.slice(3, 5) })
+        .toDate()
+    );
+
+    const formattedDate = moment(date.seconds * 1000)
+      .add(late, "minutes")
+      .format("HH:mm");
+
     // Object that gonna be published to server
     addDocument({
       name,
@@ -56,17 +66,16 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
       gender,
       finished: false,
       price: 0,
-      date: timestamp.fromDate(
-        moment(selectedDate)
-          .set({ hour: time.slice(0, 2), minute: time.slice(3, 5) })
-          .toDate()
-      ),
+      date,
       uid: user.uid,
       late,
     });
 
+    // Return toast notification
     toast.success(
-      `${t("dashboard.added")}: ${name || t(`dashboard.${gender}`)} ${action}!`
+      `${t("dashboard.added")}: ${
+        name || t(`dashboard.${gender}`)
+      } ${action} 🕒${formattedDate}.`
     );
 
     resetFields();

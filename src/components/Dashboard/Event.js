@@ -36,12 +36,11 @@ const Event = ({ event }) => {
     if (!event.finished) {
       return (
         deleteDocument(event.id) &&
+        // Return toast notification
         toast.error(
           `${t("dashboard.deleted")}: ${
             event.name || t(`dashboard.${event.gender}`)
-          } ${event.action} 🕒${moment(event.date.seconds * 1000).format(
-            "HH:mm"
-          )}.`
+          } 🕒${returnLate(event)}.`
         )
       );
     }
