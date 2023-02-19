@@ -111,6 +111,7 @@ export const EN = {
     late: "late",
     minutes: "minutes",
     today: "Today",
+    added: "Added",
   },
 
   reports: {
