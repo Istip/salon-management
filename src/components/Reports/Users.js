@@ -76,9 +76,11 @@ const Users = () => {
               </Text>
             </FlexCenter>
             <FlexCenter>
-              <Button block variant="secondary">
-                <Link to="/clients">{t("reports.add_client")}</Link>
-              </Button>
+              <Link to="/clients" style={{ width: "100%" }}>
+                <Button block variant="secondary">
+                  {t("reports.add_client")}
+                </Button>
+              </Link>
             </FlexCenter>
           </>
         )}
