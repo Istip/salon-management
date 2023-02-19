@@ -112,6 +112,7 @@ export const EN = {
     minutes: "minutes",
     today: "Today",
     added: "Added",
+    deleted: "Deleted",
   },
 
   reports: {

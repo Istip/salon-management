@@ -111,6 +111,7 @@ export const HU = {
     minutes: "perc",
     today: "Mai nap",
     added: "Hozzáadva",
+    deleted: "Törölve",
   },
 
   reports: {
