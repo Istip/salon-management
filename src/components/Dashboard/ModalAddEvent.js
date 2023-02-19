@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import moment from 'moment';
-import { useTranslation } from 'react-i18next';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { useFirestore } from '../../hooks/useFirestore';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { useCollection } from '../../hooks/useCollection';
-import { timestamp } from '../../firebase/config';
-import { tokens } from '../UI/tokens';
-import { capitalize } from '../../utils/capitalize';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import moment from "moment";
+import { useTranslation } from "react-i18next";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useCollection } from "../../hooks/useCollection";
+import { timestamp } from "../../firebase/config";
+import { tokens } from "../UI/tokens";
+import { capitalize } from "../../utils/capitalize";
 
 // project components
-import Form from '../UI/Form';
-import Modal from '../UI/Modal';
-import Input from '../UI/Input';
-import Text from '../UI/Text';
-import UserIcon from '../icons/UserIcon';
-import FaceIcon from '../icons/FaceIcon';
-import Select from '../UI/Select';
-import FlexCenter from '../UI/FlexCenter';
-import Slider from '../UI/Slider';
+import Form from "../UI/Form";
+import Modal from "../UI/Modal";
+import Input from "../UI/Input";
+import Text from "../UI/Text";
+import UserIcon from "../icons/UserIcon";
+import FaceIcon from "../icons/FaceIcon";
+import Select from "../UI/Select";
+import FlexCenter from "../UI/FlexCenter";
+import Slider from "../UI/Slider";
+import { toast } from "react-toastify";
 
 const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
-  const [name, setName] = useState('');
-  const [action, setAction] = useLocalStorage('savedActionType', '');
-  const [gender, setGender] = useState('female');
+  const [name, setName] = useState("");
+  const [action, setAction] = useLocalStorage("savedActionType", "");
+  const [gender, setGender] = useState("female");
   const [late, setLate] = useState(0);
 
-  const { documents } = useCollection('users');
+  const { documents } = useCollection("users");
 
   const { t } = useTranslation();
 
   const { user } = useAuthContext();
 
-  const { addDocument, response } = useFirestore('events');
+  const { addDocument, response } = useFirestore("events");
 
   // Resetting the local state back to original
   const resetFields = () => {
     setShow(false);
-    setName('');
-    setGender('female');
+    setName("");
+    setGender("female");
     setLate(0);
   };
 
@@ -51,7 +52,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
     // Object that gonna be published to server
     addDocument({
       name,
-      action: action || t('dashboard.no_data'),
+      action: action || t("dashboard.no_data"),
       gender,
       finished: false,
       price: 0,
@@ -64,6 +65,10 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
       late,
     });
 
+    toast.success(
+      `${t("dashboard.added")}: ${name || t(`dashboard.${gender}`)} ${action}!`
+    );
+
     resetFields();
   };
 
@@ -73,12 +78,12 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   };
 
   // Function to change the time and the minutes
-  const changeTime = (type = 'hour') => {
+  const changeTime = (type = "hour") => {
     const hour = time.slice(0, 2);
     const minute = time.slice(3, 5);
     const parsedHour = parseInt(hour);
 
-    if (type === 'hour') {
+    if (type === "hour") {
       if (parsedHour + 1 < 10) {
         const newTime = `0${parseInt(time.slice(0, 2)) + 1}:${minute}`;
         return setTime(newTime);
@@ -93,8 +98,8 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
       return setTime(newTime);
     }
 
-    if (type === 'minute') {
-      if (minute === '00') {
+    if (type === "minute") {
+      if (minute === "00") {
         return setTime(`${hour}:30`);
       }
 
@@ -110,7 +115,6 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
     }
     return minutes;
   };
-
   useEffect(() => {
     if (response.success) {
       resetFields();
@@ -126,21 +130,21 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
     return null;
   }
 
-  const actions = documents ? documents[0].actions : ['haircut'];
+  const actions = documents ? documents[0].actions : ["haircut"];
 
   return (
     <Modal
       show={show}
       setShow={setShow}
-      title={t('dashboard.new_appointment')}
+      title={t("dashboard.new_appointment")}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     >
-      <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
+      <FlexCenter style={{ marginTop: "20px", gap: "10px" }}>
         <TimeWrapper>
           <Text variant="display" color={tokens.colors.success} tag="h1">
             <span onClick={() => changeTime()}>{time.slice(0, 2)}:</span>
-            <span onClick={() => changeTime('minute')}>
+            <span onClick={() => changeTime("minute")}>
               {formattedMinutes()}
             </span>
           </Text>
@@ -149,13 +153,13 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
 
       <FlexCenter
         style={{
-          gap: '10px',
-          padding: '20px 20px 0 20px',
+          gap: "10px",
+          padding: "20px 20px 0 20px",
         }}
       >
         <Slider
-          label={`${capitalize(t('dashboard.late'))}: ${late} ${t(
-            'dashboard.minutes'
+          label={`${capitalize(t("dashboard.late"))}: ${late} ${t(
+            "dashboard.minutes"
           )}`}
           value={late}
           min={0}
@@ -165,11 +169,11 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
         />
       </FlexCenter>
 
-      <Form style={{ padding: '20px 20px 0' }}>
+      <Form style={{ padding: "20px 20px 0" }}>
         <Input
           type="text"
-          label={t('input.label.client_name')}
-          placeholder={t('input.placeholder.client_name')}
+          label={t("input.label.client_name")}
+          placeholder={t("input.placeholder.client_name")}
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -178,7 +182,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
         />
 
         <Select
-          label={t('input.label.event_type')}
+          label={t("input.label.event_type")}
           selected={action}
           setSelected={setAction}
           list={actions.sort()}
@@ -187,26 +191,26 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
 
         <GenderWrapper>
           <GenderType
-            onClick={() => setGender('female')}
-            className={gender === 'female' ? 'active' : ''}
+            onClick={() => setGender("female")}
+            className={gender === "female" ? "active" : ""}
           >
             <Text
-              variant={gender === 'female' ? 'black12' : 'regular12'}
-              color={gender === 'female' ? white : primary}
+              variant={gender === "female" ? "black12" : "regular12"}
+              color={gender === "female" ? white : primary}
             >
-              {t('dashboard.female').toUpperCase()}
+              {t("dashboard.female").toUpperCase()}
             </Text>
           </GenderType>
 
           <GenderType
-            onClick={() => setGender('male')}
-            className={gender === 'male' ? 'active' : ''}
+            onClick={() => setGender("male")}
+            className={gender === "male" ? "active" : ""}
           >
             <Text
-              variant={gender === 'male' ? 'black12' : 'regular12'}
-              color={gender === 'male' ? white : primary}
+              variant={gender === "male" ? "black12" : "regular12"}
+              color={gender === "male" ? white : primary}
             >
-              {t('dashboard.male').toUpperCase()}
+              {t("dashboard.male").toUpperCase()}
             </Text>
           </GenderType>
         </GenderWrapper>
@@ -249,7 +253,7 @@ const GenderType = styled.div`
 `;
 
 const TimeWrapper = styled.span`
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 `;
 
 export default ModalAddEvent;
