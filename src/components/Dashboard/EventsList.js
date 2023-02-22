@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { timestamps } from '../../utils/timestamps';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import moment from "moment";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { timestamps } from "../../utils/timestamps";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 // Project imports
-import Event from './Event';
-import ModalAdd from './ModalAddEvent';
-import Placeholder from './Placeholder';
-import EventsTitle from './EventsTitle';
-import FlexCenter from '../UI/FlexCenter';
-import Loading from '../UI/Loading';
+import Event from "./Event";
+import ModalAdd from "./ModalAddEvent";
+import Placeholder from "./Placeholder";
+import EventsTitle from "./EventsTitle";
+import FlexCenter from "../UI/FlexCenter";
+import Loading from "../UI/Loading";
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
-  const [time, setTime] = useState('12:00');
+  const [time, setTime] = useState("12:00");
 
   // state responsible for the rendered view
-  const [active, setActive] = useLocalStorage('Type', 'working-hours');
-  const [workingHours, setWorkingHours] = useLocalStorage('Hours', [16, 37]);
+  const [active, setActive] = useLocalStorage("Type", "working-hours");
+  const [workingHours, setWorkingHours] = useLocalStorage("Hours", [16, 37]);
 
   // Creating array which holds a string timestamp or moment object if exists
   const dailyData =
@@ -29,7 +29,7 @@ const EventsList = ({ events, error, selectedDate }) => {
       (timestamp) =>
         events.find(
           (match) =>
-            moment(match.date.seconds * 1000).format('HH:mm') === timestamp
+            moment(match.date.seconds * 1000).format("HH:mm") === timestamp
         ) || timestamp
     );
 
@@ -40,7 +40,7 @@ const EventsList = ({ events, error, selectedDate }) => {
 
   if (!events) {
     return (
-      <FlexCenter style={{ height: '50vh' }}>
+      <FlexCenter style={{ height: "50vh" }}>
         <Loading />
       </FlexCenter>
     );
@@ -64,13 +64,13 @@ const EventsList = ({ events, error, selectedDate }) => {
               initial={{ translateY: -50, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
               exit={{ translateY: 10, opacity: 0 }}
-              transition={{ duration: 0.25, delay: i * 0.05 }}
+              transition={{ duration: 0.25, delay: i * 0.025 }}
             >
-              {typeof event !== 'string' ? (
+              {typeof event !== "string" ? (
                 <Event event={event} />
               ) : (
                 <Placeholder
-                  filtered={active !== 'filtered'}
+                  filtered={active !== "filtered"}
                   event={event}
                   setTime={setTime}
                   setShowAdd={setShowAdd}
@@ -79,7 +79,7 @@ const EventsList = ({ events, error, selectedDate }) => {
               )}
             </motion.div>
 
-            {isOdd(i) && active !== 'filtered' && <Divider />}
+            {isOdd(i) && active !== "filtered" && <Divider />}
           </div>
         ))}
       </>
