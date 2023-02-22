@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 const Event = ({ event }) => {
   const [visible, setVisible] = useState(false);
   const [price, setPrice] = useState(0);
+  const [swipe, setSwipe] = useState(0);
 
   const { deleteDocument, updateDocument } = useFirestore("events");
 
@@ -104,9 +105,31 @@ const Event = ({ event }) => {
   };
 
   const handlers = useSwipeable({
-    onSwipedRight: () =>
-      !event.finished ? handleFinishButton() : handleDeleteButton(),
-    onSwipedLeft: () => handleDeleteButton(),
+    onSwipedRight: () => {
+      setSwipe(100);
+      if (!event.finished) {
+        handleFinishButton();
+        setTimeout(() => {
+          setSwipe(0);
+        }, 200);
+      } else {
+        handleDeleteButton();
+        setTimeout(() => {
+          setSwipe(0);
+        }, 200);
+      }
+
+      return () => {};
+    },
+    onSwipedLeft: () => {
+      setSwipe(-100);
+      setTimeout(() => {
+        setSwipe(0);
+        handleDeleteButton();
+      }, 200);
+
+      return () => {};
+    },
   });
 
   const lateColor = event.finished
@@ -119,7 +142,7 @@ const Event = ({ event }) => {
 
   return (
     <>
-      <EventWrapper {...handlers}>
+      <EventWrapper swipe={swipe} {...handlers}>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
             <FlexCenter style={{ gap: "2px", height: "100%" }}>
@@ -251,6 +274,9 @@ const Event = ({ event }) => {
 // styled components
 const EventWrapper = styled.div`
   margin: 0 10px;
+  position: relative;
+  transition: 500ms ease;
+  left: ${(props) => `${props.swipe}px`};
 `;
 
 const EventInfo = styled.div`
