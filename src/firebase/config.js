@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,7 +16,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // console error fix for firestore
-firebase.firestore().settings({ experimentalForceLongPolling: true });
+firebase
+  .firestore()
+  .settings({ experimentalForceLongPolling: true, merge: true });
 
 // init service
 const projectFirestore = firebase.firestore();
