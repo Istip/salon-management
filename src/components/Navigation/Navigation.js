@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { tokens } from '../UI/tokens';
+import React from "react";
+import styled from "styled-components";
+import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { tokens } from "../UI/tokens";
 
-import ClientsIcon from '../icons/ClientsIcon';
-import NotesIcon from '../icons/NotesIcon';
-import TimeIcon from '../icons/TimeIcon';
+import ClientsIcon from "../icons/ClientsIcon";
+import NotesIcon from "../icons/NotesIcon";
+import TimeIcon from "../icons/TimeIcon";
 
 const Navigation = () => {
   const { pathname } = useLocation();
@@ -17,21 +17,21 @@ const Navigation = () => {
 
   const navItems = [
     {
-      to: '/clients',
-      title: t('navigation.clients'),
+      to: "/clients",
+      title: t("navigation.clients"),
       icon: (
-        <ClientsIcon color={pathname === '/clients' ? primary : darkGrey} />
+        <ClientsIcon color={pathname === "/clients" ? primary : darkGrey} />
       ),
     },
     {
-      to: '/dashboard',
-      title: t('navigation.calendar'),
-      icon: <TimeIcon color={pathname === '/dashboard' ? primary : darkGrey} />,
+      to: "/dashboard",
+      title: t("navigation.calendar"),
+      icon: <TimeIcon color={pathname === "/dashboard" ? primary : darkGrey} />,
     },
     {
-      to: '/reports',
-      title: t('navigation.reports'),
-      icon: <NotesIcon color={pathname === '/reports' ? primary : darkGrey} />,
+      to: "/reports",
+      title: t("navigation.reports"),
+      icon: <NotesIcon color={pathname === "/reports" ? primary : darkGrey} />,
     },
   ];
 
@@ -54,7 +54,6 @@ const Navigation = () => {
 };
 
 // styled components
-const lightGrey = tokens.colors.lightGrey;
 const darkGrey = tokens.colors.darkGrey;
 const primary = tokens.colors.primary;
 
@@ -64,7 +63,6 @@ const Navbar = styled.nav`
   bottom: 0;
   z-index: 2;
   text-align: center;
-  border-top: 1px solid ${lightGrey};
   background: ${tokens.colors.fff};
 `;
 
@@ -79,9 +77,10 @@ const Nav = styled.ul`
 const NavItem = styled.li`
   list-style-type: none;
   margin-top: -2px;
+  width: 100%;
 
   a {
-    text-decoration: none;
+    all: unset;
   }
 `;
 
@@ -92,7 +91,10 @@ const IconWrapper = styled.div`
   justify-content: center;
   height: 60px;
   padding: 0 20px;
-  border-top: ${({ active }) => (active ? `1px solid ${primary}` : '')};
+  background: ${({ active }) =>
+    active ? `${tokens.colors.primaryLight4}` : ""};
+  border: ${({ active }) =>
+    active ? `1px  solid ${tokens.colors.primary}` : ""};
 `;
 
 const IconText = styled.small`
