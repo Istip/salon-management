@@ -93,8 +93,6 @@ const IconWrapper = styled.div`
   padding: 0 20px;
   background: ${({ active }) =>
     active ? `${tokens.colors.primaryLight4}` : ""};
-  border: ${({ active }) =>
-    active ? `1px  solid ${tokens.colors.primary}` : ""};
 `;
 
 const IconText = styled.small`
