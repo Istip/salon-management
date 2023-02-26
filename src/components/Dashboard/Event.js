@@ -59,7 +59,8 @@ const Event = ({ event, user }) => {
     const same = user.actions.filter(
       (element) => element.name === event.action
     );
-    const finalPrice = Number(same[0].price) || 0;
+    const finalPrice = same.length ? Number(same[0].price) : 0;
+    console.log("✅  finalPrice:", finalPrice);
 
     updateDocument(event.id, {
       ...event,
@@ -129,6 +130,7 @@ const Event = ({ event, user }) => {
     onSwipedLeft: () => {
       handleDeleteButton();
     },
+    preventScrollOnSwipe: true,
   });
 
   const lateColor = event.finished
