@@ -194,18 +194,18 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
           label={t("input.label.event_type")}
           selected={action}
           setSelected={setAction}
-          list={actions.sort()}
+          list={actions.map((action) => action.name)}
           icon={<FaceIcon color={tokens.colors.primaryLight1} />}
         />
 
         <GenderWrapper>
           <GenderType
             onClick={() => setGender("female")}
-            className={gender === "female" ? "active" : ""}
+            className={gender === "female" ? "female" : ""}
           >
             <Text
               variant={gender === "female" ? "black12" : "regular12"}
-              color={gender === "female" ? white : primary}
+              color={gender === "female" ? white : pink}
             >
               {t("dashboard.female").toUpperCase()}
             </Text>
@@ -213,7 +213,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
 
           <GenderType
             onClick={() => setGender("male")}
-            className={gender === "male" ? "active" : ""}
+            className={gender === "male" ? "male" : ""}
           >
             <Text
               variant={gender === "male" ? "black12" : "regular12"}
@@ -231,6 +231,7 @@ const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
 
 const primary = tokens.colors.primary;
 const white = tokens.colors.fff;
+const pink = tokens.colors.pink;
 
 // styled components
 const GenderWrapper = styled.div`
@@ -251,13 +252,15 @@ const GenderType = styled.div`
   height: 100%;
   padding: 8px 0;
   border-radius: 4px;
-  border: 1px solid ${tokens.colors.primaryLight4};
 
   transition: 250ms ease;
 
-  &.active {
-    border: 1px solid ${tokens.colors.primaryLight2};
+  &.male {
     background: ${tokens.colors.primaryLight2};
+  }
+
+  &.female {
+    background: ${tokens.colors.pink};
   }
 `;
 
