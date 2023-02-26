@@ -20,10 +20,9 @@ import TimeIcon from "../icons/TimeIcon";
 import { useSwipeable } from "react-swipeable";
 import { toast } from "react-toastify";
 
-const Event = ({ event }) => {
+const Event = ({ event, user }) => {
   const [visible, setVisible] = useState(false);
   const [price, setPrice] = useState(0);
-  const [swipe, setSwipe] = useState(0);
 
   const { deleteDocument, updateDocument } = useFirestore("events");
 
@@ -54,18 +53,33 @@ const Event = ({ event }) => {
   };
 
   // Function to finish an event with the given price
+  const handleFinish = () => {
+    navigator.vibrate(100);
+
+    const same = user.actions.filter(
+      (element) => element.name === event.action
+    );
+    const finalPrice = Number(same[0].price) || 0;
+
+    updateDocument(event.id, {
+      ...event,
+      finished: true,
+      price: finalPrice,
+    });
+    setVisible(false);
+    setPrice(0);
+  };
+
   const handleFinishButton = () => {
     navigator.vibrate(100);
 
-    if ((price && price > 0) || price === 0) {
-      updateDocument(event.id, {
-        ...event,
-        finished: true,
-        price,
-      });
-      setVisible(false);
-      setPrice(0);
-    }
+    updateDocument(event.id, {
+      ...event,
+      finished: true,
+      price,
+    });
+    setVisible(false);
+    setPrice(0);
   };
 
   // Function return if the date is today and event is not finished yet
@@ -106,29 +120,14 @@ const Event = ({ event }) => {
 
   const handlers = useSwipeable({
     onSwipedRight: () => {
-      setSwipe(100);
       if (!event.finished) {
-        handleFinishButton();
-        setTimeout(() => {
-          setSwipe(0);
-        }, 200);
+        handleFinish();
       } else {
         handleDeleteButton();
-        setTimeout(() => {
-          setSwipe(0);
-        }, 200);
       }
-
-      return () => {};
     },
     onSwipedLeft: () => {
-      setSwipe(-100);
-      setTimeout(() => {
-        setSwipe(0);
-        handleDeleteButton();
-      }, 200);
-
-      return () => {};
+      handleDeleteButton();
     },
   });
 
@@ -142,7 +141,7 @@ const Event = ({ event }) => {
 
   return (
     <>
-      <EventWrapper swipe={swipe} {...handlers}>
+      <EventWrapper {...handlers}>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
             <FlexCenter style={{ gap: "2px", height: "100%" }}>
@@ -274,9 +273,6 @@ const Event = ({ event }) => {
 // styled components
 const EventWrapper = styled.div`
   margin: 0 10px;
-  position: relative;
-  transition: 500ms ease;
-  left: ${(props) => `${props.swipe}px`};
 `;
 
 const EventInfo = styled.div`
