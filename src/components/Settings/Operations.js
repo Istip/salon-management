@@ -1,25 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { useFirestore } from '../../hooks/useFirestore';
-import { tokens } from '../UI/tokens';
+import React, { useRef, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { useFirestore } from "../../hooks/useFirestore";
+import { tokens } from "../UI/tokens";
 
 // project components
-import Text from '../UI/Text';
-import FlexCenter from '../UI/FlexCenter';
-import CloseIcon from '../icons/CloseIcon';
-import Error from '../UI/Error';
+import Text from "../UI/Text";
+import FlexCenter from "../UI/FlexCenter";
+import Error from "../UI/Error";
+import Operation from "./Operation";
 
 const Operations = ({ documents }) => {
   const [selected, setSelected] = useState(null);
-  const [validation, setValidation] = useState('');
+  const [validation, setValidation] = useState("");
 
   const operations = documents[0].actions;
 
   const wrapperNode = useRef();
 
-  const { updateDocument } = useFirestore('users');
+  const { updateDocument } = useFirestore("users");
 
   const { t } = useTranslation();
 
@@ -30,7 +30,7 @@ const Operations = ({ documents }) => {
 
     // Validation for the last deletable operation
     if (operations.length === 1) {
-      return setValidation(t('validations.one_operation_left'));
+      return setValidation(t("validations.one_operation_left"));
     }
 
     navigator.vibrate(100);
@@ -43,16 +43,16 @@ const Operations = ({ documents }) => {
       return;
     }
     setSelected(null);
-    setValidation('');
+    setValidation("");
   };
 
   useEffect(() => {
     if (wrapperNode) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
     // eslint-disable-next-line
   }, []);
@@ -60,35 +60,34 @@ const Operations = ({ documents }) => {
   return (
     <>
       <Text tag="h2" variant="h2" color={tokens.colors.primaryDark3}>
-        {t('settings.operations')}
+        {t("settings.operations")}
       </Text>
 
       <FlexCenter
         style={{
-          textAlign: 'center',
-          lineHeight: '150%',
-          marginBottom: '10px',
+          textAlign: "center",
+          lineHeight: "150%",
+          marginBottom: "10px",
         }}
       >
-        <Text variant="regular14">{t('settings.operation_description')}</Text>
+        <Text variant="regular14">{t("settings.operation_description")}</Text>
       </FlexCenter>
 
       <OperationsWrapper>
-        {operations.sort().map((operation, i) => (
-          <OperationBadge key={i} onClick={() => setSelected(operation)}>
-            {operation === selected && (
-              <OperationDelete onClick={deleteOperation} ref={wrapperNode}>
-                <FlexCenter style={{ height: '100%' }}>
-                  <CloseIcon color={tokens.colors.white} />
-                </FlexCenter>
-              </OperationDelete>
-            )}
-
-            <Text variant="medium8" color={tokens.colors.primary}>
-              {operation}
-            </Text>
-          </OperationBadge>
-        ))}
+        {operations
+          .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+          .map((operation, i) => (
+            <Operation
+              key={i}
+              operation={operation}
+              operations={operations}
+              documents={documents}
+              selected={selected}
+              setSelected={setSelected}
+              wrapperNode={wrapperNode}
+              deleteOperation={deleteOperation}
+            />
+          ))}
       </OperationsWrapper>
 
       {validation && (
@@ -108,32 +107,6 @@ const OperationsWrapper = styled.div`
   flex-wrap: wrap;
   gap: 5px;
   cursor: pointer;
-`;
-
-const OperationDelete = styled.div`
-  position: absolute;
-  top: -2px;
-  bottom: -2px;
-  left: -2px;
-  right: -2px;
-  background: red;
-  border-radius: 10px;
-  background: ${tokens.colors.error};
-`;
-
-const OperationBadge = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-width: 48px;
-  height: 48px;
-  padding: 4px;
-  background: ${tokens.colors.primaryLight4};
-  border: 1px solid ${tokens.colors.primary};
-  border-radius: 10px;
-  transition: 250ms ease;
 `;
 
 const ErrorWrapper = styled.div`
