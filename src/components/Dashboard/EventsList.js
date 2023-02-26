@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { timestamps } from "../../utils/timestamps";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useCollection } from "../../hooks/useCollection";
 
 // Project imports
 import Event from "./Event";
@@ -13,6 +14,7 @@ import Placeholder from "./Placeholder";
 import EventsTitle from "./EventsTitle";
 import FlexCenter from "../UI/FlexCenter";
 import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -21,6 +23,9 @@ const EventsList = ({ events, error, selectedDate }) => {
   // state responsible for the rendered view
   const [active, setActive] = useLocalStorage("Type", "working-hours");
   const [workingHours, setWorkingHours] = useLocalStorage("Hours", [16, 37]);
+
+  // Fetch user
+  const { documents } = useCollection("users");
 
   // Creating array which holds a string timestamp or moment object if exists
   const dailyData =
@@ -38,6 +43,10 @@ const EventsList = ({ events, error, selectedDate }) => {
     return number % 2 !== 0;
   };
 
+  if (!documents) {
+    return <>{error && <Error>{error}</Error>}</>;
+  }
+
   if (!events) {
     return (
       <FlexCenter style={{ height: "50vh" }}>
@@ -45,6 +54,8 @@ const EventsList = ({ events, error, selectedDate }) => {
       </FlexCenter>
     );
   }
+
+  const user = documents[0];
 
   return (
     <>
@@ -67,7 +78,7 @@ const EventsList = ({ events, error, selectedDate }) => {
               transition={{ duration: 0.25, delay: i * 0.025 }}
             >
               {typeof event !== "string" ? (
-                <Event event={event} />
+                <Event event={event} user={user} />
               ) : (
                 <Placeholder
                   filtered={active !== "filtered"}
