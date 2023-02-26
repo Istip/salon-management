@@ -137,6 +137,7 @@ export const HU = {
     operation_description:
       "Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a munkahelyi profilodnak megfelelően!",
     add_operation: "Művelet hozzáadása",
+    update: "Frissitve",
   },
 
   admin: {

@@ -138,6 +138,7 @@ export const EN = {
     operation_description:
       "Below are listed all your operations. Edit them based on your work profile!",
     add_operation: "Add Operation",
+    update: "Update",
   },
 
   admin: {
