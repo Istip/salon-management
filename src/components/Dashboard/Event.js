@@ -60,7 +60,6 @@ const Event = ({ event, user }) => {
       (element) => element.name === event.action
     );
     const finalPrice = same.length ? Number(same[0].price) : 0;
-    console.log("✅  finalPrice:", finalPrice);
 
     updateDocument(event.id, {
       ...event,
