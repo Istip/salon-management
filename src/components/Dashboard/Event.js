@@ -262,42 +262,6 @@ const Event = ({ event, user }) => {
                     </>
                   )}
                 </ExtraContent>
-
-                {/* TODO: REMOVE THIS LATER */}
-                {!event.finished && (
-                  <FlexCenter
-                    style={{
-                      padding: "0 10px 10px",
-                      width: "100%",
-                      gap: "10px",
-                    }}
-                  >
-                    <Button
-                      block
-                      onClick={() => deleteDocument(event.id)}
-                      icon={<DeleteIcon color={tokens.colors.warning} />}
-                      variant="warning"
-                    >
-                      TOROLD LE
-                    </Button>
-                    <Button
-                      block
-                      variant="primary"
-                      icon={<CheckIcon color={tokens.colors.white} />}
-                      onClick={() => {
-                        updateDocument(event.id, {
-                          ...event,
-                          finished: true,
-                          price: 0,
-                        });
-                      }}
-                    >
-                      FOGADD EL
-                    </Button>
-                  </FlexCenter>
-                )}
-
-                {/* TODO: REMOVE WHAT IS ABOVE */}
               </>
             )}
           </EventCard>
