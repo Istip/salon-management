@@ -285,8 +285,8 @@ const Event = ({ event, user }) => {
                     </Button>
                     <Button
                       block
-                      variant="secondary"
-                      icon={<CheckIcon color={tokens.colors.primary} />}
+                      variant="primary"
+                      icon={<CheckIcon color={tokens.colors.white} />}
                       onClick={() => {
                         updateDocument(event.id, {
                           ...event,
