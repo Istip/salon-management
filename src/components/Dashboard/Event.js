@@ -71,11 +71,11 @@ const Event = ({ event, user }) => {
     setPrice(0);
   };
 
-  const handleFinishButton = async (event) => {
+  const handleFinishButton = (event) => {
     navigator.vibrate(100);
     setVisible(false);
 
-    await updateDocument(event.id, {
+    updateDocument(event.id, {
       ...event,
       finished: true,
       price,
@@ -266,16 +266,41 @@ const Event = ({ event, user }) => {
                   )}
                 </ExtraContent>
 
+                {/* TODO: REMOVE THIS LATER */}
                 {!event.finished && (
-                  <Button
-                    style={{ margin: "0 10px 10px" }}
-                    onClick={() => deleteDocument(event.id)}
-                    icon={<DeleteIcon color={tokens.colors.warning} />}
-                    variant="warning"
+                  <FlexCenter
+                    style={{
+                      padding: "0 10px 10px",
+                      width: "100%",
+                      gap: "10px",
+                    }}
                   >
-                    TOROLD MAR LE BAZDMEG
-                  </Button>
+                    <Button
+                      block
+                      onClick={() => deleteDocument(event.id)}
+                      icon={<DeleteIcon color={tokens.colors.warning} />}
+                      variant="warning"
+                    >
+                      TOROLD LE
+                    </Button>
+                    <Button
+                      block
+                      variant="secondary"
+                      icon={<CheckIcon color={tokens.colors.primary} />}
+                      onClick={() => {
+                        updateDocument(event.id, {
+                          ...event,
+                          finished: true,
+                          price: 0,
+                        });
+                      }}
+                    >
+                      FOGADD EL
+                    </Button>
+                  </FlexCenter>
                 )}
+
+                {/* TODO: REMOVE WHAT IS ABOVE */}
               </>
             )}
           </EventCard>
