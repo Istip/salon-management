@@ -55,6 +55,7 @@ const Event = ({ event, user }) => {
   // Function to finish an event with the given price
   const handleFinish = (event) => {
     navigator.vibrate(100);
+    setVisible(false);
 
     const same = user.actions.filter(
       (element) => element.name === event.action
@@ -67,12 +68,12 @@ const Event = ({ event, user }) => {
       price: finalPrice,
     });
 
-    setVisible(false);
     setPrice(0);
   };
 
   const handleFinishButton = async (event) => {
     navigator.vibrate(100);
+    setVisible(false);
 
     await updateDocument(event.id, {
       ...event,
@@ -80,7 +81,6 @@ const Event = ({ event, user }) => {
       price,
     });
 
-    setVisible(false);
     setPrice(0);
   };
 
