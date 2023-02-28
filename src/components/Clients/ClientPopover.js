@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { useFirestore } from '../../hooks/useFirestore';
-import { useTranslation } from 'react-i18next';
-import { tokens } from '../UI/tokens';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useTranslation } from "react-i18next";
+import { tokens } from "../UI/tokens";
 
 // project components
-import PhoneIcon from '../icons/PhoneIcon';
-import MarkIcon from '../icons/MarkIcon';
-import UserMinusIcon from '../icons/UserMinusIcon';
-import Button from '../UI/Button';
+import PhoneIcon from "../icons/PhoneIcon";
+import MarkIcon from "../icons/MarkIcon";
+import UserMinusIcon from "../icons/UserMinusIcon";
+import Button from "../UI/Button";
 
 const ClientPopover = ({ visible, client }) => {
-  const { deleteDocument, updateDocument } = useFirestore('clients');
+  const { deleteDocument, updateDocument } = useFirestore("clients");
 
   const { t } = useTranslation();
 
   // Function to remove the selected client
   const deleteClient = (id) => {
     deleteDocument(id);
-    navigator.vibrate(100);
+    // navigator.vibrate(100);
   };
 
   if (!visible) {
@@ -33,7 +33,7 @@ const ClientPopover = ({ visible, client }) => {
         icon={<UserMinusIcon color={tokens.colors.error} size={18} />}
         onClick={() => deleteClient(client.id)}
       >
-        {t('client.delete')}
+        {t("client.delete")}
       </Button>
 
       <Button
@@ -100,7 +100,7 @@ export default ClientPopover;
 ClientPopover.propTypes = {
   client: PropTypes.shape({
     elite: PropTypes.bool,
-    gender: PropTypes.oneOf(['male', 'female']),
+    gender: PropTypes.oneOf(["male", "female"]),
     id: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
