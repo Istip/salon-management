@@ -222,47 +222,56 @@ const Event = ({ event, user }) => {
             </VisibleContent>
 
             {visible && (
-              <ExtraContent finished={event.finished}>
+              <>
+                <ExtraContent finished={event.finished}>
+                  <Button
+                    block={event.finished || isFutureEvent(event)}
+                    variant="error"
+                    icon={
+                      event.finished ? (
+                        <UndoIcon color={tokens.colors.error} />
+                      ) : (
+                        <DeleteIcon color={tokens.colors.error} />
+                      )
+                    }
+                    onClick={handleDeleteButton}
+                  >
+                    {event.finished
+                      ? t("dashboard.cancel")
+                      : isFutureEvent(event)
+                      ? t("dashboard.delete")
+                      : ""}
+                  </Button>
+
+                  {isUnfinishedEvent(event) && (
+                    <>
+                      <Input
+                        style={{ marginTop: 0, marginBottom: 0 }}
+                        type="number"
+                        name="price"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder={t("input.placeholder.payed")}
+                        icon={<MoneyIcon {...iconProps} />}
+                        noMargin
+                      />
+
+                      <Button
+                        icon={<CheckIcon color={tokens.colors.white} />}
+                        onClick={handleFinishButton}
+                      />
+                    </>
+                  )}
+                </ExtraContent>
                 <Button
-                  block={event.finished || isFutureEvent(event)}
-                  variant="error"
-                  icon={
-                    event.finished ? (
-                      <UndoIcon color={tokens.colors.error} />
-                    ) : (
-                      <DeleteIcon color={tokens.colors.error} />
-                    )
-                  }
-                  onClick={handleDeleteButton}
+                  style={{ margin: "0 10px 10px" }}
+                  onClick={() => deleteDocument(event.id)}
+                  icon={<DeleteIcon color={tokens.colors.warning} />}
+                  variant="warning"
                 >
-                  {event.finished
-                    ? t("dashboard.cancel")
-                    : isFutureEvent(event)
-                    ? t("dashboard.delete")
-                    : ""}
+                  TOROLD MAR LE BAZDMEG
                 </Button>
-
-                {isUnfinishedEvent(event) && (
-                  <>
-                    <Input
-                      style={{ marginTop: 0, marginBottom: 0 }}
-                      type="number"
-                      name="price"
-                      min={0}
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      placeholder={t("input.placeholder.payed")}
-                      icon={<MoneyIcon {...iconProps} />}
-                      noMargin
-                    />
-
-                    <Button
-                      icon={<CheckIcon color={tokens.colors.white} />}
-                      onClick={handleFinishButton}
-                    />
-                  </>
-                )}
-              </ExtraContent>
+              </>
             )}
           </EventCard>
         </EventInfo>
