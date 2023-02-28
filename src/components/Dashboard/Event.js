@@ -29,7 +29,7 @@ const Event = ({ event, user }) => {
   const { t } = useTranslation();
 
   // Function returning different action for button, based on finished status
-  const handleDeleteButton = () => {
+  const handleDeleteButton = (event) => {
     setVisible(false);
     navigator.vibrate(100);
 
@@ -53,7 +53,7 @@ const Event = ({ event, user }) => {
   };
 
   // Function to finish an event with the given price
-  const handleFinish = () => {
+  const handleFinish = (event) => {
     navigator.vibrate(100);
 
     const same = user.actions.filter(
@@ -70,7 +70,7 @@ const Event = ({ event, user }) => {
     setPrice(0);
   };
 
-  const handleFinishButton = () => {
+  const handleFinishButton = (event) => {
     navigator.vibrate(100);
 
     updateDocument(event.id, {
@@ -120,14 +120,14 @@ const Event = ({ event, user }) => {
 
   const handlers = useSwipeable({
     onSwipedRight: () => {
-      if (!event.finished) {
-        handleFinish();
+      if (event && !event.finished) {
+        handleFinish(event);
       } else {
-        handleDeleteButton();
+        handleDeleteButton(event);
       }
     },
     onSwipedLeft: () => {
-      handleDeleteButton();
+      handleDeleteButton(event);
     },
     preventScrollOnSwipe: true,
   });
@@ -234,7 +234,7 @@ const Event = ({ event, user }) => {
                         <DeleteIcon color={tokens.colors.error} />
                       )
                     }
-                    onClick={handleDeleteButton}
+                    onClick={() => handleDeleteButton(event)}
                   >
                     {event.finished
                       ? t("dashboard.cancel")
@@ -258,19 +258,22 @@ const Event = ({ event, user }) => {
 
                       <Button
                         icon={<CheckIcon color={tokens.colors.white} />}
-                        onClick={handleFinishButton}
+                        onClick={() => handleFinishButton(event)}
                       />
                     </>
                   )}
                 </ExtraContent>
-                <Button
-                  style={{ margin: "0 10px 10px" }}
-                  onClick={() => deleteDocument(event.id)}
-                  icon={<DeleteIcon color={tokens.colors.warning} />}
-                  variant="warning"
-                >
-                  TOROLD MAR LE BAZDMEG
-                </Button>
+
+                {!event.finished && (
+                  <Button
+                    style={{ margin: "0 10px 10px" }}
+                    onClick={() => deleteDocument(event.id)}
+                    icon={<DeleteIcon color={tokens.colors.warning} />}
+                    variant="warning"
+                  >
+                    TOROLD MAR LE BAZDMEG
+                  </Button>
+                )}
               </>
             )}
           </EventCard>
