@@ -48,7 +48,10 @@ const Operation = ({
     <OperationWrapper>
       <OperationBadge onClick={() => setSelected(operation)}>
         {operation === selected && (
-          <OperationDelete onDoubleClick={deleteOperation} ref={wrapperNode}>
+          <OperationDelete
+            onDoubleClick={() => deleteOperation()}
+            ref={wrapperNode}
+          >
             <FlexCenter style={{ height: "100%" }}>
               <CloseIcon color={tokens.colors.white} />
             </FlexCenter>
