@@ -253,7 +253,7 @@ const DayWrapper = styled.span`
 
 const DotReminder = styled.span`
   position: absolute;
-  bottom: 8px;
+  bottom: 5px;
   width: 46px;
   height: 2px;
   display: flex;
