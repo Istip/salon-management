@@ -19,7 +19,6 @@ const ClientPopover = ({ visible, client }) => {
   // Function to remove the selected client
   const deleteClient = (id) => {
     deleteDocument(id);
-    // navigator.vibrate(100);
   };
 
   if (!visible) {

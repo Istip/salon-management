@@ -31,7 +31,6 @@ const Event = ({ event, user }) => {
   // Function returning different action for button, based on finished status
   const handleDeleteButton = (event) => {
     setVisible(false);
-    navigator.vibrate(100);
 
     if (!event.finished) {
       return (
@@ -54,7 +53,6 @@ const Event = ({ event, user }) => {
 
   // Function to finish an event with the given price
   const handleFinish = (event) => {
-    // navigator.vibrate(100);
     setVisible(false);
 
     const same = user.actions.filter(
@@ -72,7 +70,6 @@ const Event = ({ event, user }) => {
   };
 
   const handleFinishButton = (event) => {
-    // navigator.vibrate(100);
     setVisible(false);
 
     updateDocument(event.id, {
