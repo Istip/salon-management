@@ -29,7 +29,7 @@ const Event = ({ event, user }) => {
   const { t } = useTranslation();
 
   // Function returning different action for button, based on finished status
-  const handleDeleteButton = (event) => {
+  const handleDeleteButton = async (event) => {
     setVisible(false);
     navigator.vibrate(100);
 
@@ -45,7 +45,7 @@ const Event = ({ event, user }) => {
       );
     }
 
-    return updateDocument(event.id, {
+    await updateDocument(event.id, {
       ...event,
       finished: false,
       price: 0,
@@ -53,7 +53,7 @@ const Event = ({ event, user }) => {
   };
 
   // Function to finish an event with the given price
-  const handleFinish = (event) => {
+  const handleFinish = async (event) => {
     navigator.vibrate(100);
 
     const same = user.actions.filter(
@@ -61,23 +61,25 @@ const Event = ({ event, user }) => {
     );
     const finalPrice = same.length ? Number(same[0].price) : 0;
 
-    updateDocument(event.id, {
+    await updateDocument(event.id, {
       ...event,
       finished: true,
       price: finalPrice,
     });
+
     setVisible(false);
     setPrice(0);
   };
 
-  const handleFinishButton = (event) => {
+  const handleFinishButton = async (event) => {
     navigator.vibrate(100);
 
-    updateDocument(event.id, {
+    await updateDocument(event.id, {
       ...event,
       finished: true,
       price,
     });
+
     setVisible(false);
     setPrice(0);
   };
