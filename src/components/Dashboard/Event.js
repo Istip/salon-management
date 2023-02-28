@@ -43,7 +43,9 @@ const Event = ({ event, user }) => {
             block
             variant="success"
             icon={<CheckIcon color={tokens.colors.success} />}
-          />
+          >
+            {t("dashboard.finish")}
+          </Button>
         </ButtonWrapper>
       </SwipeAction>
     </LeadingActions>
@@ -63,7 +65,9 @@ const Event = ({ event, user }) => {
                 <DeleteIcon color={tokens.colors.error} />
               )
             }
-          />
+          >
+            {event.finished ? t("dashboard.cancel") : t("dashboard.delete")}
+          </Button>
         </ButtonWrapper>
       </SwipeAction>
     </TrailingActions>
@@ -94,20 +98,22 @@ const Event = ({ event, user }) => {
 
   // Function to finish an event with the given price
   const handleFinish = (event) => {
-    setVisible(false);
+    if (!isFutureEvent(event)) {
+      setVisible(false);
 
-    const same = user.actions.filter(
-      (element) => element.name === event.action
-    );
-    const finalPrice = same.length ? Number(same[0].price) : 0;
+      const same = user.actions.filter(
+        (element) => element.name === event.action
+      );
+      const finalPrice = same.length ? Number(same[0].price) : 0;
 
-    updateDocument(event.id, {
-      ...event,
-      finished: true,
-      price: finalPrice,
-    });
+      updateDocument(event.id, {
+        ...event,
+        finished: true,
+        price: finalPrice,
+      });
 
-    setPrice(0);
+      setPrice(0);
+    }
   };
 
   const handleFinishButton = (event) => {
@@ -168,7 +174,7 @@ const Event = ({ event, user }) => {
 
   return (
     <>
-      <SwipeableList threshold={0.25} fullSwipe="false">
+      <SwipeableList threshold={0.25}>
         <SwipeableListItem
           leadingActions={leadingActions()}
           trailingActions={trailingActions()}
@@ -437,7 +443,7 @@ const FakeBg = styled.div`
 
 const ButtonWrapper = styled.div`
   height: "100%";
-  margin: 0 10px;
+  margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
