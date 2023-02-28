@@ -65,7 +65,6 @@ const Operation = ({
 
       <Input
         type="number"
-        min={0}
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         icon={<MoneyIcon {...iconProps} />}
