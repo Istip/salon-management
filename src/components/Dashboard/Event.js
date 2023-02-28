@@ -168,7 +168,7 @@ const Event = ({ event, user }) => {
 
   return (
     <>
-      <SwipeableList>
+      <SwipeableList threshold={0.25} fullSwipe="false">
         <SwipeableListItem
           leadingActions={leadingActions()}
           trailingActions={trailingActions()}
