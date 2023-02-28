@@ -17,7 +17,6 @@ import MoneyIcon from "../icons/MoneyIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import UndoIcon from "../icons/UndoIcon";
 import TimeIcon from "../icons/TimeIcon";
-import { useSwipeable } from "react-swipeable";
 import { toast } from "react-toastify";
 
 const Event = ({ event, user }) => {
@@ -117,20 +116,6 @@ const Event = ({ event, user }) => {
     return;
   };
 
-  const handlers = useSwipeable({
-    onSwipedRight: () => {
-      if (event && !event.finished) {
-        handleFinish(event);
-      } else {
-        handleDeleteButton(event);
-      }
-    },
-    onSwipedLeft: () => {
-      handleDeleteButton(event);
-    },
-    preventScrollOnSwipe: true,
-  });
-
   const lateColor = event.finished
     ? tokens.colors.primaryLight1
     : tokens.colors.error;
@@ -141,7 +126,7 @@ const Event = ({ event, user }) => {
 
   return (
     <>
-      <EventWrapper {...handlers}>
+      <EventWrapper>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
             <FlexCenter style={{ gap: "2px", height: "100%" }}>
