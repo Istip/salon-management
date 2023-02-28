@@ -144,7 +144,7 @@ const Event = ({ event, user }) => {
 
   return (
     <>
-      <EventWrapper {...handlers}>
+      <EventWrapper /*{...handlers}*/>
         {parseInt(event.late) ? (
           <FakeBg late={parseInt(event.late)}>
             <FlexCenter style={{ gap: "2px", height: "100%" }}>
