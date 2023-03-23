@@ -64,6 +64,7 @@ const Navbar = styled.nav`
   z-index: 2;
   text-align: center;
   background: ${tokens.colors.fff};
+  border-top: 1px solid ${tokens.colors.lightGrey};
 `;
 
 const Nav = styled.ul`
