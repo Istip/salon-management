@@ -1,31 +1,31 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import moment from 'moment';
-import { useFirestore } from '../../hooks/useFirestore';
-import { useTranslation } from 'react-i18next';
-import { timestamp } from '../../firebase/config';
-import { capitalize } from '../../utils/capitalize';
-import { tokens } from '../UI/tokens';
+import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import moment from "moment";
+import { useFirestore } from "../../hooks/useFirestore";
+import { useTranslation } from "react-i18next";
+import { timestamp } from "../../firebase/config";
+import { capitalize } from "../../utils/capitalize";
+import { tokens } from "../UI/tokens";
 
 // project components
-import Text from '../UI/Text';
-import FlexCenter from '../UI/FlexCenter';
-import Button from '../UI/Button';
-import EllipsisIcon from '../icons/EllipsisIcon';
-import PhoneIcon from '../icons/PhoneIcon';
-import HistoryIcon from '../icons/HistoryIcon';
-import ClientPopover from './ClientPopover';
-import LocationIcon from '../icons/LocationIcon';
-import SuccessIcon from '../icons/SuccessIcon';
-import DropdownIcon from '../icons/DropdownIcon';
+import Text from "../UI/Text";
+import FlexCenter from "../UI/FlexCenter";
+import Button from "../UI/Button";
+import EllipsisIcon from "../icons/EllipsisIcon";
+import PhoneIcon from "../icons/PhoneIcon";
+import HistoryIcon from "../icons/HistoryIcon";
+import ClientPopover from "./ClientPopover";
+import LocationIcon from "../icons/LocationIcon";
+import SuccessIcon from "../icons/SuccessIcon";
+import DropdownIcon from "../icons/DropdownIcon";
 
 const Client = ({ client }) => {
   const [visible, setVisible] = useState(false);
   const [showVisits, setShowVisits] = useState(false);
   const [visitNumber, setVisitNumber] = useState(1);
 
-  const { updateDocument } = useFirestore('clients');
+  const { updateDocument } = useFirestore("clients");
 
   const { t } = useTranslation();
 
@@ -41,7 +41,7 @@ const Client = ({ client }) => {
 
   // Function to add a new check if for the client with the current day
   const handleAddCheckIn = (lastVisit) => {
-    const dateFormat = (time) => moment(time).format('YY-MM-DD');
+    const dateFormat = (time) => moment(time).format("YY-MM-DD");
 
     const lastVisitTime =
       lastVisit.length && dateFormat(lastVisit[0].seconds * 1000);
@@ -57,7 +57,7 @@ const Client = ({ client }) => {
 
   // Check if there is a check in for the current day
   const handleLastCheckIn = (lastVisit) => {
-    const dateFormat = (time) => moment(time).format('YY-MM-DD');
+    const dateFormat = (time) => moment(time).format("YY-MM-DD");
 
     const lastVisitTime = dateFormat(lastVisit[0].seconds * 1000);
     const currentTime = dateFormat();
@@ -67,14 +67,16 @@ const Client = ({ client }) => {
 
   useEffect(() => {
     if (wrapperNode) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
     // eslint-disable-next-line
   }, []);
+
+  // TODO: remove this comment
 
   return (
     <ClientWrapper>
@@ -125,29 +127,29 @@ const Client = ({ client }) => {
         <Button
           block
           variant="neutral"
-          style={{ pointerEvents: 'none', marginTop: '10px' }}
+          style={{ pointerEvents: "none", marginTop: "10px" }}
           size="medium"
           icon={<SuccessIcon />}
         >
-          {t('client.just_visited')}
+          {t("client.just_visited")}
         </Button>
       ) : (
         <Button
           block
           variant="secondary"
-          style={{ marginTop: '10px' }}
+          style={{ marginTop: "10px" }}
           size="medium"
           icon={<LocationIcon size={18} color={tokens.colors.primary} />}
           onClick={() => handleAddCheckIn(client.visits)}
         >
-          {t('client.add_visit')}
+          {t("client.add_visit")}
         </Button>
       )}
 
       {client.visits.length !== 0 && (
         <DropDown
           onClick={() => setShowVisits(!showVisits)}
-          className={showVisits ? 'visible' : ''}
+          className={showVisits ? "visible" : ""}
         >
           <DropdownIcon />
         </DropDown>
@@ -157,11 +159,11 @@ const Client = ({ client }) => {
         <>
           <Divider>
             <Text tag="span" variant="medium10">
-              <FlexCenter style={{ gap: '5px' }}>
-                <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{' '}
+              <FlexCenter style={{ gap: "5px" }}>
+                <HistoryIcon color={tokens.colors.primaryLight2} size={16} />{" "}
                 {client.visits.length === 1
-                  ? t('client.only_visit')
-                  : t('client.last_visit')}
+                  ? t("client.only_visit")
+                  : t("client.last_visit")}
               </FlexCenter>
             </Text>
           </Divider>
@@ -174,7 +176,7 @@ const Client = ({ client }) => {
                 color={tokens.colors.primaryDark1}
               >
                 {capitalize(
-                  moment(visit.seconds * 1000).format('MMMM DD, YYYY')
+                  moment(visit.seconds * 1000).format("MMMM DD, YYYY")
                 )}
               </Text>
             ))}
@@ -190,7 +192,7 @@ const Client = ({ client }) => {
                     variant="medium10"
                     color={tokens.colors.primaryDark2}
                   >
-                    {t('client.show_all')}
+                    {t("client.show_all")}
                   </Text>
                 </FlexCenter>
               </DropdownButton>
@@ -261,7 +263,7 @@ const Mark = styled.span`
 
 const PhoneNumber = styled.div`
   margin-left: 5px;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   letter-spacing: 0.5px;
 `;
 
@@ -285,7 +287,7 @@ const GenderBadge = styled.div`
   width: 50px;
   height: 18px;
   background: ${(props) =>
-    props.gender === 'male'
+    props.gender === "male"
       ? `${tokens.colors.primary}`
       : `${tokens.colors.pink}`};
   border-radius: 10px;
@@ -318,7 +320,7 @@ const Stats = styled.div`
   gap: 10px;
 
   p {
-    font-feature-settings: 'tnum' on, 'lnum' on;
+    font-feature-settings: "tnum" on, "lnum" on;
   }
 `;
 
@@ -342,7 +344,7 @@ export default Client;
 Client.propTypes = {
   client: PropTypes.shape({
     elite: PropTypes.bool,
-    gender: PropTypes.oneOf(['male', 'female']),
+    gender: PropTypes.oneOf(["male", "female"]),
     id: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
