@@ -20,7 +20,9 @@ export const tokens = {
 
     error: "#EB431E",
     success: "#26AA5B",
+    successDark: "#13542d",
     warning: "#ffc04d",
+    warningDark: "#7f5f26",
     pink: "#FF8DA1",
   },
 
