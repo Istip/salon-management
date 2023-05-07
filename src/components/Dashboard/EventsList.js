@@ -143,7 +143,7 @@ const ProgressBar = styled.div`
   background: ${tokens.colors.primaryLight4};
   position: fixed;
   bottom: 60px;
-  z-index: 100;
+  z-index: 9;
 `;
 
 export default EventsList;
