@@ -107,8 +107,12 @@ const Calendar = ({ selectedDate, setSelectedDate, documents }) => {
       return null;
     }
 
+    const allDone =
+      dayWithAppointment.filter((item) => item.finished).length ===
+      dayWithAppointment.length;
+
     return (
-      <Badge>
+      <Badge allDone={allDone}>
         <Text variant="black6">{dayWithAppointment.length}</Text>
       </Badge>
     );
@@ -357,9 +361,15 @@ const ArrowWrapper = styled.span`
 `;
 
 const Badge = styled.div`
-  background: ${tokens.colors.primary};
-  color: ${tokens.colors.white};
-  border: 1px solid ${tokens.colors.primaryDark2};
+  background: ${(props) =>
+    props.allDone ? tokens.colors.success : tokens.colors.warning};
+  color: ${(props) =>
+    props.allDone ? tokens.colors.white : tokens.colors.primaryDark4};
+  /* border: 1px solid ${tokens.colors.primary}; */
+  border: ${(props) =>
+    props.allDone
+      ? `1px solid ${tokens.colors.successDark}`
+      : `1px solid ${tokens.colors.warningDark}`};
   padding: 2px;
   width: 12px;
   height: 12px;
