@@ -15,6 +15,7 @@ import EventsTitle from "./EventsTitle";
 import FlexCenter from "../UI/FlexCenter";
 import Loading from "../UI/Loading";
 import Error from "../UI/Error";
+import { tokens } from "../UI/tokens";
 
 const EventsList = ({ events, error, selectedDate }) => {
   const [showAdd, setShowAdd] = useState(false);
@@ -55,6 +56,13 @@ const EventsList = ({ events, error, selectedDate }) => {
     );
   }
 
+  const length = events.length;
+  const done = events.filter((event) => event.finished).length;
+  const percentage = (done * 100) / length;
+
+  const isToday =
+    moment(selectedDate).format("YY-MM-DD") === moment().format("YY-MM-DD");
+
   const user = documents[0];
 
   return (
@@ -67,6 +75,24 @@ const EventsList = ({ events, error, selectedDate }) => {
         setWorkingHours={setWorkingHours}
         setShowAdd={setShowAdd}
       />
+
+      {isToday && (
+        <ProgressBar>
+          <motion.div
+            initial={{ width: "0vw", height: 0 }}
+            animate={{ width: `${percentage}vw`, height: 4 }}
+            style={{
+              background:
+                percentage < 50
+                  ? tokens.colors.error
+                  : percentage >= 50 && percentage < 100
+                  ? tokens.colors.warning
+                  : tokens.colors.success,
+              borderRadius: 8,
+            }}
+          />
+        </ProgressBar>
+      )}
 
       <>
         {dailyData.slice(workingHours[0], workingHours[1]).map((event, i) => (
@@ -110,6 +136,14 @@ const EventsList = ({ events, error, selectedDate }) => {
 // Styled components
 const Divider = styled.div`
   height: 20px;
+`;
+
+const ProgressBar = styled.div`
+  width: 100%;
+  background: ${tokens.colors.primaryLight4};
+  position: fixed;
+  bottom: 60px;
+  z-index: 100;
 `;
 
 export default EventsList;
