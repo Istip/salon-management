@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import firebase from "firebase/app";
+import { timestamp } from "../firebase/config";
 import { useCollection } from "../hooks/useCollection";
 
 // project components
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const days = new Date();
   days.setDate(days.getDate() - 5);
 
-  const date = firebase.firestore.Timestamp.fromDate(days);
+  const date = timestamp.fromDate(days);
 
   const filterOldEventsQuery = ["date", ">=", date];
 

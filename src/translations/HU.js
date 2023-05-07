@@ -128,6 +128,7 @@ export const HU = {
     total_female_clients: "Összes női vendég",
     total_male_clients: "Összes férfi vendég",
     stats: "Statisztika",
+    current_month: "Aktuális hónap",
   },
 
   settings: {

@@ -129,6 +129,7 @@ export const EN = {
     total_female_clients: "Total female clients",
     total_male_clients: "Total male clients",
     stats: "Stats",
+    current_month: "Current month",
   },
 
   settings: {

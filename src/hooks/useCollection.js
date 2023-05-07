@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import { projectFirestore } from '../firebase/config';
-import { useAuthContext } from './useAuthContext';
+import { useState, useEffect, useRef } from "react";
+import { projectFirestore } from "../firebase/config";
+import { useAuthContext } from "./useAuthContext";
 
 export const useCollection = (
   collection,
   _firstQuery,
   _secondQuery,
+  _thirdQuery,
   _orderBy,
   _onlyMe = true
 ) => {
@@ -18,6 +19,7 @@ export const useCollection = (
   // ...due the fact that query depencency is a reference type
   const firstQuery = useRef(_firstQuery).current;
   const secondQuery = useRef(_secondQuery).current;
+  const thirdQuery = useRef(_thirdQuery).current;
   const orderBy = useRef(_orderBy).current;
   const onlyMe = useRef(_onlyMe).current;
 
@@ -25,7 +27,7 @@ export const useCollection = (
     let ref = projectFirestore.collection(collection);
 
     if (onlyMe) {
-      ref = ref.where('uid', '==', user.uid);
+      ref = ref.where("uid", "==", user.uid);
     }
 
     if (firstQuery) {
@@ -34,6 +36,10 @@ export const useCollection = (
 
     if (secondQuery) {
       ref = ref.where(...secondQuery);
+    }
+
+    if (thirdQuery) {
+      ref = ref.where(...thirdQuery);
     }
 
     if (orderBy) {
@@ -47,19 +53,21 @@ export const useCollection = (
           results.push({ ...doc.data(), id: doc.id });
         });
 
+        console.log("✅", collection);
+
         // updating state
         setDocuments(results);
         setError(null);
       },
       (error) => {
         console.log(error);
-        setError('Could not fetch the data');
+        setError("Could not fetch the data");
       }
     );
 
     return () => unsubscribe();
     // eslint-disable-next-line
-  }, [collection, firstQuery, secondQuery, orderBy]);
+  }, [collection, firstQuery, secondQuery, thirdQuery, orderBy]);
 
   return { documents, error };
 };
