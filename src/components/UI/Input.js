@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { tokens } from './tokens';
+import React from "react";
+import styled from "styled-components";
+import { tokens } from "./tokens";
 
 const Input = (props) => {
   return (
@@ -21,8 +21,9 @@ const Input = (props) => {
 // styled components
 
 const InputContainer = styled.div`
-  margin-bottom: ${(props) => (props.noMargin ? 0 : '20px')};
+  margin-bottom: ${(props) => (props.noMargin ? 0 : "20px")};
   color: #111;
+  width: 100%;
 `;
 
 const InputWrapper = styled.span`
@@ -47,7 +48,7 @@ const InputWrapper = styled.span`
 const InputField = styled.input`
   width: 100%;
   margin-top: 2px;
-  padding: ${(props) => (props.icon ? '12px 12px 12px 42px' : '12px')};
+  padding: ${(props) => (props.icon ? "12px 12px 12px 42px" : "12px")};
   outline: none;
   color: ${tokens.colors.primaryDark4};
   background: ${tokens.colors.primaryLight4};
@@ -65,7 +66,7 @@ const InputField = styled.input`
     border: 1px solid ${tokens.colors.primaryDark1};
   }
 
-  &[type='time']::-webkit-calendar-picker-indicator {
+  &[type="time"]::-webkit-calendar-picker-indicator {
     opacity: 0;
     cursor: pointer;
   }

@@ -202,7 +202,7 @@ const Event = ({ event, user }) => {
               <EventTime>
                 <Text
                   tag="div"
-                  variant="black10"
+                  variant="medium16"
                   color={tokens.colors.primaryDark2}
                 >
                   {returnLate(event)}
@@ -332,11 +332,12 @@ const EventInfo = styled.div`
 
 const EventTime = styled.span`
   position: relative;
-  min-width: 50px;
-  max-width: 50px;
+  min-width: 70px;
+  max-width: 70px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 10px;
+  border-radius: 8px 0 0 8px;
 
   /* monospace the numbers */
   font-feature-settings: "tnum" on, "lnum" on;
@@ -427,7 +428,7 @@ const EventDescription = styled.div`
 
 const FakeBg = styled.div`
   height: ${(props) => (props.late < 14 ? "14px" : `${props.late}px`)};
-  margin-left: 50px;
+  margin-left: 70px;
   border-radius: 0 12px 0 0;
   border: 1px dashed ${tokens.colors.mediumGrey};
   border-left: 3px solid ${tokens.colors.mediumGrey};

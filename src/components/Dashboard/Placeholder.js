@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { tokens } from '../UI/tokens';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { tokens } from "../UI/tokens";
 
 // Project imports
-import Text from '../UI/Text';
-import AddIcon from '../icons/AddIcon';
-import FlexCenter from '../UI/FlexCenter';
-import moment from 'moment';
+import Text from "../UI/Text";
+import AddIcon from "../icons/AddIcon";
+import FlexCenter from "../UI/FlexCenter";
+import moment from "moment";
 
 const Placeholder = ({
   event,
@@ -16,7 +16,7 @@ const Placeholder = ({
   filtered,
   selectedDate,
 }) => {
-  const isActiveDay = selectedDate.isSameOrAfter(moment(), 'day');
+  const isActiveDay = selectedDate.isSameOrAfter(moment(), "day");
 
   // Function to save time to state and open the modal
   const handleModalOpen = () => {
@@ -36,7 +36,7 @@ const Placeholder = ({
         <PlaceholderTime>
           <Text
             tag="div"
-            variant="medium10"
+            variant="regular10"
             color={tokens.colors.primaryLight2}
           >
             {event}
@@ -44,7 +44,7 @@ const Placeholder = ({
         </PlaceholderTime>
         <PlaceholderCard onClick={handleModalOpen} active={isActiveDay}>
           {isActiveDay && (
-            <FlexCenter style={{ gap: '4px' }}>
+            <FlexCenter style={{ gap: "4px" }}>
               <AddIcon color={tokens.colors.primaryLight2} size={32} />
             </FlexCenter>
           )}
@@ -69,14 +69,14 @@ const PlaceholderInfo = styled.div`
 
 const PlaceholderTime = styled.div`
   position: relative;
-  min-width: 50px;
-  max-width: 50px;
+  min-width: 70px;
+  max-width: 70px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   padding: 10px;
 
   /* monospace the numbers */
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 `;
 
 const PlaceholderCard = styled.div`
@@ -85,7 +85,7 @@ const PlaceholderCard = styled.div`
   border-radius: 0 12px 12px 0;
   border: 1px dashed ${tokens.colors.mediumGrey};
   border-left: 3px solid ${tokens.colors.mediumGrey};
-  pointer-events: ${(props) => (props.active ? 'auto' : 'none')};
+  pointer-events: ${(props) => (props.active ? "auto" : "none")};
   cursor: pointer;
 
   display: flex;

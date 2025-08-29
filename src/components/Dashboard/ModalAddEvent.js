@@ -26,7 +26,7 @@ import { toast } from "react-toastify";
 const ModalAddEvent = ({ show, setShow, selectedDate, time, setTime }) => {
   const [name, setName] = useState("");
   const [action, setAction] = useLocalStorage("savedActionType", "");
-  const [gender, setGender] = useState("female");
+  const [gender, setGender] = useState("male");
   const [late, setLate] = useState(0);
 
   const { documents } = useCollection("users");
