@@ -1,24 +1,27 @@
-import React from 'react';
-import moment from 'moment';
-import styled, { keyframes } from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useCollection } from '../../hooks/useCollection';
-import { useLogout } from '../../hooks/useLogout';
-import { tokens } from '../UI/tokens';
+import React from "react";
+import moment from "moment";
+import styled, { keyframes } from "styled-components";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { useCollection } from "../../hooks/useCollection";
+import { useLogout } from "../../hooks/useLogout";
+import { tokens } from "../UI/tokens";
 
 // Project imports
-import FlexCenter from '../UI/FlexCenter';
-import Text from '../UI/Text';
-import CalendarIcon from '../icons/CalendarIcon';
-import SecretIcon from '../icons/SecretIcon';
-import SettingsIcon from '../icons/SettingsIcon';
-import SignoutIcon from '../icons/SignoutIcon';
+import FlexCenter from "../UI/FlexCenter";
+import Text from "../UI/Text";
+import CalendarIcon from "../icons/CalendarIcon";
+import SecretIcon from "../icons/SecretIcon";
+import SettingsIcon from "../icons/SettingsIcon";
+import SignoutIcon from "../icons/SignoutIcon";
+import TimeIcon from "../icons/TimeIcon";
+import ClientsIcon from "../icons/ClientsIcon";
+import NotesIcon from "../icons/NotesIcon";
 
 const AppbarPopover = ({ user, setVisible }) => {
   const navigate = useNavigate();
 
-  const { documents } = useCollection('users');
+  const { documents } = useCollection("users");
 
   const { logout } = useLogout();
 
@@ -27,13 +30,31 @@ const AppbarPopover = ({ user, setVisible }) => {
   // Function to close popover and redirect to settings page
   const pushToSettings = () => {
     setVisible(false);
-    navigate('/settings');
+    navigate("/settings");
   };
 
   // Function to close popover and redirect to admin page
   const pushToAdminPage = () => {
     setVisible(false);
-    navigate('/admin');
+    navigate("/admin");
+  };
+
+  // Function to close popover and redirect to home page
+  const pushToHome = () => {
+    setVisible(false);
+    navigate("/");
+  };
+
+  // Function to close popover and redirect to clients page
+  const pushToClients = () => {
+    setVisible(false);
+    navigate("/clients");
+  };
+
+  // Function to close popover and redirect to reports page
+  const pushToReports = () => {
+    setVisible(false);
+    navigate("/reports");
   };
 
   const iconProps = {
@@ -45,19 +66,20 @@ const AppbarPopover = ({ user, setVisible }) => {
     size: 16,
     color: tokens.colors.darkGrey,
   };
+
   return (
     <>
       <Backdrop onClick={() => setVisible(false)} />
       <Popover>
         <FlexCenter>
           <PopoverTitle>
-            <h2>{t('appbar.hello')}</h2>
+            <h2>{t("appbar.hello")}</h2>
             {user.displayName}
-            <FlexCenter style={{ marginTop: '20px', gap: '10px' }}>
-              <FlexCenter style={{ gap: '2px' }}>
+            <FlexCenter style={{ marginTop: "20px", gap: "10px" }}>
+              <FlexCenter style={{ gap: "2px" }}>
                 <CalendarIcon {...timeIconProps} />
                 <Text variant="medium12" color={tokens.colors.mediumGrey}>
-                  {moment().format('YYYY.MM.DD, dddd')}
+                  {moment().format("YYYY.MM.DD, dddd")}
                 </Text>
               </FlexCenter>
             </FlexCenter>
@@ -67,10 +89,11 @@ const AppbarPopover = ({ user, setVisible }) => {
         {documents && documents[0].admin && (
           <>
             <DividerLine />
+
             <PopoverMenuItem onClick={pushToAdminPage}>
               <PopoverMenuText>
                 <SecretIcon {...iconProps} />
-                {t('appbar.admin')}
+                {t("appbar.admin")}
               </PopoverMenuText>
             </PopoverMenuItem>
           </>
@@ -78,17 +101,40 @@ const AppbarPopover = ({ user, setVisible }) => {
 
         <DividerLine />
 
+        <PopoverMenuItem onClick={pushToHome}>
+          <PopoverMenuText>
+            <TimeIcon {...iconProps} />
+            {t("navigation.calendar")}
+          </PopoverMenuText>
+        </PopoverMenuItem>
+
+        <PopoverMenuItem onClick={pushToClients}>
+          <PopoverMenuText>
+            <ClientsIcon {...iconProps} />
+            {t("navigation.clients")}
+          </PopoverMenuText>
+        </PopoverMenuItem>
+
+        <PopoverMenuItem onClick={pushToReports}>
+          <PopoverMenuText>
+            <NotesIcon {...iconProps} />
+            {t("navigation.reports")}
+          </PopoverMenuText>
+        </PopoverMenuItem>
+
+        <DividerLine />
+
         <PopoverMenuItem onClick={pushToSettings}>
           <PopoverMenuText>
             <SettingsIcon {...iconProps} />
-            {t('appbar.settings')}
+            {t("appbar.settings")}
           </PopoverMenuText>
         </PopoverMenuItem>
 
         <PopoverMenuItem onClick={logout}>
           <PopoverMenuText>
             <SignoutIcon {...iconProps} />
-            {t('appbar.logout')}
+            {t("appbar.logout")}
           </PopoverMenuText>
         </PopoverMenuItem>
       </Popover>
@@ -120,7 +166,12 @@ const Backdrop = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 60px;
+  bottom: 0;
+  background: ${tokens.colors.primaryDark3};
+  opacity: 0.5;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  z-index: 3;
 `;
 
 const Popover = styled.div`
@@ -134,6 +185,7 @@ const Popover = styled.div`
   box-shadow: 0 2px 5px rgba(42, 129, 227, 0.15);
   animation: ${fadeIn} 400ms ease;
   user-select: none;
+  z-index: 4;
 `;
 
 const PopoverTitle = styled.div`
