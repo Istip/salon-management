@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useTranslation } from 'react-i18next';
-import { tokens } from './tokens';
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { tokens } from "./tokens";
 
 // project components
-import Text from '../UI/Text';
-import Button from './Button';
-import CloseIcon from '../icons/CloseIcon';
+import Text from "../UI/Text";
+import Button from "./Button";
+import CloseIcon from "../icons/CloseIcon";
 
 const Modal = ({
   show,
@@ -23,14 +23,14 @@ const Modal = ({
   // Disable background scrolling when modal is opened
   useEffect(() => {
     if (show) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [show]);
 
   return (
-    <ModalWrapper className={show ? 'show' : ''} show={show}>
+    <ModalWrapper className={show ? "show" : ""} show={show}>
       <Backdrop onClick={onCancel} />
 
       <ModalContent>
@@ -40,7 +40,7 @@ const Modal = ({
 
         <Header>
           <Text variant="black18" color={tokens.colors.primaryDark3}>
-            {title}
+            SZIA | {title}
           </Text>
         </Header>
 
@@ -48,10 +48,10 @@ const Modal = ({
 
         <Footer>
           <Button block variant="secondary" onClick={onCancel}>
-            {t('button.cancel')}
+            {t("button.cancel")}
           </Button>
-          <Button block variant={variant || 'primary'} onClick={onSubmit}>
-            {t('button.submit')}
+          <Button block variant={variant || "primary"} onClick={onSubmit}>
+            {t("button.submit")}
           </Button>
         </Footer>
       </ModalContent>
@@ -101,13 +101,18 @@ const ModalWrapper = styled.div`
   top: -40px;
   z-index: 10;
   width: 100vw;
-  height: calc(100vh + 40px);
+  height: calc(100dvh + 40px);
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: ${(props) => (props.show ? 'auto' : 'none')};
+  pointer-events: ${(props) => (props.show ? "auto" : "none")};
   opacity: 0;
   transition: 250ms ease;
+
+  @supports (height: 100dvh) {
+    position: fixed;
+    bottom: max(0px, env(safe-area-inset-bottom));
+  }
 
   &.show {
     opacity: 1;

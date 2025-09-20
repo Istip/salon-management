@@ -57,10 +57,11 @@ const Navigation = () => {
 const darkGrey = tokens.colors.darkGrey;
 const primary = tokens.colors.primary;
 
-const Navbar = styled.nav`
+const Navbar = styled.footer`
   position: fixed;
   width: 100%;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   z-index: 2;
   text-align: center;
   background: ${tokens.colors.fff};
