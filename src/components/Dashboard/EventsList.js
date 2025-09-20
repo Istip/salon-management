@@ -65,6 +65,8 @@ const EventsList = ({ events, error, selectedDate }) => {
 
   const user = documents[0];
 
+  const isiOS = /iPad|iPhone|iPod/i.test(navigator.userAgent);
+
   return (
     <>
       <EventsTitle
@@ -76,7 +78,7 @@ const EventsList = ({ events, error, selectedDate }) => {
         setShowAdd={setShowAdd}
       />
 
-      {isToday && (
+      {isToday && !isiOS && (
         <ProgressBar>
           <motion.div
             initial={{ width: "0vw", height: 0 }}
