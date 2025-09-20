@@ -98,10 +98,9 @@ const ModalWrapper = styled.div`
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   position: fixed;
-  top: -40px;
   z-index: 10;
   width: 100vw;
-  height: calc(100dvh + 40px);
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
