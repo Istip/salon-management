@@ -32,6 +32,8 @@ function App() {
   // state handling the global language for translation and moment lolcale
   const [language, setLanguage] = useLocalStorage("language", "hu");
 
+  const isiOS = /iPad|iPhone|iPod/i.test(navigator.userAgent);
+
   const { authIsReady, user } = useAuthContext();
 
   useEffect(() => {
@@ -94,7 +96,7 @@ function App() {
                 <Route path="*" element={<Navigate replace to="/" />} />
               </Routes>
             </Body>
-            {user && <Navigation />}
+            {user && !isiOS && <Navigation />}
           </Router>
         )}
       </AnimatePresence>
