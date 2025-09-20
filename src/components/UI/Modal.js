@@ -40,7 +40,7 @@ const Modal = ({
 
         <Header>
           <Text variant="black18" color={tokens.colors.primaryDark3}>
-            SZIA | {title}
+            {title}
           </Text>
         </Header>
 
