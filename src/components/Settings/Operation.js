@@ -10,8 +10,6 @@ import FlexCenter from "../UI/FlexCenter";
 import Text from "../UI/Text";
 import Input from "../UI/Input";
 import MoneyIcon from "../icons/MoneyIcon";
-import Button from "../UI/Button";
-import CheckIcon from "../icons/CheckIcon";
 import CloseIcon from "../icons/CloseIcon";
 
 const Operation = ({
@@ -44,7 +42,7 @@ const Operation = ({
     // Check if it's valid (not NaN and not negative)
     if (isNaN(num) || num < 0) {
       setPrice(0);
-      toast.error(t("Invalid price"));
+      toast.error(t("settings.invalid_price"));
       const filtered = operations.filter(
         (element) => element.name !== operation.name,
       );
@@ -91,11 +89,6 @@ const Operation = ({
         onChange={handlePriceChange}
         icon={<MoneyIcon {...iconProps} />}
         noMargin
-      />
-      <Button
-        variant="success"
-        icon={<CheckIcon color={tokens.colors.success} />}
-        onClick={handlePriceChange}
       />
     </OperationWrapper>
   );

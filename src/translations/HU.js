@@ -138,6 +138,7 @@ export const HU = {
       "Alábbiakban találod a szalonodban végrehajtható műveleteid. Szerkesztheted a munkahelyi profilodnak megfelelően!",
     add_operation: "Művelet hozzáadása",
     update: "Frissitve",
+    invalid_price: "Érvénytelen ár",
   },
 
   admin: {
