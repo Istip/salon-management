@@ -29,14 +29,36 @@ const Operation = ({
 
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
+  const handlePriceChange = (e) => {
+    const newPrice = e.target.value;
+
+    // Allow empty string (user clearing the field)
+    if (newPrice === "") {
+      setPrice("");
+      return;
+    }
+
+    // Try to parse as number
+    const num = Number(newPrice);
+
+    // Check if it's valid (not NaN and not negative)
+    if (isNaN(num) || num < 0) {
+      setPrice(0);
+      toast.error(t("Invalid price"));
+      const filtered = operations.filter(
+        (element) => element.name !== operation.name,
+      );
+      const data = [...filtered, { name: operation.name, price: 0 }];
+      updateDocument(documents[0].id, { actions: data });
+      return;
+    }
+
+    // Valid number, update state and document immediately
+    setPrice(newPrice);
     const filtered = operations.filter(
-      (element) => element.name !== operation.name
+      (element) => element.name !== operation.name,
     );
-
-    const data = [...filtered, { name: operation.name, price }];
-
-    toast.success(`${t("settings.update")}: ${operation.name}.`);
+    const data = [...filtered, { name: operation.name, price: num }];
     updateDocument(documents[0].id, { actions: data });
   };
 
@@ -66,14 +88,14 @@ const Operation = ({
       <Input
         type="number"
         value={price}
-        onChange={(e) => setPrice(e.target.value)}
+        onChange={handlePriceChange}
         icon={<MoneyIcon {...iconProps} />}
         noMargin
       />
       <Button
         variant="success"
         icon={<CheckIcon color={tokens.colors.success} />}
-        onClick={handleSubmit}
+        onClick={handlePriceChange}
       />
     </OperationWrapper>
   );
