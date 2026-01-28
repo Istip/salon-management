@@ -24,7 +24,6 @@ import Authentication from "./pages/Authentication";
 import Settings from "./pages/Settings";
 import Admin from "./pages/Admin";
 
-// moment locale imports
 import "moment/locale/hu";
 import "moment/locale/en-gb";
 
